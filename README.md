@@ -1,81 +1,62 @@
-# AI-Themed Portfolio Website
+# My Portfolio Website
 
-A modern, responsive portfolio website with an AI/machine learning theme. Perfect for showcasing your skills, projects, and professional experience in AI, data science, or related tech fields.
+Hey there! I'm Mayank Bansal, a BTech CSE student with a passion for Machine Learning, AI, and web development. This repository contains the code for my portfolio website, showcasing my projects and skills.
 
-## Features
+## About This Site
 
-- 🎨 **Modern Design**: Clean, futuristic interface with AI-themed visuals
-- 🌓 **Dark/Light Mode**: Toggle between dark and light themes
-- 📱 **Fully Responsive**: Works beautifully on all devices
-- ✨ **Interactive Elements**: Particles.js background, typed.js text animations, and more
-- 🎯 **Project Filtering**: Filter projects by category (AI/ML, Web Dev, etc.)
-- 📊 **Skill Visualization**: Animated skill bars with categories
-- 📝 **Contact Form**: Built-in contact form with validation
+I built this portfolio with a futuristic AI theme to reflect my interest in artificial intelligence and machine learning. The site features:
 
-## Technologies Used
+- Dark theme with interactive elements
+- Project showcase with filtering by category
+- Responsive design that works on all devices
+- Animated sections using AOS and Particles.js
 
-- HTML5 & CSS3
-- Vanilla JavaScript
-- [Particles.js](https://vincentgarreau.com/particles.js/) - For interactive background
-- [AOS](https://michalsnik.github.io/aos/) - Animate On Scroll library
-- [Typed.js](https://mattboldt.com/demos/typed-js/) - For typing animation
-- [Font Awesome](https://fontawesome.com/) - For icons
+## My Projects
 
-## Getting Started
+The portfolio showcases some of my key projects:
 
-1. **Clone the repository**
+- **BiasX-Ray**: A real-time bias detector for team chats (GNEC Hackathon)
+- **University Time Bank**: A platform for skill exchange among university students
+- **Mood2Mail**: Email tone analyzer using NLP
+- **Fake Job Posting Detector**: ML model to identify fraudulent job listings
+- And more!
+
+## Tech Stack
+
+I built this portfolio using:
+
+- HTML5 & CSS3 for structure and styling
+- Vanilla JavaScript for interactivity
+- Particles.js for the animated background
+- AOS (Animate On Scroll) for smooth animations
+- Typed.js for the typing effect in the hero section
+
+## Running Locally
+
+If you want to check out the code or run it locally:
+
+1. Clone this repo:
    ```
-   git clone https://github.com/yourusername/ai-portfolio.git
-   cd ai-portfolio
+   git clone https://github.com/Mayank149/portfolio.git
+   cd portfolio
    ```
 
-2. **Install dependencies**
-   If you're using npm:
+2. Install dependencies:
    ```
    npm install
    ```
 
-3. **Start the development server**
+3. Start the dev server:
    ```
    npm start
    ```
 
-4. **Customize the content**
-   - Replace placeholder text in `index.html` with your information
-   - Update project details in the Projects section
-   - Add your own images to the `img` directory
-   - Modify skill levels in the Skills section
+## Contact Me
 
-## Customization
+Feel free to reach out if you'd like to collaborate or have any questions:
 
-### Changing Colors
+- Email: bansalmayank1414@gmail.com
+- GitHub: [@Mayank149](https://github.com/Mayank149)
+- LinkedIn: [mayank-bansal14](https://www.linkedin.com/in/mayank-bansal14)
 
-The color scheme can be easily modified by changing the CSS variables in the `:root` selector in `css/style.css`:
-
-```css
-:root {
-    --primary-color: #7328ff;
-    --secondary-color: #00c8ff;
-    /* other variables */
-}
-```
-
-### Adding Projects
-
-To add a new project, copy the project card HTML structure in the Projects section and update the content:
-
-```html
-<div class="project-card" data-category="your-category">
-    <!-- Project content -->
-</div>
-```
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Design inspiration from various AI and tech websites
-- Icons provided by Font Awesome
-- Animations powered by AOS and Typed.js 
+Thanks for visiting my portfolio repo! 
