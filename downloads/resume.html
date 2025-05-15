@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayank Bansal - Resume</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #7328ff;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            margin: 0;
+            color: #7328ff;
+            font-size: 2.5rem;
+        }
+        
+        .contact-info {
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+        
+        .contact-info a {
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            color: #7328ff;
+            font-size: 1.5rem;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .skill-category {
+            margin-bottom: 15px;
+        }
+        
+        .skill-category h3 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #555;
+        }
+        
+        .skill-category ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .project {
+            margin-bottom: 20px;
+        }
+        
+        .project h3 {
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .project p {
+            margin: 5px 0;
+        }
+        
+        .education {
+            margin-bottom: 15px;
+        }
+        
+        .education h3 {
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .education p {
+            margin: 0;
+            font-style: italic;
+        }
+        
+        .certification {
+            margin-bottom: 8px;
+        }
+        
+        .download-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #7328ff, #00c8ff);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #7328ff;
+            text-decoration: none;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        @media print {
+            body {
+                font-size: 12px;
+            }
+            
+            .container {
+                padding: 0;
+            }
+            
+            .header h1 {
+                font-size: 18px;
+            }
+            
+            .section-title {
+                font-size: 14px;
+            }
+            
+            .download-btn, .back-link {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="resume.pdf" download class="download-btn">Download PDF Version</a>
+        <a href="../index.html" class="back-link">← Back to Portfolio</a>
+        
+        <div class="header">
+            <h1>MAYANK BANSAL</h1>
+            <div class="contact-info">
+                Email: <a href="mailto:bansalmayank1414@gmail.com">bansalmayank1414@gmail.com</a> | 
+                Phone: +91 8708574164 | 
+                GitHub: <a href="https://github.com/Mayank149">github.com/Mayank149</a> | 
+                LinkedIn: <a href="https://www.linkedin.com/in/mayank-bansal14">linkedin.com/in/mayank-bansal14</a>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">PROFILE</h2>
+            <p>BTech CSE student with hands-on experience in Python development, machine learning, and web APIs. Built and deployed multiple end-to-end ML projects involving real-world data, model deployment, and frontend-backend integration. Passionate about solving real problems through intelligent systems.</p>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">SKILLS</h2>
+            <div class="skills">
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <ul>
+                        <li>Python</li>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JavaScript</li>
+                        <li>Java</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Machine Learning</h3>
+                    <ul>
+                        <li>Scikit-learn</li>
+                        <li>Pandas</li>
+                        <li>NumPy</li>
+                        <li>Matplotlib</li>
+                        <li>Librosa</li>
+                        <li>TF-IDF</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Web Development</h3>
+                    <ul>
+                        <li>Flask</li>
+                        <li>REST APIs</li>
+                        <li>Deployment</li>
+                        <li>UI Design</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Tools</h3>
+                    <ul>
+                        <li>Git</li>
+                        <li>GitHub</li>
+                        <li>Jupyter Notebook</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">PROJECTS</h2>
+            
+            <div class="project">
+                <h3>BiasX-Ray — Real-Time Bias Detector for Team Chats</h3>
+                <p>• Web-based tool that detects bias in team chat messages in real-time.</p>
+                <p>• Identifies gender-coded words, microaggressions, and offers inclusive rewrites.</p>
+                <p>• GNEC Hackathon Project for AI and Gender Equality (SDG 5).</p>
+            </div>
+            
+            <div class="project">
+                <h3>University Time Bank (UTB)</h3>
+                <p>• Web-based platform for skill exchange among university students using Time Credits (TCs).</p>
+                <p>• Features include secure transactions, dynamic request cards, and user-friendly dashboard.</p>
+                <p>• Built with vanilla HTML, CSS, and JavaScript for optimal performance.</p>
+            </div>
+            
+            <div class="project">
+                <h3>Mood2Mail (Email Tone Analyzer)</h3>
+                <p>• Built a tone-detection app using TF-IDF with Naive Bayes.</p>
+                <p>• Real-time feedback on email tones (Friendly, Formal, Aggressive, etc.) via Flask API and JS frontend.</p>
+            </div>
+            
+            <div class="project">
+                <h3>Fake Job Posting Detector</h3>
+                <p>• Developed a Logistic Regression model to detect fraudulent job listings.</p>
+                <p>• Deployed with a clean, responsive frontend using Flask and vanilla JS.</p>
+            </div>
+            
+            <div class="project">
+                <h3>Car Mileage Predictor</h3>
+                <p>• Trained a Linear Regression model with feature engineering and Grid Search.</p>
+                <p>• Built a deployment-ready interface to predict mileage from user inputs.</p>
+            </div>
+            
+            <div class="project">
+                <h3>Music Genre Classification API</h3>
+                <p>• Used Librosa to extract audio features and predict genres via Flask API.</p>
+                <p>• Handled MP3/WAV input formats and resolved backend deployment issues (CORS, NumPy compatibility).</p>
+            </div>
+            
+            <div class="project">
+                <h3>Movie Recommendation System</h3>
+                <p>• Created a content-based recommender system in Python.</p>
+                <p>• Suggests similar movies based on title and genre correlations.</p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">EDUCATION</h2>
+            
+            <div class="education">
+                <h3>BTech in Computer Science & Engineering</h3>
+                <p>Lovely Professional University — 1st Year</p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">CERTIFICATIONS</h2>
+            
+            <div class="certification">• Google's Machine Learning Crash Course</div>
+            <div class="certification">• Python Beginner Certification – GeeksforGeeks</div>
+            <div class="certification">• Elements of AI – University of Helsinki</div>
+            <div class="certification">• AI Productivity Hacks – LinkedIn Learning</div>
+            <div class="certification">• Introduction to Prompt Engineering – LinkedIn Learning</div>
+        </div>
+        
+        <a href="resume.pdf" download class="download-btn">Download PDF Version</a>
+        <a href="../index.html" class="back-link">← Back to Portfolio</a>
+    </div>
+</body>
+</html> 

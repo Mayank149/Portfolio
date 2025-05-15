@@ -1,0 +1,25 @@
+{
+  "name": "ai-themed-portfolio",
+  "version": "1.0.0",
+  "description": "AI-themed portfolio website",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx live-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "portfolio",
+    "ai",
+    "machine learning"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "dependencies": {
+    "aos": "^2.3.4",
+    "particles.js": "^2.0.0",
+    "typed.js": "^2.0.12"
+  }
+} 
