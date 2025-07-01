@@ -300,6 +300,58 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Certificate Carousel
+    const certImages = [
+        'certificate1.png',
+        'certificate2.png',
+        'certificate3.png',
+        'certificate4.png',
+        'certificate5.png'
+        // Add more if available
+    ];
+    const certFolder = 'img/certificates/';
+    let certIndex = 0;
+    const certImage = document.getElementById('cert-image');
+    const certLeft = document.getElementById('cert-left');
+    const certRight = document.getElementById('cert-right');
+
+    function updateCertImage() {
+        certImage.src = certFolder + certImages[certIndex];
+        certImage.alt = 'Certificate ' + (certIndex + 1);
+    }
+    if (certLeft && certRight && certImage) {
+        certLeft.addEventListener('click', function() {
+            certIndex = (certIndex - 1 + certImages.length) % certImages.length;
+            updateCertImage();
+        });
+        certRight.addEventListener('click', function() {
+            certIndex = (certIndex + 1) % certImages.length;
+            updateCertImage();
+        });
+    }
+
+    // Certificate Zoom Modal
+    const certModal = document.getElementById('cert-modal');
+    const certModalImg = document.getElementById('cert-modal-img');
+    const certModalClose = document.getElementById('cert-modal-close');
+    if (certImage && certModal && certModalImg && certModalClose) {
+        certImage.addEventListener('click', function() {
+            certModal.classList.add('active');
+            certModalImg.src = certImage.src;
+            certModalImg.alt = certImage.alt;
+        });
+        certModalClose.addEventListener('click', function() {
+            certModal.classList.remove('active');
+            certModalImg.src = '';
+        });
+        certModal.addEventListener('click', function(e) {
+            if (e.target === certModal) {
+                certModal.classList.remove('active');
+                certModalImg.src = '';
+            }
+        });
+    }
 });
 
 // Final check after all resources are loaded
