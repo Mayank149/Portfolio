@@ -307,7 +307,8 @@ document.addEventListener('DOMContentLoaded', function() {
         'certificate2.png',
         'certificate3.png',
         'certificate4.png',
-        'certificate5.png'
+        'certificate5.png',
+        'certificate6.png'
         // Add more if available
     ];
     const certFolder = 'img/certificates/';
@@ -329,6 +330,28 @@ document.addEventListener('DOMContentLoaded', function() {
             certIndex = (certIndex + 1) % certImages.length;
             updateCertImage();
         });
+    }
+
+    // Auto-play for Certificate Carousel (4s interval, pause on hover)
+    const certCarousel = document.querySelector('.cert-carousel');
+    let certAutoInterval = null;
+    function stopCertAutoplay() {
+        if (certAutoInterval) {
+            clearInterval(certAutoInterval);
+            certAutoInterval = null;
+        }
+    }
+    function startCertAutoplay() {
+        stopCertAutoplay();
+        certAutoInterval = setInterval(function() {
+            certIndex = (certIndex + 1) % certImages.length;
+            updateCertImage();
+        }, 4000);
+    }
+    startCertAutoplay();
+    if (certCarousel) {
+        certCarousel.addEventListener('mouseenter', stopCertAutoplay);
+        certCarousel.addEventListener('mouseleave', startCertAutoplay);
     }
 
     // Certificate Zoom Modal
