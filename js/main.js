@@ -328,7 +328,8 @@ document.addEventListener('DOMContentLoaded', function() {
         'certificate3.png',
         'certificate4.png',
         'certificate5.png',
-        'certificate6.png'
+        'certificate6.png',
+        'certificate7.png'
         // Add more if available
     ];
     const certFolder = 'img/certificates/';
