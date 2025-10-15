@@ -172,9 +172,29 @@ document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
     
-    hamburger.addEventListener('click', function() {
+    hamburger.addEventListener('click', function(e) {
+        e.stopPropagation(); // Prevent event from bubbling up
         navLinks.classList.toggle('active');
         hamburger.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(e) {
+        const isClickInsideNav = navLinks.contains(e.target);
+        const isClickOnHamburger = hamburger.contains(e.target);
+        
+        if (!isClickInsideNav && !isClickOnHamburger && navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+    });
+
+    // Close mobile menu when window is resized to desktop size
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
     });
 
     // Project filters
