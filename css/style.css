@@ -277,7 +277,6 @@ body.light-theme #navbar.scrolled {
 .nav-links {
     display: flex;
     gap: 30px;
-    order: 2;
 }
 
 .nav-links a {
@@ -315,6 +314,8 @@ body.light-theme #navbar.scrolled {
     cursor: pointer;
     background: rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
+    margin-left: auto;
+    margin-right: 20px;
 }
 
 .theme-toggle:hover {
