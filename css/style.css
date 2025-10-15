@@ -889,20 +889,7 @@ footer {
     gap: 20px;
 }
 
-.footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-}
 
-.footer-links a {
-    transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-    color: var(--primary-color);
-}
 
 /* ===== MEDIA QUERIES ===== */
 @media (max-width: 1024px) {
