@@ -188,25 +188,25 @@
                     <h3>Languages</h3>
                     <ul>
                         <li>Python</li>
-                        <li>HTML</li>
-                        <li>CSS</li>
                         <li>JavaScript</li>
                         <li>Java</li>
+                        <li>HTML5</li>
+                        <li>CSS3</li>
+                        <li>C++</li>
                     </ul>
                 </div>
                 
                 <div class="skill-category">
                     <h3>Machine Learning</h3>
                     <ul>
+                        <li>TensorFlow</li>
+                        <li>PyTorch</li>
                         <li>Scikit-learn</li>
-                        <li>Pandas</li>
                         <li>NumPy</li>
-                        <li>Matplotlib</li>
+                        <li>Pandas</li>
                         <li>Librosa</li>
                         <li>TF-IDF</li>
-                        <li>PyTorch</li>
-                        <li>TensorFlow</li>
-                        <li>MobileNetV2</li>
+                        <li>Matplotlib</li>
                     </ul>
                 </div>
                 
@@ -215,7 +215,8 @@
                     <ul>
                         <li>Flask</li>
                         <li>REST APIs</li>
-                        <li>Deployment</li>
+                        <li>Gunicorn</li>
+                        <li>Render Deployment</li>
                         <li>UI Design</li>
                     </ul>
                 </div>
@@ -225,6 +226,7 @@
                     <ul>
                         <li>Git</li>
                         <li>GitHub</li>
+                        <li>VS Code</li>
                         <li>Jupyter Notebook</li>
                     </ul>
                 </div>
@@ -235,67 +237,34 @@
             <h2 class="section-title">PROJECTS</h2>
             
             <div class="project">
+                <h3>WasteSnap – Real-Time Waste Classification</h3>
+                <p><strong>Tech Stack:</strong> MobileNetV2, Flask, JavaScript, Render</p>
+                <p>• Developed and deployed an AI-powered application to classify 9 types of waste using a fine-tuned MobileNetV2 architecture, achieving ~61% validation accuracy on a custom dataset.</p>
+                <p>• Engineered a production-ready Flask backend with Gunicorn on Render to handle image uploads and live camera feeds.</p>
+                <p>• Implemented real-time recyclability tagging and disposal tips on the frontend to drive eco-friendly user behaviour.</p>
+            </div>
+            
+            <div class="project">
                 <h3>DigiDetect – Handwritten Digit Recognition</h3>
-                <p>• Full-stack web app for handwritten digit recognition using a custom CNN (98.9% accuracy on MNIST).</p>
-                <p>• Users can draw digits on a canvas or upload images; app predicts the digit and shows model confidence in real time.</p>
-                <p>• Features intelligent image preprocessing and a clean, responsive frontend. Built with TensorFlow, Flask, and vanilla JS/HTML/CSS.</p>
-            </div>
-            <div class="project">
-                <h3>StyleNet – Fashion Image Classifier</h3>
-                <p>• Fashion image classifier trained on Fashion MNIST using a CNN with Batch Normalization and Dropout (~91% test accuracy).</p>
-                <p>• Flask API for image uploads and predictions; minimal frontend for easy testing; robust preprocessing for consistency.</p>
-                <p>• Focused on end-to-end workflow: model design, optimization, deployment, and frontend integration.</p>
+                <p><strong>Tech Stack:</strong> TensorFlow, Flask, CNN</p>
+                <p>• Built a full-stack web app featuring a custom Convolutional Neural Network (CNN) that achieved 98.9% test accuracy on the MNIST dataset.</p>
+                <p>• Designed a dynamic canvas interface for users to draw digits, processing inputs via a Flask API to return real-time predictions and confidence scores.</p>
+                <p>• Implemented robust image preprocessing pipelines to ensure consistent model performance on user-generated inputs.</p>
             </div>
             
             <div class="project">
-                <h3>WasteSnap – Smart Waste Classification</h3>
-                <p>• Real-time waste classification web app using custom-trained MobileNetV2 model.</p>
-                <p>• Identifies 9 types of waste with confidence scores and disposal tips.</p>
-                <p>• Built with Flask, TensorFlow, and responsive frontend (HTML/CSS/JS).</p>
+                <h3>Music Genre Classification</h3>
+                <p><strong>Tech Stack:</strong> Librosa, Flask, Audio Processing</p>
+                <p>• Architected a backend API capable of accepting MP3/WAV files and extracting complex audio features (MFCCs, spectrograms) using Librosa.</p>
+                <p>• Solved deployment challenges related to CORS and NumPy version compatibility to ensure scalable, error-free inference.</p>
+                <p>• Integrated the model with a responsive frontend to visualize genre predictions for uploaded audio tracks.</p>
             </div>
             
             <div class="project">
-                <h3>BiasX-Ray — Real-Time Bias Detector for Team Chats</h3>
-                <p>• Web-based tool that detects bias in team chat messages in real-time.</p>
-                <p>• Identifies gender-coded words, microaggressions, and offers inclusive rewrites.</p>
-                <p>• GNEC Hackathon Project for AI and Gender Equality (SDG 5).</p>
-            </div>
-            
-            <div class="project">
-                <h3>University Time Bank (UTB)</h3>
-                <p>• Web-based platform for skill exchange among university students using Time Credits (TCs).</p>
-                <p>• Features include secure transactions, dynamic request cards, and user-friendly dashboard.</p>
-                <p>• Built with vanilla HTML, CSS, and JavaScript for optimal performance.</p>
-            </div>
-            
-            <div class="project">
-                <h3>Mood2Mail (Email Tone Analyzer)</h3>
-                <p>• Built a tone-detection app using TF-IDF with Naive Bayes.</p>
-                <p>• Real-time feedback on email tones (Friendly, Formal, Aggressive, etc.) via Flask API and JS frontend.</p>
-            </div>
-            
-            <div class="project">
-                <h3>Fake Job Posting Detector</h3>
-                <p>• Developed a Logistic Regression model to detect fraudulent job listings.</p>
-                <p>• Deployed with a clean, responsive frontend using Flask and vanilla JS.</p>
-            </div>
-            
-            <div class="project">
-                <h3>Car Mileage Predictor</h3>
-                <p>• Trained a Linear Regression model with feature engineering and Grid Search.</p>
-                <p>• Built a deployment-ready interface to predict mileage from user inputs.</p>
-            </div>
-            
-            <div class="project">
-                <h3>Music Genre Classification API</h3>
-                <p>• Used Librosa to extract audio features and predict genres via Flask API.</p>
-                <p>• Handled MP3/WAV input formats and resolved backend deployment issues (CORS, NumPy compatibility).</p>
-            </div>
-            
-            <div class="project">
-                <h3>Movie Recommendation System</h3>
-                <p>• Created a content-based recommender system in Python.</p>
-                <p>• Suggests similar movies based on title and genre correlations.</p>
+                <h3>Mood2Mail – Real-Time Email Tone Analyzer</h3>
+                <p><strong>Tech Stack:</strong> TF-IDF, Naive Bayes, Flask</p>
+                <p>• Created a real-time tone detection system utilizing TF-IDF vectorization and Naive Bayes to classify email drafts into 5 distinct tone categories.</p>
+                <p>• Developed a seamless user experience using JavaScript fetch APIs to provide live tone feedback as the user types.</p>
             </div>
         </div>
         
@@ -303,20 +272,32 @@
             <h2 class="section-title">EDUCATION</h2>
             
             <div class="education">
-                <h3>BTech in Computer Science & Engineering</h3>
-                <p>Lovely Professional University — 2nd Year</p>
+                <h3>LOVELY PROFESSIONAL UNIVERSITY</h3>
+                <p>Bachelor of Technology in Computer Science Engineering</p>
+                <p>Phagwara, Punjab, India | August 2024 – Present | CGPA: 9.33/10</p>
             </div>
+            
+            <div class="education">
+                <h3>ST. JOSEPH'S INTERNATIONAL SCHOOL</h3>
+                <p>XII - Senior Secondary (Science: Physics, Chemistry, Mathematics)</p>
+                <p>Hisar, Haryana, India | April 2023 – April 2024</p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">ACHIEVEMENTS</h2>
+            
+            <div class="certification">• Solved 580+ questions on GeeksForGeeks including all difficulties</div>
+            <div class="certification">• Maintained a daily streak of 101 days of problem solving on GFG</div>
+            <div class="certification">• Ranked 159 in institute out of 39000+ on GFG with a coding score of 1627</div>
         </div>
         
         <div class="section">
             <h2 class="section-title">CERTIFICATIONS</h2>
             
-            <div class="certification">• Google's Machine Learning Crash Course</div>
-            <div class="certification">• Complete Data Science and Machine Learning Skill Up – GeeksforGeeks</div>
-            <div class="certification">• Elements of AI – University of Helsinki</div>
-            <div class="certification">• AI Tools Skill Up – GeeksForGeeks</div>
-            <div class="certification">• AI Productivity Hacks – LinkedIn Learning</div>
-            <div class="certification">• Introduction to Prompt Engineering – LinkedIn Learning</div>
+            <div class="certification">• Complete Data Science and Machine Learning Skill Up – GeeksForGeeks (Nov 2025)</div>
+            <div class="certification">• AI Tools Skill Up – GeeksForGeeks (Oct 2025)</div>
+            <div class="certification">• Elements of AI – University of Helsinki (April 2025)</div>
         </div>
         
         <a href="resume.pdf" download class="download-btn">Download PDF Version</a>
