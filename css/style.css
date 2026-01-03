@@ -509,24 +509,60 @@ body.light-theme .hero p {
 }
 
 .skill-category h3 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin-bottom: 25px;
     display: flex;
     align-items: center;
     gap: 10px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: var(--text-color);
 }
 
 .skill-category h3 i {
     color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .skill-item {
-    margin-bottom: 20px;
+    margin-bottom: 0;
+    transition: all 0.2s ease;
 }
 
 .skill-name {
-    margin-bottom: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
     font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    text-align: center;
+    transition: all 0.2s ease;
+    letter-spacing: 0.2px;
+    display: inline-block;
+}
+
+.skill-item:hover .skill-name {
+    background: rgba(115, 40, 255, 0.15);
+    border-color: rgba(115, 40, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+body.light-theme .skill-name {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+body.light-theme .skill-item:hover .skill-name {
+    background: rgba(115, 40, 255, 0.08);
+    border-color: rgba(115, 40, 255, 0.2);
 }
 
 .skill-bar {
