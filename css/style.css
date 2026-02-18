@@ -11,11 +11,11 @@
     --card-light: #ffffff;
     --accent: #ff3860;
     --gradient: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    
+
     /* Typography */
     --font-main: 'Poppins', sans-serif;
     --font-code: 'Fira Code', monospace;
-    
+
     /* Sizes */
     --container-width: 1200px;
     --section-padding: 80px 0;
@@ -206,6 +206,29 @@ img {
     border-radius: 50%;
 }
 
+/* LeetCode themed button */
+.btn.leetcode {
+    background: linear-gradient(45deg, #f89f1b, #ffa116);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(255, 161, 22, 0.3);
+    border: none;
+}
+
+.btn.leetcode:hover {
+    background: linear-gradient(45deg, #e08c10, #f89f1b);
+}
+
+.btn.leetcode.icon-only img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+    border-radius: 50%;
+}
+
 /* LinkedIn themed button */
 .btn.linkedin {
     background: #0a66c2;
@@ -213,6 +236,7 @@ img {
     box-shadow: 0 4px 15px rgba(10, 102, 194, 0.3);
     border: none;
 }
+
 .btn.linkedin:hover {
     background: #085aab;
 }
@@ -224,6 +248,7 @@ img {
     box-shadow: 0 4px 15px rgba(36, 41, 47, 0.3);
     border: none;
 }
+
 .btn.github:hover {
     background: #1f2429;
 }
@@ -609,7 +634,8 @@ body.light-theme .skill-bar {
     font-weight: 500;
 }
 
-.filter-btn:hover, .filter-btn.active {
+.filter-btn:hover,
+.filter-btn.active {
     background: var(--gradient);
     color: white;
     border-color: transparent;
@@ -932,20 +958,20 @@ footer {
     .hero h1 {
         font-size: 3rem;
     }
-    
+
     .hero h2 {
         font-size: 2rem;
     }
-    
+
     .about-content {
         grid-template-columns: 1fr;
     }
-    
+
     .about-image {
         grid-row: 1;
         margin-bottom: 30px;
     }
-    
+
     .contact-content {
         grid-template-columns: 1fr;
     }
@@ -957,7 +983,7 @@ footer {
         max-width: 100%;
         width: 100vw;
     }
-    
+
     .nav-links {
         display: none;
         position: absolute;
@@ -981,7 +1007,7 @@ footer {
     .theme-toggle {
         display: none;
     }
-    
+
     .hamburger {
         display: block;
         z-index: 1000;
@@ -998,23 +1024,23 @@ footer {
     .hamburger.active .line:nth-child(3) {
         transform: rotate(45deg) translate(-5px, -6px);
     }
-    
+
     .hero h1 {
         font-size: 2.5rem;
     }
-    
+
     .hero h2 {
         font-size: 1.8rem;
     }
-    
+
     .hero p {
         font-size: 1rem;
     }
-    
+
     .section-title {
         font-size: 2rem;
     }
-    
+
     .projects-grid {
         grid-template-columns: 1fr;
     }
@@ -1024,26 +1050,26 @@ footer {
     .hero h1 {
         font-size: 2rem;
     }
-    
+
     .hero h2 {
         font-size: 1.5rem;
     }
-    
+
     .cta-buttons {
         flex-direction: column;
         gap: 15px;
     }
-    
+
     .btn {
         width: 100%;
         text-align: center;
     }
-    
+
     .about-cta {
         flex-direction: column;
         gap: 10px;
     }
-    
+
     .contact-form {
         padding: 20px;
     }
@@ -1055,6 +1081,7 @@ footer {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1083,6 +1110,7 @@ footer {
     gap: 30px;
     margin-top: 30px;
 }
+
 .carousel-arrow {
     width: 48px;
     height: 48px;
@@ -1100,11 +1128,13 @@ footer {
     outline: none;
     z-index: 2;
 }
+
 .carousel-arrow:hover {
     filter: brightness(1.2);
     transform: scale(1.12);
     box-shadow: 0 8px 24px rgba(115, 40, 255, 0.25);
 }
+
 .carousel-image-container {
     width: 350px;
     height: 250px;
@@ -1113,9 +1143,10 @@ footer {
     justify-content: center;
     background: #f7f7fa;
     border-radius: 16px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
     overflow: hidden;
 }
+
 .carousel-image-container img {
     max-width: 100%;
     max-height: 100%;
@@ -1137,23 +1168,34 @@ footer {
     justify-content: center;
     transition: opacity 0.3s;
 }
+
 .cert-modal.active {
     display: flex;
     opacity: 1;
 }
+
 .cert-modal-img {
     max-width: 90vw;
     max-height: 80vh;
     border-radius: 18px;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
     background: #fff;
     padding: 12px;
     animation: certZoomIn 0.3s;
 }
+
 @keyframes certZoomIn {
-    from { transform: scale(0.7); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
+
 .cert-modal-close {
     position: absolute;
     top: 32px;
@@ -1166,6 +1208,7 @@ footer {
     text-shadow: 0 2px 8px #000;
     transition: color 0.2s;
 }
+
 .cert-modal-close:hover {
     color: #ff5c5c;
-} 
+}
