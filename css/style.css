@@ -690,6 +690,10 @@ body.light-theme .skill-bar {
     font-size: 0.95rem;
 }
 
+.project-info p .project-description-more[hidden] {
+    display: none;
+}
+
 .tech-stack {
     display: flex;
     flex-wrap: wrap;
@@ -709,6 +713,14 @@ body.light-theme .skill-bar {
 .project-links {
     display: flex;
     gap: 15px;
+}
+
+.project-toggle {
+    background: transparent;
+}
+
+.project-toggle:hover {
+    background: rgba(115, 40, 255, 0.1);
 }
 
 /* ===== BLOG SECTION ===== */

@@ -246,6 +246,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Project description toggle for expanded cards
+    document.querySelectorAll('[data-project-toggle]').forEach(toggleButton => {
+        toggleButton.addEventListener('click', function() {
+            const targetId = this.getAttribute('aria-controls');
+            const extraContent = document.getElementById(targetId);
+
+            if (!extraContent) {
+                return;
+            }
+
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            extraContent.hidden = isExpanded;
+            this.setAttribute('aria-expanded', String(!isExpanded));
+            this.textContent = isExpanded ? 'More' : 'Less';
+        });
+    });
+
     // Animate skill bars on scroll
     const skillLevels = document.querySelectorAll('.skill-level');
     
