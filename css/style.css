@@ -735,6 +735,40 @@ body.light-theme .skill-bar {
     margin: 0 auto 40px;
 }
 
+.content-switcher {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.content-switcher-btn {
+    background: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    padding: 10px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.content-switcher-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-color);
+}
+
+.content-switcher-btn.active {
+    background: var(--gradient);
+    color: #ffffff;
+    border-color: transparent;
+}
+
+.content-panel[hidden] {
+    display: none;
+}
+
 .blog-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));

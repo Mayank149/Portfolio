@@ -581,11 +581,43 @@
     <!-- Blog Section -->
     <section id="blog" class="blog">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Blogs & Research Papers</h2>
+            <h2 class="section-title" data-aos="fade-up">Blogs & Books</h2>
             <div class="blog-description" data-aos="fade-up">
                 <p>Sharing my thoughts and insights on AI, technology, and more. Check out my latest articles below.</p>
             </div>
-            <div class="blog-grid">
+            <div class="content-switcher" data-content-switcher>
+                <button type="button" class="content-switcher-btn active" data-content-target="books" aria-pressed="true">Books</button>
+                <button type="button" class="content-switcher-btn" data-content-target="blogs" aria-pressed="false">Blogs</button>
+            </div>
+
+            <div class="content-panel" data-content-panel="books">
+                <div class="blog-grid">
+                    <!-- Book 1 - Machine Learning Projects -->
+                    <div class="blog-card book-card" data-aos="fade-up">
+                        <div class="blog-img">
+                            <img src="img/blog/Book cover front.jpg" alt="Machine Learning Projects: A Practical Guide for B.Tech CSE Students">
+                        </div>
+                        <div class="blog-info">
+                            <div class="blog-date">Kindle Edition</div>
+                            <h3>Machine Learning Projects: A Practical Guide for B.Tech CSE Students</h3>
+                            <p>Most machine learning courses teach you theory. This book teaches you how to build. Written by a B.Tech CSE student for B.Tech CSE students, this guide bridges the gap between passing machine learning exams and confidently building projects you can explain and present.</p>
+                            <div class="blog-tags">
+                                <span>Book</span>
+                                <span>Machine Learning</span>
+                                <span>Projects</span>
+                                <span>B.Tech CSE</span>
+                                <span>Kindle</span>
+                            </div>
+                            <div class="blog-links">
+                                <a href="https://www.amazon.in/dp/B0GX34T5HF" target="_blank" class="btn small"><i class="fab fa-amazon"></i> Amazon</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-panel" data-content-panel="blogs" hidden>
+                <div class="blog-grid">
                 <!-- Blog Post 1 - AI in Fiction and in Reality -->
                 <div class="blog-card" data-aos="fade-up">
                     <div class="blog-img">
@@ -662,6 +694,7 @@
                         <p>Stay tuned for more articles on artificial intelligence, machine learning, and their applications in solving real-world problems.</p>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </section>

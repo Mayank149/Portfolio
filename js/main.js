@@ -246,6 +246,34 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Blog/Books content switcher
+    const contentSwitcherButtons = document.querySelectorAll('[data-content-target]');
+    const contentPanels = document.querySelectorAll('[data-content-panel]');
+
+    function setActiveContent(target) {
+        contentSwitcherButtons.forEach(button => {
+            const isActive = button.getAttribute('data-content-target') === target;
+            button.classList.toggle('active', isActive);
+            button.setAttribute('aria-pressed', String(isActive));
+        });
+
+        contentPanels.forEach(panel => {
+            panel.hidden = panel.getAttribute('data-content-panel') !== target;
+        });
+
+        if (typeof AOS !== 'undefined') {
+            AOS.refresh();
+        }
+    }
+
+    contentSwitcherButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            setActiveContent(this.getAttribute('data-content-target'));
+        });
+    });
+
+    setActiveContent('books');
+
     // Project description toggle for expanded cards
     document.querySelectorAll('[data-project-toggle]').forEach(toggleButton => {
         toggleButton.addEventListener('click', function() {
