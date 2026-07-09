@@ -421,16 +421,31 @@ document.addEventListener('DOMContentLoaded', function() {
         certCarousel.addEventListener('mouseleave', startCertAutoplay);
     }
 
-    // Certificate Zoom Modal
+    // Image Zoom Modal
     const certModal = document.getElementById('cert-modal');
     const certModalImg = document.getElementById('cert-modal-img');
     const certModalClose = document.getElementById('cert-modal-close');
+    function openImageModal(imageElement) {
+        if (!certModal || !certModalImg) {
+            return;
+        }
+
+        certModal.classList.add('active');
+        certModalImg.src = imageElement.src;
+        certModalImg.alt = imageElement.alt;
+    }
+
     if (certImage && certModal && certModalImg && certModalClose) {
         certImage.addEventListener('click', function() {
-            certModal.classList.add('active');
-            certModalImg.src = certImage.src;
-            certModalImg.alt = certImage.alt;
+            openImageModal(certImage);
         });
+
+        document.querySelectorAll('.project-img img, .blog-img img').forEach(image => {
+            image.addEventListener('click', function() {
+                openImageModal(this);
+            });
+        });
+
         certModalClose.addEventListener('click', function() {
             certModal.classList.remove('active');
             certModalImg.src = '';

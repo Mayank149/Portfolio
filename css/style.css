@@ -669,6 +669,7 @@ body.light-theme .skill-bar {
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
+    cursor: zoom-in;
 }
 
 .project-card:hover .project-img img {
@@ -769,6 +770,20 @@ body.light-theme .skill-bar {
     display: none;
 }
 
+.content-panel[data-content-panel="books"] .blog-grid {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+}
+
+.book-card {
+    width: 100%;
+    max-width: 720px;
+}
+
+.book-card .blog-img {
+    height: 180px;
+}
+
 .blog-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -803,6 +818,7 @@ body.light-theme .skill-bar {
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
+    cursor: zoom-in;
 }
 
 .blog-card:hover .blog-img img {
@@ -1257,4 +1273,12 @@ footer {
 
 .cert-modal-close:hover {
     color: #ff5c5c;
+}
+
+#cert-image {
+    cursor: zoom-in;
+}
+
+#cert-image {
+    cursor: zoom-in;
 }
