@@ -503,6 +503,28 @@ body.light-theme .hero p {
     margin-bottom: 5px;
 }
 
+.education-cgpa {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 4px 14px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 20px;
+    color: var(--secondary-color);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.education-cgpa i {
+    color: var(--primary-color);
+}
+
+.education-cgpa strong {
+    color: var(--text-color);
+}
+
 .certifications-list {
     list-style: none;
     padding-left: 0;
