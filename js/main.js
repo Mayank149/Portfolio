@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             },
             color: {
-                value: '#00c8ff'
+                value: '#34d399'
             },
             shape: {
                 type: 'circle',
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             },
             opacity: {
-                value: 0.5,
+                value: 0.6,
                 random: false,
                 anim: {
                     enable: false,
@@ -54,8 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
             line_linked: {
                 enable: true,
                 distance: 150,
-                color: '#7328ff',
-                opacity: 0.4,
+                color: '#10b981',
+                opacity: 0.35,
                 width: 1
             },
             move: {
@@ -421,39 +421,117 @@ document.addEventListener('DOMContentLoaded', function() {
         certCarousel.addEventListener('mouseleave', startCertAutoplay);
     }
 
-    // Image Zoom Modal
+    // Image Zoom Modal & Certificate Scroll Navigation
     const certModal = document.getElementById('cert-modal');
     const certModalImg = document.getElementById('cert-modal-img');
     const certModalClose = document.getElementById('cert-modal-close');
-    function openImageModal(imageElement) {
+    const certModalPrev = document.getElementById('cert-modal-prev');
+    const certModalNext = document.getElementById('cert-modal-next');
+    const certModalCaption = document.getElementById('cert-modal-caption');
+    let isCertMode = false;
+
+    function updateModalCertDisplay() {
+        if (!certModalImg) return;
+        certModalImg.style.opacity = '0.3';
+        certModalImg.style.transform = 'scale(0.96)';
+        setTimeout(() => {
+            certModalImg.src = certFolder + certImages[certIndex];
+            certModalImg.alt = 'Certificate ' + (certIndex + 1);
+            certModalImg.style.opacity = '1';
+            certModalImg.style.transform = 'scale(1)';
+        }, 120);
+
+        if (certModalCaption) {
+            certModalCaption.textContent = `Certificate ${certIndex + 1} of ${certImages.length}`;
+        }
+        updateCertImage();
+    }
+
+    function openImageModal(imageElement, isCertificate = false) {
         if (!certModal || !certModalImg) {
             return;
         }
 
+        isCertMode = isCertificate;
         certModal.classList.add('active');
-        certModalImg.src = imageElement.src;
-        certModalImg.alt = imageElement.alt;
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+
+        if (isCertMode) {
+            if (certModalPrev) certModalPrev.style.display = 'flex';
+            if (certModalNext) certModalNext.style.display = 'flex';
+            if (certModalCaption) {
+                certModalCaption.style.display = 'block';
+                certModalCaption.textContent = `Certificate ${certIndex + 1} of ${certImages.length}`;
+            }
+            certModalImg.src = certFolder + certImages[certIndex];
+            certModalImg.alt = 'Certificate ' + (certIndex + 1);
+        } else {
+            if (certModalPrev) certModalPrev.style.display = 'none';
+            if (certModalNext) certModalNext.style.display = 'none';
+            if (certModalCaption) certModalCaption.style.display = 'none';
+            certModalImg.src = imageElement.src;
+            certModalImg.alt = imageElement.alt;
+        }
     }
 
-    if (certImage && certModal && certModalImg && certModalClose) {
-        certImage.addEventListener('click', function() {
-            openImageModal(certImage);
-        });
+    function closeImageModal() {
+        if (!certModal || !certModalImg) return;
+        certModal.classList.remove('active');
+        document.body.style.overflow = '';
+        certModalImg.src = '';
+    }
+
+    if (certModal && certModalImg) {
+        if (certImage) {
+            certImage.addEventListener('click', function() {
+                openImageModal(certImage, true);
+            });
+        }
+
+        if (certModalPrev) {
+            certModalPrev.addEventListener('click', function(e) {
+                e.stopPropagation();
+                certIndex = (certIndex - 1 + certImages.length) % certImages.length;
+                updateModalCertDisplay();
+            });
+        }
+
+        if (certModalNext) {
+            certModalNext.addEventListener('click', function(e) {
+                e.stopPropagation();
+                certIndex = (certIndex + 1) % certImages.length;
+                updateModalCertDisplay();
+            });
+        }
 
         document.querySelectorAll('.project-img img, .blog-img img').forEach(image => {
             image.addEventListener('click', function() {
-                openImageModal(this);
+                openImageModal(this, false);
             });
         });
 
-        certModalClose.addEventListener('click', function() {
-            certModal.classList.remove('active');
-            certModalImg.src = '';
-        });
+        if (certModalClose) {
+            certModalClose.addEventListener('click', closeImageModal);
+        }
+
         certModal.addEventListener('click', function(e) {
             if (e.target === certModal) {
-                certModal.classList.remove('active');
-                certModalImg.src = '';
+                closeImageModal();
+            }
+        });
+
+        // Keyboard navigation for modal
+        window.addEventListener('keydown', function(e) {
+            if (certModal.classList.contains('active')) {
+                if (e.key === 'Escape') {
+                    closeImageModal();
+                } else if (isCertMode && e.key === 'ArrowLeft') {
+                    certIndex = (certIndex - 1 + certImages.length) % certImages.length;
+                    updateModalCertDisplay();
+                } else if (isCertMode && e.key === 'ArrowRight') {
+                    certIndex = (certIndex + 1) % certImages.length;
+                    updateModalCertDisplay();
+                }
             }
         });
     }
