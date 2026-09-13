@@ -8,21 +8,21 @@ document.addEventListener('DOMContentLoaded', function() {
         offset: 100
     });
 
-    // Initialize particles.js
+    // Initialize particles.js with twinkling stars and constellation network
     particlesJS('particles-js', {
         particles: {
             number: {
-                value: 80,
+                value: 110,
                 density: {
                     enable: true,
                     value_area: 800
                 }
             },
             color: {
-                value: '#34d399'
+                value: ['#10b981', '#059669', '#047857', '#d1fae5']
             },
             shape: {
-                type: 'circle',
+                type: ['circle', 'star'],
                 stroke: {
                     width: 0,
                     color: '#000000'
@@ -32,30 +32,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             },
             opacity: {
-                value: 0.6,
-                random: false,
+                value: 0.65,
+                random: true,
                 anim: {
-                    enable: false,
-                    speed: 1,
-                    opacity_min: 0.1,
+                    enable: true,
+                    speed: 1.5,
+                    opacity_min: 0.12,
                     sync: false
                 }
             },
             size: {
-                value: 3,
+                value: 3.2,
                 random: true,
                 anim: {
-                    enable: false,
-                    speed: 40,
-                    size_min: 0.1,
+                    enable: true,
+                    speed: 2.2,
+                    size_min: 0.6,
                     sync: false
                 }
             },
             line_linked: {
                 enable: true,
                 distance: 150,
-                color: '#10b981',
-                opacity: 0.35,
+                color: '#047857',
+                opacity: 0.25,
                 width: 1
             },
             move: {
@@ -534,6 +534,54 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
+
+        // Interactive Cursor Spotlight
+        const spotlight = document.getElementById('cursor-spotlight');
+        if (spotlight && window.matchMedia('(pointer: fine)').matches) {
+            let mouseX = -1000;
+            let mouseY = -1000;
+            let currentX = -1000;
+            let currentY = -1000;
+            let isMoving = false;
+            let rafId = null;
+
+            function animateSpotlight() {
+                currentX += (mouseX - currentX) * 0.18;
+                currentY += (mouseY - currentY) * 0.18;
+
+                spotlight.style.setProperty('--mouse-x', `${currentX.toFixed(1)}px`);
+                spotlight.style.setProperty('--mouse-y', `${currentY.toFixed(1)}px`);
+
+                if (Math.abs(mouseX - currentX) > 0.1 || Math.abs(mouseY - currentY) > 0.1) {
+                    rafId = requestAnimationFrame(animateSpotlight);
+                } else {
+                    isMoving = false;
+                    rafId = null;
+                }
+            }
+
+            window.addEventListener('mousemove', function(e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+
+                if (!spotlight.classList.contains('active')) {
+                    currentX = mouseX;
+                    currentY = mouseY;
+                    spotlight.style.setProperty('--mouse-x', `${currentX}px`);
+                    spotlight.style.setProperty('--mouse-y', `${currentY}px`);
+                    spotlight.classList.add('active');
+                }
+
+                if (!isMoving) {
+                    isMoving = true;
+                    rafId = requestAnimationFrame(animateSpotlight);
+                }
+            }, { passive: true });
+
+            document.addEventListener('mouseleave', function() {
+                spotlight.classList.remove('active');
+            });
+        }
     }
 });
 

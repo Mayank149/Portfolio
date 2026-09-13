@@ -9,6 +9,9 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Interactive Cursor Spotlight -->
+    <div class="cursor-spotlight" id="cursor-spotlight"></div>
+
     <!-- Navigation -->
     <nav id="navbar">
         <div class="container">
@@ -36,6 +39,8 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div id="particles-js"></div>
+        <div class="ambient-shape geom-tech-sym sym-delay-1" style="top: 22%; right: 9%;">{ ... }</div>
+        <div class="ambient-shape geom-tech-sym sym-delay-2" style="bottom: 18%; left: 8%;">=&gt;</div>
         <div class="container">
             <div class="hero-content" data-aos="fade-up">
                 <h1>Hi, I'm <span class="highlight">Mayank Bansal</span></h1>
@@ -53,8 +58,24 @@
     <section id="about" class="about">
         <div class="ambient-shape ambient-glow glow-emerald-1" style="top: -60px; left: -120px;"></div>
         <div class="ambient-shape geom-ring" style="top: 40px; right: 4%; width: 180px; height: 180px;"></div>
+        <div class="ambient-shape geom-diamond" style="bottom: 15%; right: 8%;"></div>
+        <div class="ambient-shape geom-cross" style="top: 25%; left: 6%;">+</div>
+        <div class="ambient-shape geom-star star-delay-1" style="top: 18%; right: 14%;">✦</div>
+        <div class="ambient-shape geom-star star-delay-2" style="bottom: 22%; left: 4%;">✦</div>
+        <div class="ambient-shape geom-bracket" style="top: 75%; right: 3%;">&lt;/&gt;</div>
+        <div class="ambient-shape geom-tech-sym sym-delay-3" style="top: 38%; left: 3%;">// ai</div>
+        <div class="ambient-shape geom-tech-sym sym-delay-1" style="bottom: 8%; right: 12%;">::</div>
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">About Me</h2>
+            <div class="section-header-block" data-aos="fade-up">
+                <div class="section-kicker">
+                    <span class="kicker-line"></span>
+                    <span class="kicker-text">ABOUT ME</span>
+                    <span class="kicker-line"></span>
+                </div>
+                <h2 class="section-heading">Engineering <span class="highlight">Intelligent Systems</span></h2>
+                <p class="section-subtitle">A glimpse into my background, engineering philosophy, and passion for building AI.</p>
+                <div class="section-divider-bar"></div>
+            </div>
             <div class="about-content">
                 <div class="about-image" data-aos="fade-right">
                     <div class="img-container">
@@ -99,9 +120,24 @@
     <!-- My Certificates Section -->
     <section id="certificates" class="certificates">
         <div class="ambient-shape ambient-glow glow-emerald-2" style="top: 20%; right: -120px;"></div>
-        <div class="ambient-shape geom-dots" style="bottom: 20px; left: 4%;"></div>
+        <div class="ambient-shape geom-pulse-ring" style="top: 15%; left: 8%;"></div>
+        <div class="ambient-shape geom-diamond" style="bottom: 25%; right: 5%;"></div>
+        <div class="ambient-shape geom-cross" style="bottom: 22%; right: 16%;">+</div>
+        <div class="ambient-shape geom-star star-delay-2" style="top: 28%; right: 12%;">✦</div>
+        <div class="ambient-shape geom-star star-delay-3" style="bottom: 18%; left: 6%;">✦</div>
+        <div class="ambient-shape geom-tech-sym sym-delay-1" style="top: 65%; left: 4%;">{ }</div>
+        <div class="ambient-shape geom-tech-sym sym-delay-2" style="top: 20%; right: 4%;">=&gt;</div>
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">My Certificates</h2>
+            <div class="section-header-block" data-aos="fade-up">
+                <div class="section-kicker">
+                    <span class="kicker-line"></span>
+                    <span class="kicker-text">CREDENTIALS</span>
+                    <span class="kicker-line"></span>
+                </div>
+                <h2 class="section-heading">Verified <span class="highlight">Certifications</span></h2>
+                <p class="section-subtitle">Continuous learning in Artificial Intelligence, Machine Learning, and Software Architecture.</p>
+                <div class="section-divider-bar"></div>
+            </div>
             <div class="cert-carousel" data-aos="fade-up">
                 <button class="carousel-arrow left" id="cert-left"><i class="fas fa-chevron-left"></i></button>
                 <div class="carousel-image-container">
@@ -131,16 +167,26 @@
     <section id="skills" class="skills">
         <div class="ambient-shape ambient-glow glow-emerald-1" style="bottom: -100px; left: -100px;"></div>
         <div class="ambient-shape geom-ring" style="top: 70px; left: 2%; width: 220px; height: 220px;"></div>
-        <div class="ambient-shape geom-dots" style="top: 40px; right: 4%;"></div>
+        <div class="ambient-shape geom-cross" style="bottom: 20%; right: 3%;">+</div>
+        <div class="ambient-shape geom-diamond" style="top: 45%; left: 1%;"></div>
+        <div class="ambient-shape geom-diamond" style="bottom: 12%; left: 5%;"></div>
+        <div class="ambient-shape geom-star star-delay-1" style="top: 25%; right: 5%;">✦</div>
+        <div class="ambient-shape geom-star star-delay-3" style="bottom: 35%; right: 8%;">✦</div>
+        <div class="ambient-shape geom-star star-delay-2" style="top: 60%; left: 3%;">✦</div>
+        <div class="ambient-shape geom-bracket" style="top: 15%; left: 8%;">{ }</div>
+        <div class="ambient-shape geom-tech-sym sym-delay-3" style="bottom: 18%; right: 14%;">01</div>
+        <div class="ambient-shape geom-tech-sym sym-delay-1" style="top: 80%; right: 3%;">// stack</div>
         <div class="container">
-            <div class="skills-kicker" data-aos="fade-up">
-                <span class="kicker-line"></span>
-                <span class="kicker-text">SKILLS</span>
-                <span class="kicker-line"></span>
+            <div class="section-header-block" data-aos="fade-up">
+                <div class="section-kicker">
+                    <span class="kicker-line"></span>
+                    <span class="kicker-text">SKILLS</span>
+                    <span class="kicker-line"></span>
+                </div>
+                <h2 class="section-heading">Technologies <span class="highlight">I Work With</span></h2>
+                <p class="section-subtitle">A curated set of tools and technologies I use to build, experiment, and ship AI systems.</p>
+                <div class="section-divider-bar"></div>
             </div>
-            <h2 class="section-title skills-title" data-aos="fade-up">Technologies <span class="highlight">I Work With</span></h2>
-            <p class="skills-subtitle" data-aos="fade-up">A curated set of tools and technologies I use to build, experiment, and ship AI systems.</p>
-            <div class="skills-divider" data-aos="fade-up"></div>
 
             <div class="skills-container">
                 <!-- Card 1: Programming Languages -->
@@ -272,8 +318,28 @@
         <div class="ambient-shape ambient-glow glow-emerald-2" style="top: 8%; left: -140px;"></div>
         <div class="ambient-shape ambient-glow glow-emerald-1" style="bottom: 5%; right: -120px;"></div>
         <div class="ambient-shape geom-ring" style="bottom: 18%; left: 2%; width: 200px; height: 200px;"></div>
+        <div class="ambient-shape geom-pulse-ring" style="top: 35%; right: 3%;"></div>
+        <div class="ambient-shape geom-diamond" style="top: 15%; right: 6%;"></div>
+        <div class="ambient-shape geom-diamond" style="bottom: 40%; left: 3%;"></div>
+        <div class="ambient-shape geom-cross" style="top: 60%; right: 2%;">+</div>
+        <div class="ambient-shape geom-star star-delay-1" style="top: 10%; right: 12%;">✦</div>
+        <div class="ambient-shape geom-star star-delay-2" style="top: 45%; left: 2%;">✦</div>
+        <div class="ambient-shape geom-star star-delay-3" style="bottom: 25%; right: 4%;">✦</div>
+        <div class="ambient-shape geom-star star-delay-1" style="bottom: 60%; right: 7%;">✦</div>
+        <div class="ambient-shape geom-bracket" style="bottom: 8%; right: 10%;">&lt;/&gt;</div>
+        <div class="ambient-shape geom-tech-sym sym-delay-2" style="top: 24%; left: 14%;">[ ]</div>
+        <div class="ambient-shape geom-tech-sym sym-delay-3" style="bottom: 38%; right: 12%;">&&</div>
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">My Projects</h2>
+            <div class="section-header-block" data-aos="fade-up">
+                <div class="section-kicker">
+                    <span class="kicker-line"></span>
+                    <span class="kicker-text">PORTFOLIO</span>
+                    <span class="kicker-line"></span>
+                </div>
+                <h2 class="section-heading">Featured <span class="highlight">AI Projects</span></h2>
+                <p class="section-subtitle">Autonomous agents, RAG pipelines, and computer vision systems built for real-world impact.</p>
+                <div class="section-divider-bar"></div>
+            </div>
             <div class="filter-buttons" data-aos="fade-up">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="ai">AI/ML</button>
@@ -662,11 +728,25 @@
     <!-- Blog Section -->
     <section id="blog" class="blog">
         <div class="ambient-shape ambient-glow glow-emerald-1" style="top: 10%; right: -100px;"></div>
-        <div class="ambient-shape geom-dots" style="bottom: 40px; left: 3%;"></div>
+        <div class="ambient-shape geom-ring" style="top: 30%; left: 2%; width: 190px; height: 190px;"></div>
+        <div class="ambient-shape geom-diamond" style="bottom: 25%; right: 4%;"></div>
+        <div class="ambient-shape geom-pulse-ring" style="bottom: 15%; left: 5%;"></div>
+        <div class="ambient-shape geom-cross" style="top: 18%; left: 10%;">+</div>
+        <div class="ambient-shape geom-star star-delay-1" style="top: 12%; right: 15%;">✦</div>
+        <div class="ambient-shape geom-star star-delay-2" style="bottom: 35%; left: 3%;">✦</div>
+        <div class="ambient-shape geom-star star-delay-3" style="bottom: 10%; right: 8%;">✦</div>
+        <div class="ambient-shape geom-tech-sym sym-delay-1" style="top: 50%; right: 5%;">&lt;/&gt;</div>
+        <div class="ambient-shape geom-tech-sym sym-delay-2" style="bottom: 22%; left: 12%;">// docs</div>
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Blogs & Books</h2>
-            <div class="blog-description" data-aos="fade-up">
-                <p>Sharing my thoughts and insights on AI, technology, and more. Check out my latest articles below.</p>
+            <div class="section-header-block" data-aos="fade-up">
+                <div class="section-kicker">
+                    <span class="kicker-line"></span>
+                    <span class="kicker-text">PUBLICATIONS</span>
+                    <span class="kicker-line"></span>
+                </div>
+                <h2 class="section-heading">Thoughts, Guides <span class="highlight">& Books</span></h2>
+                <p class="section-subtitle">Sharing practical guides, research breakdowns, and published technical books.</p>
+                <div class="section-divider-bar"></div>
             </div>
             <div class="content-switcher" data-content-switcher>
                 <button type="button" class="content-switcher-btn active" data-content-target="books" aria-pressed="true">Books</button>
@@ -786,8 +866,24 @@
     <section id="contact" class="contact">
         <div class="ambient-shape ambient-glow glow-emerald-2" style="top: -60px; right: -80px;"></div>
         <div class="ambient-shape geom-ring" style="bottom: 30px; right: 4%; width: 160px; height: 160px;"></div>
+        <div class="ambient-shape geom-pulse-ring" style="top: 25%; left: 6%;"></div>
+        <div class="ambient-shape geom-cross" style="bottom: 20%; left: 10%;">+</div>
+        <div class="ambient-shape geom-diamond" style="top: 20%; right: 8%;"></div>
+        <div class="ambient-shape geom-star star-delay-1" style="top: 12%; left: 14%;">✦</div>
+        <div class="ambient-shape geom-star star-delay-2" style="bottom: 15%; right: 12%;">✦</div>
+        <div class="ambient-shape geom-tech-sym sym-delay-3" style="top: 35%; right: 5%;">::</div>
+        <div class="ambient-shape geom-tech-sym sym-delay-1" style="bottom: 30%; left: 4%;">=&gt;</div>
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
+            <div class="section-header-block" data-aos="fade-up">
+                <div class="section-kicker">
+                    <span class="kicker-line"></span>
+                    <span class="kicker-text">CONNECT</span>
+                    <span class="kicker-line"></span>
+                </div>
+                <h2 class="section-heading">Let's Build Something <span class="highlight">Great Together</span></h2>
+                <p class="section-subtitle">Interested in collaborating or discussing an AI project? Reach out anytime.</p>
+                <div class="section-divider-bar"></div>
+            </div>
             <div class="contact-content">
                 <div class="contact-info" data-aos="fade-up">
                     <div class="info-item">
