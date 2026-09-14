@@ -197,99 +197,97 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Project filters
+    // Project filters & Show More toggle
     const filterBtns = document.querySelectorAll('.filter-btn');
     const projectCards = document.querySelectorAll('.project-card');
-    
-    // Make sure "All" filter is active by default
-    const resetFilters = () => {
-        filterBtns.forEach(btn => btn.classList.remove('active'));
-        document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
-        
+    const projectsShowMoreBtn = document.getElementById('projects-show-more-btn');
+    const projectsMoreContainer = document.querySelector('.projects-more-container');
+    const MAX_VISIBLE_PROJECTS = 5;
+    let isProjectsExpanded = false;
+
+    function updateProjectsDisplay() {
+        const activeFilterBtn = document.querySelector('.filter-btn.active');
+        const currentFilter = activeFilterBtn ? activeFilterBtn.getAttribute('data-filter') : 'all';
+
+        let matchingCount = 0;
+        let visibleCount = 0;
+
         projectCards.forEach(card => {
-            card.style.display = 'block';
-            setTimeout(() => {
-                card.setAttribute('data-aos', 'fade-up');
-                AOS.refresh();
-            }, 100);
-        });
-    };
-    
-    // Initialize with all projects visible
-    resetFilters();
-    
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            // Remove active class from all buttons
-            filterBtns.forEach(btn => btn.classList.remove('active'));
-            
-            // Add active class to clicked button
-            this.classList.add('active');
-            
-            // Get the filter value
-            const filter = this.getAttribute('data-filter');
-            
-            // Filter projects
-            projectCards.forEach(card => {
-                const categories = card.getAttribute('data-category').split(' ');
-                if (filter === 'all' || categories.includes(filter)) {
-                    card.style.display = 'block';
-                    // Trigger AOS animation
-                    setTimeout(() => {
-                        card.setAttribute('data-aos', 'fade-up');
-                        AOS.refresh();
-                    }, 100);
+            const categories = (card.getAttribute('data-category') || '').split(' ');
+            const isMatch = (currentFilter === 'all' || categories.includes(currentFilter));
+
+            if (isMatch) {
+                matchingCount++;
+                // In "all" filter, limit to top 5 projects unless expanded
+                if (currentFilter === 'all' && !isProjectsExpanded) {
+                    if (visibleCount < MAX_VISIBLE_PROJECTS) {
+                        card.classList.remove('project-hidden');
+                        card.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        card.classList.add('project-hidden');
+                        card.style.display = 'none';
+                    }
                 } else {
-                    card.style.display = 'none';
+                    card.classList.remove('project-hidden');
+                    card.style.display = 'flex';
+                    visibleCount++;
                 }
-            });
-        });
-    });
-
-    // Blog/Books content switcher
-    const contentSwitcherButtons = document.querySelectorAll('[data-content-target]');
-    const contentPanels = document.querySelectorAll('[data-content-panel]');
-
-    function setActiveContent(target) {
-        contentSwitcherButtons.forEach(button => {
-            const isActive = button.getAttribute('data-content-target') === target;
-            button.classList.toggle('active', isActive);
-            button.setAttribute('aria-pressed', String(isActive));
+                card.setAttribute('data-aos', 'fade-up');
+            } else {
+                card.classList.add('project-hidden');
+                card.style.display = 'none';
+            }
         });
 
-        contentPanels.forEach(panel => {
-            panel.hidden = panel.getAttribute('data-content-panel') !== target;
-        });
+        window.updateProjectsDisplay = updateProjectsDisplay;
+
+        // Toggle "Show More" button container
+        if (projectsMoreContainer && projectsShowMoreBtn) {
+            const btnText = projectsShowMoreBtn.querySelector('.btn-text');
+            if (currentFilter === 'all' && matchingCount > MAX_VISIBLE_PROJECTS) {
+                projectsMoreContainer.style.display = 'flex';
+                projectsShowMoreBtn.setAttribute('aria-expanded', String(isProjectsExpanded));
+                if (btnText) {
+                    btnText.textContent = isProjectsExpanded ? 'Show Less' : 'Show More Projects';
+                }
+            } else {
+                projectsMoreContainer.style.display = 'none';
+            }
+        }
 
         if (typeof AOS !== 'undefined') {
             AOS.refresh();
         }
     }
 
-    contentSwitcherButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            setActiveContent(this.getAttribute('data-content-target'));
+    // Filter button click listeners
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            updateProjectsDisplay();
         });
     });
 
-    setActiveContent('books');
+    // Show More / Show Less button listener
+    if (projectsShowMoreBtn) {
+        projectsShowMoreBtn.addEventListener('click', function() {
+            isProjectsExpanded = !isProjectsExpanded;
+            updateProjectsDisplay();
 
-    // Project description toggle for expanded cards
-    document.querySelectorAll('[data-project-toggle]').forEach(toggleButton => {
-        toggleButton.addEventListener('click', function() {
-            const targetId = this.getAttribute('aria-controls');
-            const extraContent = document.getElementById(targetId);
-
-            if (!extraContent) {
-                return;
+            // Smooth scroll back to top of projects if user collapsed
+            if (!isProjectsExpanded) {
+                const projectsSection = document.getElementById('projects');
+                if (projectsSection) {
+                    projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             }
-
-            const isExpanded = this.getAttribute('aria-expanded') === 'true';
-            extraContent.hidden = isExpanded;
-            this.setAttribute('aria-expanded', String(!isExpanded));
-            this.textContent = isExpanded ? 'More' : 'Less';
         });
-    });
+    }
+
+    // Initial render
+    updateProjectsDisplay();
 
     // Animate skill bars on scroll
     const skillLevels = document.querySelectorAll('.skill-level');
@@ -587,19 +585,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Final check after all resources are loaded
 window.onload = function() {
-    // Double-check project filtering
-    const projectCards = document.querySelectorAll('.project-card');
-    
-    // Log all project categories for debugging
-    console.log("Project Categories:");
-    projectCards.forEach(card => {
-        console.log(card.querySelector('h3').textContent + ": " + card.getAttribute('data-category'));
-    });
-    
-    // Make sure all cards are visible initially
-    projectCards.forEach(card => {
-        card.style.display = 'block';
-    });
+    // Ensure project filtering state is respected after all assets load
+    if (typeof window.updateProjectsDisplay === 'function') {
+        window.updateProjectsDisplay();
+    }
     
     // Refresh AOS animations
     if (typeof AOS !== 'undefined') {

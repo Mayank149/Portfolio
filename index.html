@@ -134,7 +134,7 @@
                     <span class="kicker-text">CREDENTIALS</span>
                     <span class="kicker-line"></span>
                 </div>
-                <h2 class="section-heading">Verified <span class="highlight">Certifications</span></h2>
+                <h2 class="section-heading">Verified <span class="highlight">Certificates</span></h2>
                 <p class="section-subtitle">Continuous learning in Artificial Intelligence, Machine Learning, and Software Architecture.</p>
                 <div class="section-divider-bar"></div>
             </div>
@@ -228,9 +228,8 @@
                         <div class="skill-item"><div class="skill-name">RAG</div></div>
                         <div class="skill-item"><div class="skill-name">FAISS</div></div>
                         <div class="skill-item"><div class="skill-name">ChromaDB</div></div>
-                        <div class="skill-item"><div class="skill-name">VectorDB</div></div>
-                        <div class="skill-item"><div class="skill-name">Sentence Transformers</div></div>
                         <div class="skill-item"><div class="skill-name">Gemini API</div></div>
+                        <div class="skill-item"><div class="skill-name">Sentence Transformers</div></div>
                         <div class="skill-item"><div class="skill-name">Fine Tuning</div></div>
                     </div>
                 </div>
@@ -274,7 +273,7 @@
                         <div class="skill-item"><div class="skill-name">FastAPI</div></div>
                         <div class="skill-item"><div class="skill-name">Flask</div></div>
                         <div class="skill-item"><div class="skill-name">REST APIs</div></div>
-                        <div class="skill-item"><div class="skill-name">Docker</div></div>
+                        <!-- <div class="skill-item"><div class="skill-name">Docker</div></div> -->
                         <div class="skill-item"><div class="skill-name">Deployment</div></div>
                         <div class="skill-item"><div class="skill-name">UI Design</div></div>
                     </div>
@@ -355,10 +354,11 @@
                     </div>
                     <div class="project-info">
                         <h3>AI Career Copilot</h3>
-                        <p>
-                            Built an agentic RAG career assistant and ATS scorer with LangGraph tool orchestration and human-in-the-loop resume editing, using a state machine that interrupts execution for interactive diff review before applying any change.
-                            <span class="project-description-more" id="career-copilot-more" hidden> Designed a dual-provider LLM architecture (Groq cloud, Ollama local) with a ChromaDB semantic retrieval layer over sentence-transformer embeddings, achieving 90% Recall@4 and 0.83 MRR@4 on a 15-query benchmark, with Groq delivering 0.81s P50 latency. Fully containerized with Docker and powered by FastAPI.</span>
-                        </p>
+                        <ul class="project-bullets">
+                            <li>Architected an agentic RAG career assistant and ATS scorer with LangGraph state machine orchestration and human-in-the-loop resume diff review.</li>
+                            <li>Engineered a dual-provider LLM pipeline (Groq cloud & Ollama local) with ChromaDB semantic retrieval, achieving 90% Recall@4, 0.83 MRR@4, and 0.81s P50 latency.</li>
+                            <li>Containerized production microservices stack with Docker and exposed modular endpoints via FastAPI.</li>
+                        </ul>
                         <div class="tech-stack">
                             <span>Python</span>
                             <span>FastAPI</span>
@@ -372,7 +372,6 @@
                         </div>
                         <div class="project-links">
                             <a href="https://github.com/Mayank149/AI-Career-Copilot-Complete-" target="_blank" class="btn small secondary"><i class="fab fa-github"></i> GitHub</a>
-                            <button type="button" class="btn small secondary project-toggle" data-project-toggle aria-expanded="false" aria-controls="career-copilot-more">More</button>
                         </div>
                     </div>
                 </div>
@@ -384,10 +383,11 @@
                     </div>
                     <div class="project-info">
                         <h3>Technical Debug Assistant</h3>
-                        <p>
-                            Developed a production-style Multi-Hop Retrieval-Augmented Generation (RAG) Technical Debug Assistant that provides context-grounded solutions for technical issues using semantic search and large language models.
-                            <span class="project-description-more" id="tech-debug-more" hidden> Built the complete RAG pipeline from scratch, including document ingestion, metadata-aware chunking, semantic embedding generation, FAISS vector indexing, multi-document retrieval, context assembly, prompt engineering, and grounded response generation using Llama 3.3 70B via Groq. The application also supports live knowledge base updates through document uploads, source attribution, and retrieval score visualization for improved transparency.</span>
-                        </p>
+                        <ul class="project-bullets">
+                            <li>Engineered a production-style Multi-Hop RAG debugging assistant using FAISS vector indexing and Groq-hosted Llama 3.3 70B for context-grounded diagnostics.</li>
+                            <li>Built an end-to-end ingestion pipeline with metadata-aware chunking, semantic vector embeddings, and multi-document context synthesis.</li>
+                            <li>Integrated dynamic document uploads for live knowledge base updates, transparent source attribution, and retrieval score visualization.</li>
+                        </ul>
                         <div class="tech-stack">
                             <span>Retrieval-Augmented Generation (RAG)</span>
                             <span>Python</span>
@@ -399,19 +399,22 @@
                         </div>
                         <div class="project-links">
                             <a href="https://github.com/Mayank149/Technical-Debug-Assistant" target="_blank" class="btn small secondary"><i class="fab fa-github"></i> GitHub</a>
-                            <button type="button" class="btn small secondary project-toggle" data-project-toggle aria-expanded="false" aria-controls="tech-debug-more">More</button>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Project 1 - PDF Question Answering System (RAG) -->
+                <!-- Project 3 - PDF Question Answering System (RAG) -->
                 <div class="project-card" data-category="ai web" data-aos="fade-up">
                     <div class="project-img">
                         <img src="img/projects/project13.png" alt="PDF Question Answering System">
                     </div>
                     <div class="project-info">
                         <h3>PDF Question Answering System (RAG)</h3>
-                        <p>A Retrieval-Augmented Generation system that answers questions from PDF documents. Uses Sentence Transformers for embeddings, FAISS for similarity search, and Gemini API with guardrails to prevent hallucinations.</p>
+                        <ul class="project-bullets">
+                            <li>Built an end-to-end PDF question answering pipeline using Sentence Transformers embeddings and a FAISS vector index for low-latency similarity search.</li>
+                            <li>Integrated Gemini API with structured prompt engineering and safety guardrails to enforce context grounding and mitigate hallucinations.</li>
+                            <li>Developed an interactive web interface with Flask for dynamic PDF ingestion, chunking, and document querying.</li>
+                        </ul>
                         <div class="tech-stack">
                             <span>Python</span>
                             <span>Flask</span>
@@ -428,14 +431,18 @@
                     </div>
                 </div>
                 
-                <!-- Project 2 - Computer Vision Image Search -->
+                <!-- Project 4 - Visual Search Engine -->
                 <div class="project-card" data-category="ai web" data-aos="fade-up" data-aos-delay="50">
                     <div class="project-img">
                         <img src="img/projects/project14.png" alt="Computer Vision Image Search">
                     </div>
                     <div class="project-info">
                         <h3>Visual Search Engine</h3>
-                        <p>End-to-end image search system using ResNet50 for feature extraction and FAISS for efficient similarity retrieval. Users upload images to find visually similar results from a dataset in real-time.</p>
+                        <ul class="project-bullets">
+                            <li>Implemented an end-to-end visual similarity search engine using a pre-trained ResNet50 CNN in PyTorch for deep feature representation.</li>
+                            <li>Utilized FAISS vector indexing to perform fast nearest-neighbor similarity searches across large image datasets.</li>
+                            <li>Constructed an interactive Flask web service supporting real-time image upload, feature vector extraction, and candidate retrieval.</li>
+                        </ul>
                         <div class="tech-stack">
                             <span>Python</span>
                             <span>PyTorch</span>
@@ -450,14 +457,18 @@
                     </div>
                 </div>
                 
-                <!-- Project 3 - AI Complaint Triage & Routing System -->
+                <!-- Project 5 - AI Complaint Triage & Routing System -->
                 <div class="project-card" data-category="ai web" data-aos="fade-up" data-aos-delay="100">
                     <div class="project-img">
                         <img src="img/projects/project15.png" alt="AI Complaint Triage & Routing System">
                     </div>
                     <div class="project-info">
                         <h3>AI Complaint Triage & Routing System</h3>
-                        <p>End-to-end ML system for structured complaint handling using TF-IDF and Logistic Regression to classify departments and urgency. Features hybrid credibility scoring, auto-generated follow-up questions, database storage, and admin dashboard for oversight.</p>
+                        <ul class="project-bullets">
+                            <li>Developed an automated complaint triage system using TF-IDF vectorization and Logistic Regression to predict target departments and urgency levels.</li>
+                            <li>Formulated a hybrid credibility scoring algorithm with dynamic follow-up question generation to validate incoming claims.</li>
+                            <li>Engineered a centralized admin dashboard with persistent database storage for auditing, ticket assignment, and oversight.</li>
+                        </ul>
                         <div class="tech-stack">
                             <span>Python</span>
                             <span>TF-IDF</span>
@@ -472,14 +483,18 @@
                     </div>
                 </div>
                 
-                <!-- Project 4 - WasteSnap -->
-                <div class="project-card" data-category="ai web" data-aos="fade-up" data-aos-delay="150">
+                <!-- Project 6 - WasteSnap -->
+                <div class="project-card project-hidden" data-category="ai web" data-aos="fade-up" data-aos-delay="150">
                     <div class="project-img">
                         <img src="img/projects/project8.png" alt="WasteSnap - Smart Waste Classification">
                     </div>
                     <div class="project-info">
                         <h3>WasteSnap – Smart Waste Classification</h3>
-                        <p>A real-time waste classification web application that identifies 9 types of waste using a custom-trained MobileNetV2 model. Features include real-time classification, confidence scores, and disposal tips.</p>
+                        <ul class="project-bullets">
+                            <li>Trained and fine-tuned a MobileNetV2 convolutional neural network in TensorFlow to classify 9 distinct categories of waste.</li>
+                            <li>Delivered real-time inference providing probabilistic confidence scores alongside contextual recycling and disposal recommendations.</li>
+                            <li>Packaged and deployed the full-stack web application to production on Render using Flask.</li>
+                        </ul>
                         <div class="tech-stack">
                             <span>Python</span>
                             <span>TensorFlow</span>
@@ -494,14 +509,18 @@
                     </div>
                 </div>
                 
-                <!-- Project 5 - Mood2Mail -->
-                <div class="project-card" data-category="ai web" data-aos="fade-up" data-aos-delay="200">
+                <!-- Project 7 - Mood2Mail -->
+                <div class="project-card project-hidden" data-category="ai web" data-aos="fade-up" data-aos-delay="200">
                     <div class="project-img">
                         <img src="img/projects/project3.png" alt="Mood2Mail Project">
                     </div>
                     <div class="project-info">
                         <h3>Mood2Mail – Email Tone Analyzer</h3>
-                        <p>Built a tone-detection app using TF-IDF with Naive Bayes. Real-time feedback on email tones (Friendly, Formal, Aggressive, etc.) via Flask API and JS frontend.</p>
+                        <ul class="project-bullets">
+                            <li>Built a natural language classification engine using TF-IDF n-gram vectorization and Naive Bayes modeling to detect email communication tones.</li>
+                            <li>Implemented a RESTful Flask API providing instantaneous tone scoring (Formal, Friendly, Aggressive) to the client application.</li>
+                            <li>Deployed live on Render with an interactive preview interface delivering real-time sentiment feedback as users type.</li>
+                        </ul>
                         <div class="tech-stack">
                             <span>Python</span>
                             <span>TF-IDF</span>
@@ -515,14 +534,18 @@
                     </div>
                 </div>
                 
-                <!-- Project 6 - Dyslexia AI Assistant -->
-                <div class="project-card" data-category="ai web" data-aos="fade-up" data-aos-delay="250">
+                <!-- Project 8 - Dyslexia AI Assistant -->
+                <div class="project-card project-hidden" data-category="ai web" data-aos="fade-up" data-aos-delay="250">
                     <div class="project-img">
                         <img src="img/projects/project12.png" alt="Dyslexia AI Assistant">
                     </div>
                     <div class="project-info">
                         <h3>Dyslexia AI Assistant</h3>
-                        <p>An AI-powered web application designed to make reading easier for individuals with dyslexia and other reading difficulties. It uses a fine-tuned T5 transformer model to simplify complex text, making it clearer and more readable without losing meaning.</p>
+                        <ul class="project-bullets">
+                            <li>Deployed an assistive text simplification pipeline powered by a fine-tuned T5 Transformer sequence-to-sequence model.</li>
+                            <li>Automated the syntactic restructuring of dense, complex passages into simplified sentences while preserving factual nuance.</li>
+                            <li>Built an accessible Flask web interface designed with dyslexia-friendly typographic formatting and contrast controls.</li>
+                        </ul>
                         <div class="tech-stack">
                             <span>Python</span>
                             <span>Flask</span>
@@ -536,14 +559,18 @@
                     </div>
                 </div>
                 
-                <!-- Project 7 - DigiDetect -->
-                <div class="project-card" data-category="ai web" data-aos="fade-up" data-aos-delay="300">
+                <!-- Project 9 - DigiDetect -->
+                <div class="project-card project-hidden" data-category="ai web" data-aos="fade-up" data-aos-delay="300">
                     <div class="project-img">
                         <img src="img/projects/project9.png" alt="DigiDetect Project">
                     </div>
                     <div class="project-info">
                         <h3>DigiDetect – Handwritten Digit Recognition</h3>
-                        <p>A full-stack web app that recognizes handwritten digits with high accuracy. Users can draw a digit on a canvas or upload an image, and the app instantly predicts the digit and shows the model's confidence.</p>
+                        <ul class="project-bullets">
+                            <li>Architected and trained a Convolutional Neural Network (CNN) in TensorFlow/Keras for robust handwritten digit classification.</li>
+                            <li>Supported dual input streams with real-time HTML5 Canvas drawing and image file uploads with server-side grayscale normalization.</li>
+                            <li>Engineered a Flask backend serving low-latency inference along with full softmax probability distributions.</li>
+                        </ul>
                         <div class="tech-stack">
                             <span>Python</span>
                             <span>TensorFlow</span>
@@ -557,14 +584,18 @@
                     </div>
                 </div>
                 
-                <!-- Project 8 - Real Time ASL Hand Signs Predictor -->
-                <div class="project-card" data-category="ai" data-aos="fade-up" data-aos-delay="350">
+                <!-- Project 10 - Real Time ASL Hand Signs Predictor -->
+                <div class="project-card project-hidden" data-category="ai" data-aos="fade-up" data-aos-delay="350">
                     <div class="project-img">
                         <img src="img/projects/project11.png" alt="Real Time ASL Hand Signs Predictor">
                     </div>
                     <div class="project-info">
                         <h3>Real Time ASL Hand Signs Predictor</h3>
-                        <p>Built a sign language translator using a CNN trained on the ASL dataset. Preprocessed data with GPU acceleration in Google Colab and integrated the model with OpenCV and MediaPipe for real-time hand sign detection. A strong prototype toward bridging communication gaps.</p>
+                        <ul class="project-bullets">
+                            <li>Trained a deep CNN on American Sign Language datasets utilizing GPU acceleration in Google Colab with data augmentation.</li>
+                            <li>Integrated MediaPipe and OpenCV pipelines for real-time hand landmark detection and region-of-interest segmentation.</li>
+                            <li>Implemented low-latency webcam stream processing to deliver continuous real-time sign language prediction.</li>
+                        </ul>
                         <div class="tech-stack">
                             <span>Python</span>
                             <span>TensorFlow/Keras</span>
@@ -578,14 +609,18 @@
                     </div>
                 </div>
                 
-                <!-- Project 9 - BiasX-Ray -->
-                <div class="project-card" data-category="hackathon ai" data-aos="fade-up" data-aos-delay="400">
+                <!-- Project 11 - BiasX-Ray -->
+                <div class="project-card project-hidden" data-category="hackathon ai" data-aos="fade-up" data-aos-delay="400">
                     <div class="project-img">
                         <img src="img/projects/project1.png" alt="BiasX-Ray Project">
                     </div>
                     <div class="project-info">
                         <h3>BiasX-Ray – Real-Time Bias Detector</h3>
-                        <p>A web-based tool that detects bias in team chat messages in real-time. Identifies gender-coded words, microaggressions, and offers inclusive rewrites to foster respectful communication.</p>
+                        <ul class="project-bullets">
+                            <li>Engineered a real-time NLP text analysis engine using spaCy and NLTK to scan communications for gender-coded bias and microaggressions.</li>
+                            <li>Implemented a rule-augmented recommendation system proposing inclusive, respectful phrasing alternatives.</li>
+                            <li>Deployed full-stack application live on Render featuring asynchronous API communication and visual inline highlights.</li>
+                        </ul>
                         <div class="tech-stack">
                             <span>Python</span>
                             <span>Flask</span>
@@ -599,14 +634,18 @@
                     </div>
                 </div>
                 
-                <!-- Project 10 - StyleNet -->
-                <div class="project-card" data-category="ai web" data-aos="fade-up" data-aos-delay="450">
+                <!-- Project 12 - StyleNet -->
+                <div class="project-card project-hidden" data-category="ai web" data-aos="fade-up" data-aos-delay="450">
                     <div class="project-img">
                         <img src="img/projects/project10.png" alt="StyleNet Project">
                     </div>
                     <div class="project-info">
                         <h3>StyleNet – Fashion Image Classifier</h3>
-                        <p>A fashion image classifier powered by a CNN trained on Fashion MNIST. Achieved ~91% accuracy, deployed with Flask, and features a clean frontend for easy testing and image uploads.</p>
+                        <ul class="project-bullets">
+                            <li>Designed and trained a deep CNN on the Fashion MNIST benchmark dataset, achieving ~91% test classification accuracy.</li>
+                            <li>Implemented server-side image preprocessing pipelines for 28x28 grayscale normalization and tensor reshaping.</li>
+                            <li>Deployed as an interactive Flask application enabling drag-and-drop image uploads with immediate categorical predictions.</li>
+                        </ul>
                         <div class="tech-stack">
                             <span>Python</span>
                             <span>TensorFlow</span>
@@ -620,14 +659,18 @@
                     </div>
                 </div>
                 
-                <!-- Project 11 - Music Genre Classification -->
-                <div class="project-card" data-category="ai web" data-aos="fade-up" data-aos-delay="500">
+                <!-- Project 13 - Music Genre Classification -->
+                <div class="project-card project-hidden" data-category="ai web" data-aos="fade-up" data-aos-delay="500">
                     <div class="project-img">
                         <img src="img/projects/project6.png" alt="Music Genre Classification">
                     </div>
                     <div class="project-info">
                         <h3>Music Genre Classification</h3>
-                        <p>Used Librosa to extract audio features and predict genres via Flask API. Handled MP3/WAV input formats and resolved backend deployment issues (CORS, NumPy compatibility).</p>
+                        <ul class="project-bullets">
+                            <li>Developed an audio signal processing pipeline leveraging Librosa to extract MFCCs, spectral roll-off, and chroma features.</li>
+                            <li>Built a modular Flask REST API handling multiformat audio uploads (MP3, WAV) with configured CORS headers.</li>
+                            <li>Optimized audio feature extraction pipelines ensuring compatibility across runtime environments.</li>
+                        </ul>
                         <div class="tech-stack">
                             <span>Python</span>
                             <span>Librosa</span>
@@ -640,14 +683,18 @@
                     </div>
                 </div>
                 
-                <!-- Project 12 - Fake Job Posting Detector -->
-                <div class="project-card" data-category="ai web" data-aos="fade-up" data-aos-delay="550">
+                <!-- Project 14 - Fake Job Posting Detector -->
+                <div class="project-card project-hidden" data-category="ai web" data-aos="fade-up" data-aos-delay="550">
                     <div class="project-img">
                         <img src="img/projects/project4.png" alt="Fake Job Posting Detector">
                     </div>
                     <div class="project-info">
                         <h3>Fake Job Posting Detector</h3>
-                        <p>Developed a Logistic Regression model to detect fraudulent job listings. Deployed with a clean, responsive frontend using Flask and vanilla JS.</p>
+                        <ul class="project-bullets">
+                            <li>Trained a supervised Logistic Regression classifier on labeled job posting datasets to identify fraudulent postings.</li>
+                            <li>Executed text preprocessing including tokenization, stop-word filtering, and term frequency feature extraction.</li>
+                            <li>Deployed full-stack web application live on Render utilizing a Flask backend and vanilla JavaScript interface.</li>
+                        </ul>
                         <div class="tech-stack">
                             <span>Python</span>
                             <span>Scikit-learn</span>
@@ -661,14 +708,18 @@
                     </div>
                 </div>
                 
-                <!-- Project 13 - Car Mileage Predictor -->
-                <div class="project-card" data-category="ai web" data-aos="fade-up" data-aos-delay="600">
+                <!-- Project 15 - Car Mileage Predictor -->
+                <div class="project-card project-hidden" data-category="ai web" data-aos="fade-up" data-aos-delay="600">
                     <div class="project-img">
                         <img src="img/projects/project5.png" alt="Car Mileage Predictor">
                     </div>
                     <div class="project-info">
                         <h3>Car Mileage Predictor</h3>
-                        <p>Trained a Linear Regression model with feature engineering and Grid Search. Built a deployment-ready interface to predict mileage from user inputs.</p>
+                        <ul class="project-bullets">
+                            <li>Constructed a predictive regression pipeline featuring domain-specific feature engineering and Grid Search parameter tuning.</li>
+                            <li>Evaluated multi-attribute automotive specifications to compute calibrated vehicle fuel efficiency metrics.</li>
+                            <li>Deployed live on Render with an intuitive form interface and Flask REST backend.</li>
+                        </ul>
                         <div class="tech-stack">
                             <span>Python</span>
                             <span>Linear Regression</span>
@@ -682,14 +733,17 @@
                     </div>
                 </div>
                 
-                <!-- Project 14 - Movie Recommendation System -->
-                <div class="project-card" data-category="ai" data-aos="fade-up" data-aos-delay="650">
+                <!-- Project 16 - Movie Recommendation System -->
+                <div class="project-card project-hidden" data-category="ai" data-aos="fade-up" data-aos-delay="650">
                     <div class="project-img">
                         <img src="img/projects/project7.png" alt="Movie Recommendation System">
                     </div>
                     <div class="project-info">
                         <h3>Movie Recommendation System</h3>
-                        <p>Created a content-based recommender system in Python. Suggests similar movies based on title and genre correlations.</p>
+                        <ul class="project-bullets">
+                            <li>Architected a content-based recommendation algorithm utilizing cosine similarity matrices across movie titles, genres, and metadata.</li>
+                            <li>Built data transformation pipelines in Python to process movie datasets and return ranked high-affinity recommendations.</li>
+                        </ul>
                         <div class="tech-stack">
                             <span>Python</span>
                             <span>Content-based Filtering</span>
@@ -701,14 +755,17 @@
                     </div>
                 </div>
                 
-                <!-- Project 15 - University Time Bank -->
+                <!-- Project 17 (Archived) - University Time Bank -->
                 <!-- <div class="project-card" data-category="web" data-aos="fade-up" data-aos-delay="700">
                     <div class="project-img">
                         <img src="img/projects/project2.png" alt="University Time Bank">
                     </div>
                     <div class="project-info">
                         <h3>University Time Bank (UTB)</h3>
-                        <p>A web-based platform designed to facilitate skill exchange among university students. It enables users to request and offer assistance in exchange for Time Credits (TCs), promoting a collaborative community.</p>
+                        <ul class="project-bullets">
+                            <li>Engineered a student skill-exchange web platform implementing time-banking economics and credit ledgers.</li>
+                            <li>Built interactive UI with vanilla JavaScript for real-time task posting, booking, and balance management.</li>
+                        </ul>
                         <div class="tech-stack">
                             <span>HTML</span>
                             <span>CSS</span>
@@ -721,6 +778,13 @@
                         </div>
                     </div>
                 </div> -->
+            </div>
+            
+            <div class="projects-more-container" data-aos="fade-up">
+                <button type="button" id="projects-show-more-btn" class="projects-toggle-btn" aria-expanded="false">
+                    <span class="btn-text">Show More Projects</span>
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                </button>
             </div>
         </div>
     </section>
