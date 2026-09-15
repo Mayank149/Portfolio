@@ -289,6 +289,36 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial render
     updateProjectsDisplay();
 
+    // Blog/Books content switcher
+    const contentSwitcherButtons = document.querySelectorAll('[data-content-target]');
+    const contentPanels = document.querySelectorAll('[data-content-panel]');
+
+    function setActiveContent(target) {
+        contentSwitcherButtons.forEach(button => {
+            const isActive = button.getAttribute('data-content-target') === target;
+            button.classList.toggle('active', isActive);
+            button.setAttribute('aria-pressed', String(isActive));
+        });
+
+        contentPanels.forEach(panel => {
+            const matches = panel.getAttribute('data-content-panel') === target;
+            panel.hidden = !matches;
+        });
+
+        if (typeof AOS !== 'undefined') {
+            AOS.refresh();
+        }
+    }
+
+    contentSwitcherButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            setActiveContent(this.getAttribute('data-content-target'));
+        });
+    });
+
+    // Default to 'books' view initially
+    setActiveContent('books');
+
     // Animate skill bars on scroll
     const skillLevels = document.querySelectorAll('.skill-level');
     
@@ -350,6 +380,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
+                // If user clicked the Blog nav link, switch to blogs panel
+                if (targetId === '#blog') {
+                    setActiveContent('blogs');
+                }
+
                 // Close mobile menu if open
                 if (navLinks.classList.contains('active')) {
                     navLinks.classList.remove('active');
