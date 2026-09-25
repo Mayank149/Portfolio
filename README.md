@@ -10,7 +10,7 @@ A modern, high-performance developer portfolio built with an emerald-accented ob
 
 ##  Demo Preview
 
-![Portfolio Preview](./image.png)
+![Portfolio Preview](./image.webp)
 
 ---
 

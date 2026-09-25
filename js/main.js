@@ -401,15 +401,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Certificate Carousel
     const certImages = [
-        'certificate1.png',
-        'certificate2.png',
-        'certificate3.png',
-        'certificate4.png',
-        'certificate5.png',
-        'certificate6.png',
-        'certificate7.png',
-        'certificate8.png',
-        'certificate9.png'
+        'certificate1.webp',
+        'certificate2.webp',
+        'certificate3.webp',
+        'certificate4.webp',
+        'certificate5.webp',
+        'certificate6.webp',
+        'certificate7.webp',
+        'certificate8.webp',
+        'certificate9.webp'
     ];
     const certFolder = 'img/certificates/';
     let certIndex = 0;
