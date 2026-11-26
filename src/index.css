@@ -2105,3 +2105,89 @@ button {
     background: linear-gradient(145deg, rgba(16, 17, 26, 0.88), rgba(56, 189, 248, 0.08), rgba(236, 72, 153, 0.08));
     border-color: rgba(56, 189, 248, 0.25);
 }
+
+/* ---------- Pink + Blue Dual-Tone Theme Enhancement ---------- */
+.sci-grid-overlay {
+    background-image:
+        linear-gradient(rgba(56, 189, 248, 0.032) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(236, 72, 153, 0.026) 1px, transparent 1px);
+}
+
+.hero-vignette {
+    background:
+        radial-gradient(circle at 18% 28%, rgba(56, 189, 248, 0.14), transparent 48%),
+        radial-gradient(circle at 76% 44%, rgba(236, 72, 153, 0.15), transparent 52%),
+        linear-gradient(180deg, rgba(5, 5, 8, 0.12) 0%, rgba(5, 5, 8, 0.45) 75%, var(--bg-void) 100%);
+}
+
+.nav-link::after {
+    background: linear-gradient(90deg, var(--accent-pink), var(--accent-blue));
+}
+
+.btn-primary {
+    background: linear-gradient(125deg, #be185d 0%, #ec4899 52%, #0284c7 100%);
+    box-shadow: 0 10px 28px rgba(236, 72, 153, 0.3), 0 6px 22px rgba(56, 189, 248, 0.22);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 14px 36px rgba(236, 72, 153, 0.42), 0 8px 28px rgba(56, 189, 248, 0.35);
+}
+
+.kicker-bar {
+    background: linear-gradient(180deg, var(--accent-hot), var(--accent-blue));
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+}
+
+.hud-progress-fill {
+    background: linear-gradient(90deg, var(--accent-pink), var(--accent-blue));
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.55);
+}
+
+.hud-chip {
+    border-color: rgba(56, 189, 248, 0.38);
+    color: #bae6fd;
+}
+
+.stat-icon {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.12), rgba(56, 189, 248, 0.14));
+    border-color: rgba(56, 189, 248, 0.28);
+    color: var(--accent-blue);
+}
+
+.project-card:hover,
+.skill-panel:hover,
+.bento-card:hover {
+    border-color: rgba(56, 189, 248, 0.42);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55), 0 0 28px rgba(56, 189, 248, 0.14), 0 0 24px rgba(236, 72, 153, 0.12);
+}
+
+.capability-card:hover {
+    border-color: rgba(56, 189, 248, 0.45);
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.12), rgba(56, 189, 248, 0.12));
+}
+
+.filter-pill.active {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(56, 189, 248, 0.2));
+    border-color: rgba(56, 189, 248, 0.55);
+    box-shadow: 0 0 18px rgba(56, 189, 248, 0.2);
+}
+
+/* ---------- Seamless Vignette (No Horizontal Seam) ---------- */
+.hero-vignette {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse 65% 55% at 15% 25%, rgba(56, 189, 248, 0.11), transparent 70%),
+        radial-gradient(ellipse 65% 55% at 85% 40%, rgba(236, 72, 153, 0.12), transparent 70%);
+}
+
+.hero-bg-figure-fade {
+    display: none;
+}
+
+.hero-bg-figure-img {
+    mask-image: radial-gradient(ellipse 62% 66% at 50% 42%, #000 34%, transparent 86%);
+    -webkit-mask-image: radial-gradient(ellipse 62% 66% at 50% 42%, #000 34%, transparent 86%);
+}

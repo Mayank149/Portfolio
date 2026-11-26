@@ -45,7 +45,7 @@ function AppShell() {
 
   return (
     <div className="app-root">
-      <CosmicBackground warpTrigger={warpCount} isHome={location.pathname === '/'} />
+      <CosmicBackground warpTrigger={warpCount} pathname={location.pathname} />
       <div className="sci-grid-overlay" aria-hidden="true" />
       <div className="hero-vignette" aria-hidden="true" />
 

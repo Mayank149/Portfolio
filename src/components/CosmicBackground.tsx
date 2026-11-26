@@ -3,17 +3,98 @@ import * as THREE from 'three';
 
 interface CosmicBackgroundProps {
   warpTrigger: number;
-  isHome: boolean;
+  pathname: string;
 }
 
-export function CosmicBackground({ warpTrigger, isHome }: CosmicBackgroundProps) {
+interface PlanetPreset {
+  planetColor: number;
+  wireColor: number;
+  innerRingColor: number;
+  outerRingColor: number;
+  posX: number;
+  posY: number;
+  scale: number;
+  ringTiltX: number;
+  ringTiltY: number;
+}
+
+const PLANET_PRESETS: Record<string, PlanetPreset> = {
+  '/': {
+    planetColor: 0x14121d,
+    wireColor: 0xec4899,
+    innerRingColor: 0xff2a85,
+    outerRingColor: 0x38bdf8,
+    posX: 2.5,
+    posY: 0.4,
+    scale: 1.0,
+    ringTiltX: Math.PI * 0.42,
+    ringTiltY: -Math.PI * 0.14,
+  },
+  '/projects': {
+    planetColor: 0x0b172a,
+    wireColor: 0x38bdf8,
+    innerRingColor: 0x38bdf8,
+    outerRingColor: 0xec4899,
+    posX: -3.2,
+    posY: 1.1,
+    scale: 0.88,
+    ringTiltX: Math.PI * 0.34,
+    ringTiltY: Math.PI * 0.22,
+  },
+  '/skills': {
+    planetColor: 0x1a1030,
+    wireColor: 0xa855f7,
+    innerRingColor: 0xa855f7,
+    outerRingColor: 0x38bdf8,
+    posX: 3.4,
+    posY: -0.6,
+    scale: 0.92,
+    ringTiltX: Math.PI * 0.48,
+    ringTiltY: -Math.PI * 0.25,
+  },
+  '/about': {
+    planetColor: 0x241022,
+    wireColor: 0xf472b6,
+    innerRingColor: 0xec4899,
+    outerRingColor: 0x60a5fa,
+    posX: -3.0,
+    posY: -0.7,
+    scale: 0.85,
+    ringTiltX: Math.PI * 0.38,
+    ringTiltY: Math.PI * 0.12,
+  },
+  '/publications': {
+    planetColor: 0x0b2228,
+    wireColor: 0x2dd4bf,
+    innerRingColor: 0x38bdf8,
+    outerRingColor: 0xf472b6,
+    posX: 3.1,
+    posY: 1.2,
+    scale: 0.82,
+    ringTiltX: Math.PI * 0.44,
+    ringTiltY: -Math.PI * 0.18,
+  },
+  '/contact': {
+    planetColor: 0x0d1b36,
+    wireColor: 0x60a5fa,
+    innerRingColor: 0x38bdf8,
+    outerRingColor: 0xff2a85,
+    posX: 0.0,
+    posY: 1.5,
+    scale: 0.78,
+    ringTiltX: Math.PI * 0.4,
+    ringTiltY: 0,
+  },
+};
+
+export function CosmicBackground({ warpTrigger, pathname }: CosmicBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const warpRef = useRef(0);
-  const isHomeRef = useRef(isHome);
+  const presetRef = useRef<PlanetPreset>(PLANET_PRESETS[pathname] ?? PLANET_PRESETS['/']);
 
   useEffect(() => {
-    isHomeRef.current = isHome;
-  }, [isHome]);
+    presetRef.current = PLANET_PRESETS[pathname] ?? PLANET_PRESETS['/'];
+  }, [pathname]);
 
   useEffect(() => {
     if (warpTrigger > 0) {
@@ -42,91 +123,96 @@ export function CosmicBackground({ warpTrigger, isHome }: CosmicBackgroundProps)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
 
-    // Lighting
-    scene.add(new THREE.AmbientLight(0xffffff, 0.32));
+    scene.add(new THREE.AmbientLight(0xffffff, 0.35));
 
     const pinkLight = new THREE.PointLight(0xff2a85, 3.4, 28);
     pinkLight.position.set(4.5, 2.5, 4.5);
     scene.add(pinkLight);
 
-    const blueLight = new THREE.PointLight(0x38bdf8, 2.4, 26);
+    const blueLight = new THREE.PointLight(0x38bdf8, 2.6, 26);
     blueLight.position.set(-4.5, 1.5, 3.5);
     scene.add(blueLight);
 
-    const violetLight = new THREE.PointLight(0xa855f7, 1.8, 24);
-    violetLight.position.set(-4, -2.5, 3);
-    scene.add(violetLight);
-
-    // Planet + Glowing Orbital Ring (Signature Image 2 Cosmic Centerpiece)
+    // Morphing Exoplanet Group (transitions across galaxies/planets per route)
     const planetGroup = new THREE.Group();
     planetGroup.position.set(2.5, 0.4, -2.2);
     scene.add(planetGroup);
 
-    const planetMesh = new THREE.Mesh(
-      new THREE.SphereGeometry(2.15, 48, 48),
-      new THREE.MeshStandardMaterial({
-        color: 0x14121d,
-        roughness: 0.85,
-        metalness: 0.28,
-      })
-    );
+    const planetMat = new THREE.MeshStandardMaterial({
+      color: 0x14121d,
+      roughness: 0.85,
+      metalness: 0.28,
+    });
+    const planetMesh = new THREE.Mesh(new THREE.SphereGeometry(2.15, 48, 48), planetMat);
     planetGroup.add(planetMesh);
 
-    const wirePlanet = new THREE.Mesh(
-      new THREE.SphereGeometry(2.18, 22, 22),
-      new THREE.MeshBasicMaterial({
-        color: 0xec4899,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.08,
-      })
-    );
-    planetGroup.add(wirePlanet);
+    const wireMat = new THREE.MeshBasicMaterial({
+      color: 0xec4899,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.1,
+    });
+    planetGroup.add(new THREE.Mesh(new THREE.SphereGeometry(2.19, 22, 22), wireMat));
 
+    const innerRingMat = new THREE.MeshBasicMaterial({
+      color: 0xff2a85,
+      transparent: true,
+      opacity: 0.72,
+    });
     const orbitalRing = new THREE.Mesh(
       new THREE.TorusGeometry(3.3, 0.045, 16, 120),
-      new THREE.MeshBasicMaterial({
-        color: 0xff2a85,
-        transparent: true,
-        opacity: 0.72,
-      })
+      innerRingMat
     );
     orbitalRing.rotation.x = Math.PI * 0.42;
     orbitalRing.rotation.y = -Math.PI * 0.14;
     planetGroup.add(orbitalRing);
 
+    const outerRingMat = new THREE.MeshBasicMaterial({
+      color: 0x38bdf8,
+      transparent: true,
+      opacity: 0.58,
+    });
     const outerRing = new THREE.Mesh(
-      new THREE.TorusGeometry(3.8, 0.018, 12, 120),
-      new THREE.MeshBasicMaterial({
-        color: 0x38bdf8,
-        transparent: true,
-        opacity: 0.34,
-      })
+      new THREE.TorusGeometry(3.8, 0.028, 12, 120),
+      outerRingMat
     );
     outerRing.rotation.x = Math.PI * 0.45;
     outerRing.rotation.y = Math.PI * 0.1;
     planetGroup.add(outerRing);
 
-    // 3D Starfield (supports hyperdrive warp streaks on route change)
-    const starCount = 900;
-    const starPositions = new Float32Array(starCount * 3);
-    for (let i = 0; i < starCount; i++) {
-      starPositions[i * 3] = (Math.random() - 0.5) * 38;
-      starPositions[i * 3 + 1] = (Math.random() - 0.5) * 24;
-      starPositions[i * 3 + 2] = (Math.random() - 0.5) * 36 - 6;
-    }
+    // Dual Pink + Blue Hyperdrive Starfield
+    const starCount = 520;
+    const makeStars = () => {
+      const arr = new Float32Array(starCount * 3);
+      for (let i = 0; i < starCount; i++) {
+        arr[i * 3] = (Math.random() - 0.5) * 38;
+        arr[i * 3 + 1] = (Math.random() - 0.5) * 24;
+        arr[i * 3 + 2] = (Math.random() - 0.5) * 36 - 6;
+      }
+      return arr;
+    };
+
     const starGeo = new THREE.BufferGeometry();
-    starGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+    starGeo.setAttribute('position', new THREE.BufferAttribute(makeStars(), 3));
     const starMat = new THREE.PointsMaterial({
       color: 0xf9a8d4,
       size: 0.05,
       transparent: true,
-      opacity: 0.75,
+      opacity: 0.72,
     });
-    const stars = new THREE.Points(starGeo, starMat);
-    scene.add(stars);
+    scene.add(new THREE.Points(starGeo, starMat));
 
-    // Wireframe Horizon Terrain (nodding to Image 1)
+    const blueStarGeo = new THREE.BufferGeometry();
+    blueStarGeo.setAttribute('position', new THREE.BufferAttribute(makeStars(), 3));
+    const blueStarMat = new THREE.PointsMaterial({
+      color: 0x38bdf8,
+      size: 0.055,
+      transparent: true,
+      opacity: 0.72,
+    });
+    scene.add(new THREE.Points(blueStarGeo, blueStarMat));
+
+    // Wireframe Terrain Horizon
     const terrainGeo = new THREE.PlaneGeometry(32, 14, 42, 22);
     const tPos = terrainGeo.attributes.position;
     for (let i = 0; i < tPos.count; i++) {
@@ -138,10 +224,10 @@ export function CosmicBackground({ warpTrigger, isHome }: CosmicBackgroundProps)
     const terrain = new THREE.Mesh(
       terrainGeo,
       new THREE.MeshBasicMaterial({
-        color: 0xec4899,
+        color: 0x38bdf8,
         wireframe: true,
         transparent: true,
-        opacity: 0.1,
+        opacity: 0.12,
       })
     );
     terrain.rotation.x = -Math.PI / 2.25;
@@ -163,6 +249,11 @@ export function CosmicBackground({ warpTrigger, isHome }: CosmicBackgroundProps)
     };
     window.addEventListener('resize', onResize);
 
+    const targetPlanetCol = new THREE.Color();
+    const targetWireCol = new THREE.Color();
+    const targetInnerCol = new THREE.Color();
+    const targetOuterCol = new THREE.Color();
+
     const clock = new THREE.Clock();
     let rafId = 0;
 
@@ -170,32 +261,54 @@ export function CosmicBackground({ warpTrigger, isHome }: CosmicBackgroundProps)
       rafId = requestAnimationFrame(animate);
       const t = clock.getElapsedTime();
 
-      // Smoothly decay warp pulse
-      warpRef.current *= 0.94;
+      warpRef.current *= 0.935;
       const warp = warpRef.current;
 
-      // Move stars forward during cosmic transition warp
+      // Hyperdrive star streaking during page warp
       const posAttr = starGeo.attributes.position as THREE.BufferAttribute;
-      const speed = 0.015 + warp * 0.42;
+      const bluePosAttr = blueStarGeo.attributes.position as THREE.BufferAttribute;
+      const speed = 0.015 + warp * 0.72;
       for (let i = 0; i < starCount; i++) {
         let z = posAttr.getZ(i) + speed;
         if (z > 10) z = -26;
         posAttr.setZ(i, z);
+
+        let bz = bluePosAttr.getZ(i) + speed * 1.15;
+        if (bz > 10) bz = -26;
+        bluePosAttr.setZ(i, bz);
       }
       posAttr.needsUpdate = true;
-      starMat.size = 0.05 + warp * 0.045;
+      bluePosAttr.needsUpdate = true;
+      starMat.size = 0.05 + warp * 0.075;
+      blueStarMat.size = 0.055 + warp * 0.08;
 
-      // Smoothly shift planet position slightly off-center on non-home pages
-      const targetPlanetX = isHomeRef.current ? 2.5 : 3.9;
-      const targetPlanetOpacity = isHomeRef.current ? 1 : 0.45;
-      planetGroup.position.x += (targetPlanetX - planetGroup.position.x) * 0.04;
-      orbitalRing.material.opacity += (0.72 * targetPlanetOpacity - orbitalRing.material.opacity) * 0.05;
+      // Morph planet toward current route's galaxy preset
+      const preset = presetRef.current;
+      targetPlanetCol.setHex(preset.planetColor);
+      targetWireCol.setHex(preset.wireColor);
+      targetInnerCol.setHex(preset.innerRingColor);
+      targetOuterCol.setHex(preset.outerRingColor);
 
-      planetMesh.rotation.y = t * 0.08;
-      orbitalRing.rotation.z = t * 0.12 + warp * 0.25;
-      outerRing.rotation.z = -t * 0.07;
+      planetMat.color.lerp(targetPlanetCol, 0.05);
+      wireMat.color.lerp(targetWireCol, 0.05);
+      innerRingMat.color.lerp(targetInnerCol, 0.05);
+      outerRingMat.color.lerp(targetOuterCol, 0.05);
 
-      camera.fov = 52 + warp * 4.5;
+      planetGroup.position.x += (preset.posX - planetGroup.position.x) * 0.045;
+      planetGroup.position.y += (preset.posY - planetGroup.position.y) * 0.045;
+      // Brief warp-shrink/emerge pulse when switching galaxies
+      const targetScale = preset.scale * (1 - warp * 0.28);
+      const s = planetGroup.scale.x + (targetScale - planetGroup.scale.x) * 0.08;
+      planetGroup.scale.setScalar(s);
+
+      orbitalRing.rotation.x += (preset.ringTiltX - orbitalRing.rotation.x) * 0.05;
+      orbitalRing.rotation.y += (preset.ringTiltY - orbitalRing.rotation.y) * 0.05;
+
+      planetMesh.rotation.y = t * 0.08 + warp * 0.3;
+      orbitalRing.rotation.z = t * 0.12 + warp * 0.35;
+      outerRing.rotation.z = -t * 0.08;
+
+      camera.fov = 52 + warp * 8;
       camera.updateProjectionMatrix();
 
       camera.position.x += (targetX * 0.5 - camera.position.x) * 0.04;

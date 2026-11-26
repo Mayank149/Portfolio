@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Award, ChevronLeft, ChevronRight, Code2, Download, Eye, Github, GraduationCap, Linkedin, Terminal, X } from 'lucide-react';
 import { CosmicTransition } from '../components/CosmicTransition';
 import { CERTIFICATES } from '../data/portfolioData';
@@ -10,6 +11,21 @@ export function AboutPage() {
   const stepCert = (delta: number) => {
     setCertIdx((prev) => (prev + delta + CERTIFICATES.length) % CERTIFICATES.length);
   };
+
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    document.body.style.overflow = 'hidden';
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightboxOpen(false);
+      else if (e.key === 'ArrowLeft') stepCert(-1);
+      else if (e.key === 'ArrowRight') stepCert(1);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [lightboxOpen]);
 
   return (
     <CosmicTransition>
@@ -161,41 +177,43 @@ export function AboutPage() {
         </div>
       </section>
 
-      {lightboxOpen && (
-        <div className="scifi-modal" role="dialog" aria-modal="true">
-          <div className="modal-backdrop" onClick={() => setLightboxOpen(false)} />
-          <div className="cert-lightbox-panel">
-            <button
-              type="button"
-              className="modal-close"
-              onClick={() => setLightboxOpen(false)}
-              aria-label="Close"
-            >
-              <X size={18} />
-            </button>
-            <button
-              type="button"
-              className="lightbox-arrow prev"
-              onClick={() => stepCert(-1)}
-              aria-label="Previous"
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <img src={CERTIFICATES[certIdx]} alt={`Certificate ${certIdx + 1}`} />
-            <button
-              type="button"
-              className="lightbox-arrow next"
-              onClick={() => stepCert(1)}
-              aria-label="Next"
-            >
-              <ChevronRight size={18} />
-            </button>
-            <div className="lightbox-caption">
-              Certificate {certIdx + 1} of {CERTIFICATES.length}
+      {lightboxOpen &&
+        createPortal(
+          <div className="scifi-modal" role="dialog" aria-modal="true" aria-label="Certificate Lightbox">
+            <div className="modal-backdrop" onClick={() => setLightboxOpen(false)} />
+            <div className="cert-lightbox-panel">
+              <button
+                type="button"
+                className="modal-close"
+                onClick={() => setLightboxOpen(false)}
+                aria-label="Close"
+              >
+                <X size={18} />
+              </button>
+              <button
+                type="button"
+                className="lightbox-arrow prev"
+                onClick={() => stepCert(-1)}
+                aria-label="Previous"
+              >
+                <ChevronLeft size={18} />
+              </button>
+              <img src={CERTIFICATES[certIdx]} alt={`Certificate ${certIdx + 1}`} />
+              <button
+                type="button"
+                className="lightbox-arrow next"
+                onClick={() => stepCert(1)}
+                aria-label="Next"
+              >
+                <ChevronRight size={18} />
+              </button>
+              <div className="lightbox-caption">
+                Certificate {certIdx + 1} of {CERTIFICATES.length}
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </CosmicTransition>
   );
 }

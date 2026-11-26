@@ -44,7 +44,7 @@ export function Navbar({ onOpenCommand }: NavbarProps) {
             </defs>
           </svg>
           <span className="brand-name">
-            Mayank<span className="accent-dot">.</span>
+            Mayank Bansal<span className="accent-dot">.</span>
           </span>
         </Link>
 

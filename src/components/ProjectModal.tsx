@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { ProjectItem } from '../data/portfolioData';
 import { ExternalLink, Github, X } from 'lucide-react';
 
@@ -24,7 +25,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
   if (!project) return null;
 
-  return (
+  return createPortal(
     <div className="scifi-modal" role="dialog" aria-modal="true" aria-label={project.title}>
       <div className="modal-backdrop" onClick={onClose} />
       <div className="modal-panel">
@@ -73,6 +74,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
