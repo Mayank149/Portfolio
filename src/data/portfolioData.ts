@@ -384,28 +384,24 @@ export const PUBLICATIONS: PublicationItem[] = [
   {
     title: 'Google Veo 3 and the Death of Reality',
     date: 'May 29, 2025',
-    type: 'Essay',
+    type: 'Medium Essay',
     summary:
       "Analysis of Google's Veo 3 AI video generation model and its implications for creativity, reality, and content creation.",
     img: '/img/blog/blog2.webp',
-    primaryUrl: '/blog/google-veo-3.html',
-    primaryLabel: 'Read Article',
-    secondaryUrl:
+    primaryUrl:
       'https://medium.com/@bansalmayank1414/google-veo-3-and-the-death-of-reality-or-the-rebirth-of-creativity-1754b0569d97',
-    secondaryLabel: 'Medium',
+    primaryLabel: 'Read on Medium',
   },
   {
     title: 'AI in Fiction and in Reality',
     date: 'April 27, 2025',
-    type: 'Essay',
+    type: 'Medium Essay',
     summary:
       'Exploring how science fiction shapes our understanding of AI versus the reality of modern deployed machine learning systems.',
     img: '/img/blog/blog1.webp',
-    primaryUrl: '/blog/ai-in-fiction-and-reality.html',
-    primaryLabel: 'Read Article',
-    secondaryUrl:
+    primaryUrl:
       'https://medium.com/@bansalmayank1414/ai-in-fiction-and-in-reality-7545bb4fdf63',
-    secondaryLabel: 'Medium',
+    primaryLabel: 'Read on Medium',
   },
 ];
 

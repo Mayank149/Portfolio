@@ -6,6 +6,7 @@ import {
   Brain,
   Code2,
   Cpu,
+  Github,
   Layers,
   Mail,
   Server,
@@ -273,14 +274,27 @@ export function HomePage({ onSelectProject }: HomePageProps) {
                     <span>0.81s P50</span>
                     <span>LangGraph</span>
                   </div>
-                  <button
-                    type="button"
-                    className="btn-glass"
-                    style={{ padding: '8px 16px', fontSize: '0.84rem' }}
-                    onClick={() => onSelectProject(flagship)}
-                  >
-                    Inspect Architecture
-                  </button>
+                  <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                    <button
+                      type="button"
+                      className="btn-glass"
+                      style={{ padding: '8px 16px', fontSize: '0.84rem' }}
+                      onClick={() => onSelectProject(flagship)}
+                    >
+                      Inspect Architecture
+                    </button>
+                    {flagship.github && (
+                      <a
+                        href={flagship.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="project-link-pill github"
+                      >
+                        <Github size={14} />
+                        <span>GitHub</span>
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

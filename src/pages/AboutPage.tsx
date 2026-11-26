@@ -37,8 +37,23 @@ export function AboutPage() {
                 <img src="/img/profile.jpeg" alt="Mayank Bansal" />
               </div>
               <div className="education-badge-card" style={{ marginBottom: 12 }}>
-                <div className="edu-icon blue-icon">
-                  <Terminal size={20} />
+                <div className="edu-icon wissen-logo-box" aria-hidden="true">
+                  <svg viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="18">
+                    <path
+                      d="M2.5 3.5L8.2 20.5L13.5 7.5L18.8 20.5L24.5 3.5"
+                      stroke="url(#wissenGrad)"
+                      strokeWidth="3.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <circle cx="28.5" cy="18.5" r="2.2" fill="#38bdf8" />
+                    <defs>
+                      <linearGradient id="wissenGrad" x1="2.5" y1="3.5" x2="24.5" y2="20.5" gradientUnits="userSpaceOnUse">
+                        <stop stopColor="#f8fafc" />
+                        <stop offset="1" stopColor="#38bdf8" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
                 </div>
                 <div>
                   <h4>Tech Intern &mdash; Wissen Technology</h4>

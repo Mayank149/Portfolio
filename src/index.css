@@ -2191,3 +2191,44 @@ button {
     mask-image: radial-gradient(ellipse 62% 66% at 50% 42%, #000 34%, transparent 86%);
     -webkit-mask-image: radial-gradient(ellipse 62% 66% at 50% 42%, #000 34%, transparent 86%);
 }
+
+/* ---------- Prominent Project GitHub/Live Pills & Wissen Logo ---------- */
+.project-link-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 0.78rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.project-link-pill.github {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: var(--text-primary);
+}
+
+.project-link-pill.github:hover {
+    border-color: var(--accent-blue);
+    background: rgba(56, 189, 248, 0.16);
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.28);
+    color: #fff;
+}
+
+.project-link-pill.live {
+    background: rgba(236, 72, 153, 0.14);
+    border: 1px solid rgba(236, 72, 153, 0.42);
+    color: #f9a8d4;
+}
+
+.project-link-pill.live:hover {
+    background: rgba(236, 72, 153, 0.25);
+    color: #fff;
+}
+
+.wissen-logo-box {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(56, 189, 248, 0.18));
+    border: 1px solid rgba(56, 189, 248, 0.35);
+}

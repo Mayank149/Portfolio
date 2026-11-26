@@ -105,8 +105,15 @@ export function ProjectsPage({ onSelectProject }: ProjectsPageProps) {
                     </button>
                     <div className="project-ext-links">
                       {p.live && (
-                        <a href={p.live} target="_blank" rel="noopener noreferrer" aria-label="Live">
-                          <ExternalLink size={15} />
+                        <a
+                          href={p.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="project-link-pill live"
+                          aria-label={`${p.title} Live Demo`}
+                        >
+                          <ExternalLink size={13} />
+                          <span>Live</span>
                         </a>
                       )}
                       {p.github && (
@@ -114,9 +121,11 @@ export function ProjectsPage({ onSelectProject }: ProjectsPageProps) {
                           href={p.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          aria-label="GitHub"
+                          className="project-link-pill github"
+                          aria-label={`${p.title} GitHub`}
                         >
-                          <Github size={15} />
+                          <Github size={14} />
+                          <span>GitHub</span>
                         </a>
                       )}
                     </div>
