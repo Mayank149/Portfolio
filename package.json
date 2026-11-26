@@ -1,25 +1,27 @@
 {
-  "name": "ai-themed-portfolio",
-  "version": "1.0.0",
-  "description": "AI-themed portfolio website",
-  "main": "index.js",
+  "name": "mayank-bansal-portfolio",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
   "scripts": {
-    "start": "npx live-server",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "portfolio",
-    "ai",
-    "machine learning"
-  ],
-  "author": "",
-  "license": "MIT",
-  "devDependencies": {
-    "live-server": "^1.2.2"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "aos": "^2.3.4",
-    "particles.js": "^2.0.0",
-    "typed.js": "^2.0.12"
+    "framer-motion": "^11.15.0",
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0",
+    "three": "^0.170.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/three": "^0.170.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5"
   }
-} 
+}
