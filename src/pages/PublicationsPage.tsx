@@ -42,7 +42,7 @@ export function PublicationsPage() {
             <div className="book-showcase">
               <div className="book-cover-wrap">
                 <img
-                  src="/img/blog/Book cover front.webp"
+                  src="img/blog/Book cover front.webp"
                   alt="Machine Learning Projects: A Practical Guide for B.Tech CSE Students"
                 />
               </div>

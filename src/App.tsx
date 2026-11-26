@@ -78,7 +78,7 @@ function AppShell() {
             >
               LinkedIn
             </a>
-            <a href="/downloads/resume.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="downloads/resume.pdf" target="_blank" rel="noopener noreferrer">
               Resume
             </a>
           </div>

@@ -74,7 +74,7 @@ export function HomePage({ onSelectProject }: HomePageProps) {
             transform: `translate3d(${mouseOffset.x * -0.5}px, ${mouseOffset.y * -0.4}px, 0)`,
           }}
         >
-          <img src="/img/hero-3d-mayank.png" alt="Mayank Bansal" className="hero-bg-figure-img" />
+          <img src="img/hero-3d-mayank.png" alt="Mayank Bansal" className="hero-bg-figure-img" />
         </div>
 
         <div className="container hero-grid-clean">

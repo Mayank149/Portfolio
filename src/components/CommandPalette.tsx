@@ -22,7 +22,7 @@ export function CommandPalette({ open, onClose, onToast }: CommandPaletteProps) 
     {
       label: 'Open Resume (PDF)',
       hint: 'New Tab',
-      run: () => window.open('/downloads/resume.pdf', '_blank', 'noopener,noreferrer'),
+      run: () => window.open('downloads/resume.pdf', '_blank', 'noopener,noreferrer'),
     },
     {
       label: 'Copy Email (bansalmayank1414@gmail.com)',

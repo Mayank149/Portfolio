@@ -34,7 +34,7 @@ export function AboutPage() {
           <div className="about-grid">
             <div className="about-portrait-card">
               <div className="portrait-hud-frame">
-                <img src="/img/profile.jpeg" alt="Mayank Bansal" />
+                <img src="img/profile.jpeg" alt="Mayank Bansal" />
               </div>
               <div className="education-badge-card" style={{ marginBottom: 12 }}>
                 <div className="edu-icon wissen-logo-box" aria-hidden="true">
@@ -97,12 +97,12 @@ export function AboutPage() {
               </p>
 
               <div className="about-actions">
-                <a href="/downloads/resume.pdf" className="btn-primary" download>
+                <a href="downloads/resume.pdf" className="btn-primary" download>
                   <Download size={16} />
                   <span>Download CV</span>
                 </a>
                 <a
-                  href="/downloads/resume.pdf"
+                  href="downloads/resume.pdf"
                   className="btn-glass"
                   target="_blank"
                   rel="noopener noreferrer"
