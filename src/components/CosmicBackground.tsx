@@ -33,38 +33,107 @@ function createBandedTexture(): THREE.CanvasTexture {
   return tex;
 }
 
+/** Generate a detailed cyber-exoplanet surface texture with glowing magenta/blue nodes */
+function createDetailedHomePlanetTexture(): THREE.CanvasTexture {
+  const c = document.createElement('canvas');
+  c.width = 512;
+  c.height = 256;
+  const ctx = c.getContext('2d')!;
+
+  const bg = ctx.createRadialGradient(256, 128, 20, 256, 128, 260);
+  bg.addColorStop(0, '#1e1338');
+  bg.addColorStop(0.55, '#0d1024');
+  bg.addColorStop(1, '#05060d');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, 512, 256);
+
+  // Subtle surface terrain patches
+  for (let i = 0; i < 45; i++) {
+    const x = Math.random() * 512;
+    const y = Math.random() * 256;
+    const r = 10 + Math.random() * 34;
+    const g = ctx.createRadialGradient(x, y, 1, x, y, r);
+    g.addColorStop(0, i % 2 === 0 ? 'rgba(236, 72, 153, 0.22)' : 'rgba(56, 189, 248, 0.18)');
+    g.addColorStop(1, 'transparent');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Glowing surface data/city-light specks
+  for (let i = 0; i < 240; i++) {
+    const x = Math.random() * 512;
+    const y = Math.random() * 256;
+    ctx.fillStyle = i % 3 === 0 ? 'rgba(56, 189, 248, 0.75)' : 'rgba(255, 42, 133, 0.8)';
+    ctx.fillRect(x, y, 1.5, 1.5);
+  }
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.wrapS = THREE.RepeatWrapping;
+  return tex;
+}
+
 /** Build 6 visually distinct 3D planets/systems, one per route */
 function buildPlanetSystems(): Record<string, THREE.Group> {
   const systems: Record<string, THREE.Group> = {};
 
-  // 1. HOME ('/'): Obsidian Exoplanet with dual crossing Magenta + Blue rings
+  // 1. HOME ('/'): Detailed Cyber-Grid Exoplanet with glowing surface nodes + Pink & Blue Rings + Satellite
   const home = new THREE.Group();
   home.add(
     new THREE.Mesh(
-      new THREE.SphereGeometry(2.1, 48, 48),
-      new THREE.MeshStandardMaterial({ color: 0x14121d, roughness: 0.85, metalness: 0.3 })
+      new THREE.SphereGeometry(2.45, 56, 56),
+      new THREE.MeshStandardMaterial({
+        map: createDetailedHomePlanetTexture(),
+        roughness: 0.72,
+        metalness: 0.3,
+      })
     )
   );
+  // Crisp latitude/longitude wireframe cage
   home.add(
     new THREE.Mesh(
-      new THREE.SphereGeometry(2.14, 22, 22),
-      new THREE.MeshBasicMaterial({ color: 0xec4899, wireframe: true, transparent: true, opacity: 0.1 })
+      new THREE.SphereGeometry(2.48, 32, 24),
+      new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true, transparent: true, opacity: 0.16 })
     )
   );
-  const hRing1 = new THREE.Mesh(
-    new THREE.TorusGeometry(3.25, 0.045, 16, 120),
-    new THREE.MeshBasicMaterial({ color: 0xff2a85, transparent: true, opacity: 0.75 })
+  // Atmospheric outer rim halo
+  home.add(
+    new THREE.Mesh(
+      new THREE.SphereGeometry(2.62, 36, 36),
+      new THREE.MeshBasicMaterial({
+        color: 0xec4899,
+        transparent: true,
+        opacity: 0.07,
+        side: THREE.BackSide,
+      })
+    )
   );
-  hRing1.rotation.set(Math.PI * 0.42, -Math.PI * 0.14, 0);
+  // Pink orbital ring + orbiting glowing node
+  const hRing1 = new THREE.Mesh(
+    new THREE.TorusGeometry(3.45, 0.036, 16, 140),
+    new THREE.MeshBasicMaterial({ color: 0xff2a85, transparent: true, opacity: 0.8 })
+  );
+  hRing1.rotation.set(Math.PI * 0.42, -Math.PI * 0.18, 0);
+  const sat1 = new THREE.Mesh(
+    new THREE.SphereGeometry(0.11, 16, 16),
+    new THREE.MeshBasicMaterial({ color: 0xff2a85 })
+  );
+  sat1.position.set(3.45, 0, 0);
+  hRing1.add(sat1);
+  hRing1.name = 'slow_ring_1';
   home.add(hRing1);
 
+  // Cyan-blue crossing orbital ring
   const hRing2 = new THREE.Mesh(
-    new THREE.TorusGeometry(3.75, 0.028, 12, 120),
-    new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.6 })
+    new THREE.TorusGeometry(3.85, 0.028, 14, 140),
+    new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.72 })
   );
-  hRing2.rotation.set(Math.PI * 0.45, Math.PI * 0.12, 0);
+  hRing2.rotation.set(Math.PI * 0.36, Math.PI * 0.22, 0);
+  hRing2.name = 'slow_ring_2';
   home.add(hRing2);
-  home.userData = { targetPos: new THREE.Vector3(2.4, 0.35, -2.2), spin: 0.08 };
+
+  home.userData = { targetPos: new THREE.Vector3(1.85, 0.35, -2.5), spin: 0.03 };
   systems['/'] = home;
 
   // 2. PROJECTS ('/projects'): Cyber-Tech Dyson Sphere with 3 gyroscopic rings & satellites
@@ -425,14 +494,18 @@ export function CosmicBackground({ warpTrigger, pathname }: CosmicBackgroundProp
       }
 
       // Spin active planet & special sub-parts
-      const spinSpeed = activePlanet.userData.spin || 0.1;
+      const spinSpeed = activePlanet.userData.spin || 0.08;
       activePlanet.rotation.y = t * spinSpeed;
       activePlanet.traverse((child) => {
-        if (child.name.startsWith('gyro_')) {
-          child.rotation.x += 0.008;
-          child.rotation.y += 0.01;
+        if (child.name === 'slow_ring_1') {
+          child.rotation.z = t * 0.1;
+        } else if (child.name === 'slow_ring_2') {
+          child.rotation.z = -t * 0.07;
+        } else if (child.name.startsWith('gyro_')) {
+          child.rotation.x += 0.0025;
+          child.rotation.y += 0.003;
         } else if (child.name === 'moons' || child.name === 'belt') {
-          child.rotation.y = t * 0.35;
+          child.rotation.y = t * 0.25;
         }
       });
 

@@ -1,19 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  ArrowRight,
-  BookOpen,
-  Brain,
-  Code2,
-  Cpu,
-  Github,
-  Layers,
-  Mail,
-  Server,
-  Sparkles,
-  Terminal,
-  Zap,
-} from 'lucide-react';
+import { ArrowRight, BookOpen, Brain, Code2, Github, Layers } from 'lucide-react';
 import { CosmicTransition } from '../components/CosmicTransition';
 import { ProjectItem, PROJECTS, STATS } from '../data/portfolioData';
 
@@ -25,34 +12,7 @@ const TYPING_PHRASES = [
   'LangGraph & Agentic AI',
   'Multi-Hop RAG Pipelines',
   'PyTorch & Computer Vision',
-  'FastAPI & Docker Systems',
-];
-
-const CAPABILITY_PORTALS = [
-  {
-    title: 'RAG & Agentic AI',
-    sub: 'LangGraph · FAISS · ChromaDB',
-    icon: Brain,
-    to: '/projects',
-  },
-  {
-    title: 'Machine Learning & CV',
-    sub: 'PyTorch · TensorFlow · CNNs',
-    icon: Cpu,
-    to: '/skills',
-  },
-  {
-    title: 'Full-Stack AI APIs',
-    sub: 'FastAPI · Flask · React · TS',
-    icon: Code2,
-    to: '/projects',
-  },
-  {
-    title: 'MLOps & Deployment',
-    sub: 'Docker · MLFlow · Cloud',
-    icon: Server,
-    to: '/skills',
-  },
+  'FastAPI & TypeScript',
 ];
 
 export function HomePage({ onSelectProject }: HomePageProps) {
@@ -106,52 +66,43 @@ export function HomePage({ onSelectProject }: HomePageProps) {
   return (
     <CosmicTransition>
       <section className="hero">
-        {/* 3D Figure Merged Seamlessly Into Cosmic Background */}
+        {/* 3D Figure Merged Seamlessly Into Cosmic Background (Lower-Right) */}
         <div
           className="hero-bg-figure-layer"
           aria-hidden="true"
           style={{
-            transform: `translate3d(calc(-50% + ${mouseOffset.x * -0.5}px), ${mouseOffset.y * -0.4}px, 0)`,
+            transform: `translate3d(${mouseOffset.x * -0.5}px, ${mouseOffset.y * -0.4}px, 0)`,
           }}
         >
-          <img
-            src="/img/hero-3d-mayank.jpg"
-            alt=""
-            className="hero-bg-figure-img"
-          />
-          <div className="hero-bg-figure-fade" />
+          <img src="/img/hero-3d-mayank.png" alt="Mayank Bansal" className="hero-bg-figure-img" />
         </div>
 
-        <div className="container hero-grid-merged">
-          {/* Left Column: Core Headline & CTAs */}
+        <div className="container hero-grid-clean">
+          {/* Left Column: Clean Role & Engineering Intro */}
           <div className="hero-content">
             <div className="hero-badge-row">
-              <div className="hero-badge">
-                <span className="pulse-dot" />
-                <span>AI / ML · SDE · BUILDER</span>
-              </div>
               <div className="role-pill-blue">
                 <span className="blue-dot" />
-                <span>Tech Intern @ Wissen Technology · Bangalore (Onsite)</span>
+                <span>Tech Intern @ Wissen Technology · Bangalore</span>
               </div>
             </div>
 
             <h1 className="hero-title">
-              Building
+              AI Engineer &amp;
               <br />
-              <span className="gradient-text">AI-Powered</span>
-              <br />
-              Solutions
+              <span className="gradient-text">Intelligent</span> System Builder<span className="accent-dot">.</span>
             </h1>
 
+            <div className="hero-title-rule" aria-hidden="true" />
+
             <p className="hero-subtitle">
-              Computer Science student, AI Engineer and SDE &mdash; turning ideas into real, usable
-              products with AI, code and design.
+              3rd-year BTech CSE student, software developer and AI engineer crafting RAG pipelines,
+              deep learning models, and reliable full-stack products.
             </p>
 
             <div className="hero-ctas">
               <Link to="/projects" className="btn-primary">
-                <span>Explore Projects</span>
+                <span>Explore My Work</span>
                 <ArrowRight size={16} />
               </Link>
               <Link to="/about" className="btn-glass">
@@ -159,18 +110,18 @@ export function HomePage({ onSelectProject }: HomePageProps) {
               </Link>
             </div>
 
-            <div className="hero-typing-bar">
-              <span className="mono-prefix">&gt;_ active_stack:</span>
+            <div className="hero-typing-inline">
+              <span className="mono-prefix">&lt;/&gt;</span>
               <span className="typed-output">{typedText}</span>
               <span className="typed-cursor" aria-hidden="true" />
             </div>
           </div>
 
-          {/* Center Spacer: Open Breathing Room for Background 3D Figure & Planet */}
+          {/* Open Center + Lower-Right Portrait Stage */}
           <div className="hero-center-spacer" aria-hidden="true" />
 
-          {/* Right Column: Floating Telemetry & Domain Portals */}
-          <div className="hero-right-rail">
+          {/* Right Top: Floating Currently Building HUD Card */}
+          <div className="hero-right-minimal">
             <div className="hud-building-card rail-hud">
               <div className="hud-card-header">
                 <span className="hud-icon">
@@ -188,37 +139,20 @@ export function HomePage({ onSelectProject }: HomePageProps) {
                 <span className="hud-progress-pct">72%</span>
               </div>
             </div>
-
-            <div className="capability-rail">
-              {CAPABILITY_PORTALS.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <Link to={item.to} key={item.title} className="capability-card">
-                    <span className="cap-icon">
-                      <Icon size={16} />
-                    </span>
-                    <div className="cap-text">
-                      <strong>{item.title}</strong>
-                      <span>{item.sub}</span>
-                    </div>
-                    <ArrowRight size={14} className="cap-arrow" />
-                  </Link>
-                );
-              })}
-            </div>
           </div>
         </div>
 
-        {/* Telemetry Stats Strip */}
+        {/* Frosted Stats Bar (Matching Reference Photo) */}
         <div className="container stats-strip-wrap">
-          <div className="stats-strip">
+          <div className="stats-open-bar">
             {STATS.map((s, idx) => {
-              const Icon = idx === 0 ? Code2 : idx === 1 ? Layers : idx === 2 ? Cpu : Zap;
+              const Icon = idx === 0 ? Code2 : idx === 1 ? Layers : idx === 2 ? Brain : BookOpen;
+              const isPink = idx % 2 === 0;
               return (
-                <div className="stat-item" key={s.label}>
-                  <div className="stat-icon">
-                    <Icon size={17} />
-                  </div>
+                <div className="stat-open-item" key={s.label}>
+                  <span className={`stat-inline-icon ${isPink ? 'pink' : 'blue'}`}>
+                    <Icon size={20} />
+                  </span>
                   <div className="stat-meta">
                     <span className="stat-value">
                       {s.decimals ? s.value.toFixed(s.decimals) : s.value}
@@ -233,134 +167,86 @@ export function HomePage({ onSelectProject }: HomePageProps) {
         </div>
       </section>
 
-      {/* Cosmic Overview Bento (Instead of duplicating the Projects page) */}
-      <section className="section">
+      {/* Open Editorial Overview (Less Boxy, Inviting & Scannable) */}
+      <section className="section overview-section">
         <div className="container">
-          <div className="section-header-row">
-            <div>
+          <div className="overview-split">
+            {/* Left: Flagship Work Spotlight */}
+            <div className="overview-spotlight">
               <div className="section-kicker">
                 <span className="kicker-bar" />
-                <span>MISSION CONTROL</span>
+                <span>FEATURED WORK</span>
               </div>
-              <h2 className="section-title">
-                Explore the <span className="gradient-text">Ecosystem</span>
-              </h2>
-            </div>
-            <p className="section-lead">
-              A quick launchpad into my flagship AI engineering, published book, neural stack, and
-              credentials.
-            </p>
-          </div>
-
-          <div className="home-bento-grid">
-            {/* 1. Flagship Project Spotlight */}
-            <div className="bento-card bento-wide">
-              <div className="bento-top">
-                <span className="bento-kicker">
-                  <Sparkles size={13} /> FLAGSHIP BUILD
-                </span>
-                <Link to="/projects" className="bento-link">
-                  All 16 Projects <ArrowRight size={13} />
+              <h2 className="overview-heading">{flagship.title}</h2>
+              <p className="overview-text">{flagship.summary}</p>
+              <div className="overview-metrics">
+                <span>90% Recall@4</span>
+                <span>·</span>
+                <span>0.83 MRR@4</span>
+                <span>·</span>
+                <span>0.81s P50</span>
+              </div>
+              <div className="overview-actions">
+                <button
+                  type="button"
+                  className="btn-glass"
+                  onClick={() => onSelectProject(flagship)}
+                >
+                  Inspect Architecture
+                </button>
+                {flagship.github && (
+                  <a
+                    href={flagship.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-link-pill github"
+                  >
+                    <Github size={14} />
+                    <span>GitHub</span>
+                  </a>
+                )}
+                <Link to="/projects" className="overview-text-link">
+                  View all 16 projects <ArrowRight size={14} />
                 </Link>
               </div>
-              <div className="bento-flagship-body">
-                <img src={flagship.img} alt={flagship.title} className="bento-thumb" />
+            </div>
+
+            {/* Right: Clean Editorial Directory (Zero Boxes) */}
+            <div className="overview-directory">
+              <Link to="/about" className="directory-row">
                 <div>
-                  <h3>{flagship.title}</h3>
-                  <p>{flagship.summary}</p>
-                  <div className="project-tags" style={{ margin: '12px 0' }}>
-                    <span>90% Recall@4</span>
-                    <span>0.83 MRR@4</span>
-                    <span>0.81s P50</span>
-                    <span>LangGraph</span>
-                  </div>
-                  <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                    <button
-                      type="button"
-                      className="btn-glass"
-                      style={{ padding: '8px 16px', fontSize: '0.84rem' }}
-                      onClick={() => onSelectProject(flagship)}
-                    >
-                      Inspect Architecture
-                    </button>
-                    {flagship.github && (
-                      <a
-                        href={flagship.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-link-pill github"
-                      >
-                        <Github size={14} />
-                        <span>GitHub</span>
-                      </a>
-                    )}
-                  </div>
+                  <span className="dir-kicker">EXPERIENCE &amp; EDUCATION</span>
+                  <h3>Tech Intern at Wissen Technology</h3>
+                  <p>Bangalore (Onsite) · BTech CSE @ LPU (9.41 CGPA)</p>
                 </div>
-              </div>
-            </div>
+                <ArrowRight size={17} className="dir-arrow" />
+              </Link>
 
-            {/* 2. Published Book */}
-            <div className="bento-card">
-              <div className="bento-top">
-                <span className="bento-kicker">
-                  <BookOpen size={13} /> PUBLISHED AUTHOR
-                </span>
-                <Link to="/publications" className="bento-link">
-                  Publications <ArrowRight size={13} />
-                </Link>
-              </div>
-              <div className="bento-book-row">
-                <img
-                  src="/img/blog/Book cover front.webp"
-                  alt="ML Projects Book"
-                  className="bento-book-cover"
-                />
+              <Link to="/skills" className="directory-row">
                 <div>
-                  <h4>Machine Learning Projects</h4>
-                  <p>A Practical Guide for B.Tech CSE Students — available on Amazon Kindle.</p>
+                  <span className="dir-kicker">NEURAL STACK</span>
+                  <h3>RAG, Agentic AI &amp; Deep Learning</h3>
+                  <p>LangGraph, PyTorch, TensorFlow, FastAPI, Docker</p>
                 </div>
-              </div>
-            </div>
+                <ArrowRight size={17} className="dir-arrow" />
+              </Link>
 
-            {/* 3. Neural Stack & Credentials */}
-            <div className="bento-card">
-              <div className="bento-top">
-                <span className="bento-kicker">
-                  <Terminal size={13} /> STACK &amp; CREDENTIALS
-                </span>
-                <Link to="/skills" className="bento-link">
-                  Full Stack <ArrowRight size={13} />
-                </Link>
-              </div>
-              <h4>Core Engineering Matrix</h4>
-              <p>
-                BTech CSE @ LPU (9.41 CGPA) with 9 verified credentials across AI, ML, and Cloud.
-              </p>
-              <div className="project-tags" style={{ marginTop: 12 }}>
-                <span>Python</span>
-                <span>PyTorch</span>
-                <span>LangChain</span>
-                <span>FastAPI</span>
-                <span>Docker</span>
-              </div>
-            </div>
+              <Link to="/publications" className="directory-row">
+                <div>
+                  <span className="dir-kicker">PUBLISHED AUTHOR</span>
+                  <h3>Machine Learning Projects (Kindle)</h3>
+                  <p>Practical guide for B.Tech CSE students + Medium &amp; preprints</p>
+                </div>
+                <ArrowRight size={17} className="dir-arrow" />
+              </Link>
 
-            {/* 4. Current Role & Uplink */}
-            <div className="bento-card bento-accent">
-              <div className="bento-top">
-                <span className="bento-kicker">
-                  <Mail size={13} /> CURRENT ROLE
-                </span>
-                <span className="blue-dot" />
-              </div>
-              <h4>Tech Intern · Wissen Technology</h4>
-              <p>
-                Bangalore (Onsite) &mdash; engineering production software &amp; AI systems. Open to
-                high-impact collaborations.
-              </p>
-              <Link to="/contact" className="btn-primary" style={{ marginTop: 14 }}>
-                <span>Establish Uplink</span>
-                <ArrowRight size={15} />
+              <Link to="/contact" className="directory-row">
+                <div>
+                  <span className="dir-kicker">CONNECT</span>
+                  <h3>Let&apos;s Build Something Together</h3>
+                  <p>Reach out directly via email or LinkedIn</p>
+                </div>
+                <ArrowRight size={17} className="dir-arrow" />
               </Link>
             </div>
           </div>
