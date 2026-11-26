@@ -2966,3 +2966,25 @@ button {
     border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(12px);
 }
+
+/* ---------- Hide Scrollbar Globally + Raised Orbit Controls ---------- */
+html,
+body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+    display: none;
+}
+
+.orbital-page-spacer {
+    height: calc(100vh - 280px);
+    min-height: 360px;
+}
+
+.orbital-controls-fixed {
+    bottom: 74px;
+}

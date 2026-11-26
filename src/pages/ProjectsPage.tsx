@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Expand, ExternalLink, Github, LayoutGrid, Orbit, Search } from 'lucide-react';
 import { CosmicTransition } from '../components/CosmicTransition';
 import { OrbitalProjects } from '../components/OrbitalProjects';
@@ -35,6 +35,20 @@ export function ProjectsPage({
   const [filter, setFilter] = useState<'all' | 'rag' | 'cv' | 'nlp'>('all');
   const [query, setQuery] = useState('');
   const [viewMode, setViewMode] = useState<'orbit' | 'grid'>('orbit');
+
+  useEffect(() => {
+    if (viewMode === 'orbit') {
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    };
+  }, [viewMode]);
 
   const filtered = PROJECTS.filter((p) => {
     const matchesCat = filter === 'all' || p.category === filter;
