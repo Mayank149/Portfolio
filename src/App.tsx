@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { HashRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import { CosmicBackground } from './components/CosmicBackground';
+import { CosmicBackground, OrbitSlotScreenPos } from './components/CosmicBackground';
 import { Navbar } from './components/Navbar';
 import { CommandPalette } from './components/CommandPalette';
 import { ProjectModal } from './components/ProjectModal';
+import { ImageLightbox, ZoomedImage } from './components/ImageLightbox';
 import { HomePage } from './pages/HomePage';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { SkillsPage } from './pages/SkillsPage';
@@ -18,7 +19,13 @@ function AppShell() {
   const [warpCount, setWarpCount] = useState(0);
   const [cmdOpen, setCmdOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+  const [zoomedImage, setZoomedImage] = useState<ZoomedImage | null>(null);
   const [toastMsg, setToastMsg] = useState('');
+
+  const orbitSlotsRef = useRef<OrbitSlotScreenPos[]>([]);
+  const [orbitPaused, setOrbitPaused] = useState(false);
+  const [orbitHovered, setOrbitHovered] = useState(false);
+  const [orbitStepDelta, setOrbitStepDelta] = useState(0);
 
   useEffect(() => {
     setWarpCount((c) => c + 1);
@@ -45,7 +52,16 @@ function AppShell() {
 
   return (
     <div className="app-root">
-      <CosmicBackground warpTrigger={warpCount} pathname={location.pathname} />
+      <CosmicBackground
+        warpTrigger={warpCount}
+        pathname={location.pathname}
+        orbitPaused={orbitPaused || orbitHovered}
+        orbitStepDelta={orbitStepDelta}
+        orbitCount={8}
+        onOrbitFrame={(slots) => {
+          orbitSlotsRef.current = slots;
+        }}
+      />
       <div className="sci-grid-overlay" aria-hidden="true" />
       <div className="hero-vignette" aria-hidden="true" />
 
@@ -55,7 +71,20 @@ function AppShell() {
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<HomePage onSelectProject={setSelectedProject} />} />
-            <Route path="/projects" element={<ProjectsPage onSelectProject={setSelectedProject} />} />
+            <Route
+              path="/projects"
+              element={
+                <ProjectsPage
+                  onSelectProject={setSelectedProject}
+                  onZoomImage={setZoomedImage}
+                  orbitSlotsRef={orbitSlotsRef}
+                  orbitPaused={orbitPaused}
+                  onToggleOrbitPause={() => setOrbitPaused((v) => !v)}
+                  onStepOrbit={(d) => setOrbitStepDelta((s) => s + d)}
+                  onOrbitHover={setOrbitHovered}
+                />
+              }
+            />
             <Route path="/skills" element={<SkillsPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/publications" element={<PublicationsPage />} />
@@ -85,7 +114,12 @@ function AppShell() {
         </div>
       </footer>
 
-      <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+        onZoomImage={setZoomedImage}
+      />
+      <ImageLightbox image={zoomedImage} onClose={() => setZoomedImage(null)} />
       <CommandPalette
         open={cmdOpen}
         onClose={() => setCmdOpen(false)}

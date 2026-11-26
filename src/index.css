@@ -2586,3 +2586,383 @@ button {
     -webkit-mask-image: linear-gradient(180deg, #000 76%, transparent 100%);
     filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.85)) contrast(1.04) saturate(1.06);
 }
+
+/* ---------- Enhanced Project Info Panel (Dynamic, Subtle & Readable) ---------- */
+.enhanced-modal {
+    max-width: 760px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: rgba(10, 12, 20, 0.94);
+    border: 1px solid rgba(56, 189, 248, 0.28);
+    box-shadow: 0 32px 90px rgba(0, 0, 0, 0.85), 0 0 40px rgba(56, 189, 248, 0.08);
+    backdrop-filter: blur(20px);
+}
+
+.enhanced-visual {
+    position: relative;
+    height: 230px;
+    overflow: hidden;
+}
+
+.enhanced-visual img {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    object-fit: cover;
+}
+
+.modal-visual-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10, 12, 20, 0.15) 0%, rgba(10, 12, 20, 0.72) 60%, rgba(10, 12, 20, 0.98) 100%);
+}
+
+.modal-visual-header {
+    position: absolute;
+    left: 28px;
+    right: 28px;
+    bottom: 16px;
+    z-index: 2;
+}
+
+.modal-badges-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.modal-visual-header h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+}
+
+.enhanced-content {
+    padding: 18px 28px 26px;
+}
+
+.modal-summary-lead {
+    color: #cbd5e1;
+    font-size: 0.96rem;
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+
+.modal-section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: var(--accent-blue);
+    margin-bottom: 10px;
+}
+
+.modal-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-highlight-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.025);
+    border-left: 2px solid rgba(56, 189, 248, 0.45);
+    transition: background var(--transition), border-color var(--transition);
+}
+
+.modal-highlight-row:hover {
+    background: rgba(56, 189, 248, 0.06);
+    border-left-color: var(--accent-pink);
+}
+
+.highlight-index {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-pink);
+    padding-top: 2px;
+    flex-shrink: 0;
+}
+
+.modal-highlight-row p {
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.enhanced-actions {
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.modal-gh-btn {
+    padding: 11px 20px;
+    font-size: 0.9rem;
+}
+
+/* ---------- Uncropped Project Modal + Zoom Lightbox + Orbital Ring Projects ---------- */
+.uncropped-visual {
+    position: relative;
+    background: #060810;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-in;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.uncropped-visual img {
+    width: 100%;
+    height: auto;
+    max-height: 330px;
+    object-fit: contain;
+}
+
+.visual-zoom-pill {
+    position: absolute;
+    bottom: 12px;
+    right: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 11px;
+    border-radius: var(--radius-pill);
+    background: rgba(5, 5, 10, 0.82);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: #bae6fd;
+}
+
+.modal-clean-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 8px;
+}
+
+.clickable-visual {
+    cursor: zoom-in;
+}
+
+.project-zoom-panel {
+    position: relative;
+    z-index: 1;
+    max-width: 92vw;
+    text-align: center;
+}
+
+.project-zoom-img {
+    max-width: 90vw;
+    max-height: 82vh;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.9);
+}
+
+/* View Mode Toggle */
+.projects-toolbar-right {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+.view-mode-toggle {
+    display: inline-flex;
+    padding: 4px;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-subtle);
+}
+
+.view-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: var(--radius-pill);
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    transition: var(--transition);
+}
+
+.view-toggle-btn.active {
+    color: #fff;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.28), rgba(56, 189, 248, 0.28));
+}
+
+/* Orbital Ring Showcase */
+.orbital-stage {
+    position: relative;
+    height: 520px;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.orbital-ring-track {
+    position: absolute;
+    width: 820px;
+    height: 190px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(56, 189, 248, 0.32);
+    box-shadow: 0 0 36px rgba(56, 189, 248, 0.14), inset 0 0 28px rgba(236, 72, 153, 0.12);
+    transform: translateY(10px);
+    pointer-events: none;
+}
+
+.orbital-core-glow {
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.18), rgba(236, 72, 153, 0.08) 55%, transparent 75%);
+    filter: blur(18px);
+    pointer-events: none;
+}
+
+.orbital-items-layer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.orbital-moon-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 270px;
+    border-radius: var(--radius-md);
+    background: rgba(11, 13, 22, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px);
+    overflow: hidden;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.orbital-moon-card.is-front {
+    border-color: rgba(56, 189, 248, 0.55);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 32px rgba(56, 189, 248, 0.2);
+}
+
+.orbital-moon-visual {
+    position: relative;
+    height: 138px;
+    cursor: zoom-in;
+    overflow: hidden;
+}
+
+.orbital-moon-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.orbital-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(5, 5, 10, 0.82);
+}
+
+.orbital-moon-body {
+    padding: 14px;
+}
+
+.orbital-moon-body h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.orbital-moon-body p {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.orbital-moon-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.orbital-controls {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+@media (max-width: 768px) {
+    .orbital-stage {
+        height: 460px;
+    }
+    .orbital-moon-card {
+        width: 230px;
+    }
+}
+
+/* ---------- 3D-Projected Orbital Cards Locked to Background Planet Ring ---------- */
+.orbital-page-spacer {
+    height: 540px;
+}
+
+.orbital-viewport-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.orbital-moon-card {
+    top: 0;
+    left: 0;
+    width: 245px;
+    will-change: transform, opacity;
+}
+
+.orbital-controls-fixed {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    border-radius: var(--radius-pill);
+    background: rgba(8, 10, 18, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+}

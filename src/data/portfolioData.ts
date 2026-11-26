@@ -87,7 +87,7 @@ export const PROJECTS: ProjectItem[] = [
     featured: true,
     summary:
       'Real-time waste classification using fine-tuned MobileNetV2 deep learning with contextual recycling guidance.',
-    img: 'img/projects/project8.webp',
+    img: 'img/projects/wastesnap.png',
     chips: ['MobileNetV2', '9 Classes'],
     tags: ['TensorFlow', 'MobileNetV2', 'Flask', 'Python'],
     bullets: [

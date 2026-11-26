@@ -1,9 +1,59 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
+export interface OrbitSlotScreenPos {
+  x: number;
+  y: number;
+  depth: number; // -1 (back) to +1 (front)
+  occluded: boolean; // true when passing behind the 3D planet core
+}
+
 interface CosmicBackgroundProps {
   warpTrigger: number;
   pathname: string;
+  orbitPaused?: boolean;
+  orbitStepDelta?: number;
+  orbitCount?: number;
+  onOrbitFrame?: (slots: OrbitSlotScreenPos[]) => void;
+}
+
+/** Generate a detailed cyber-exoplanet surface texture with glowing magenta/blue nodes */
+function createDetailedHomePlanetTexture(): THREE.CanvasTexture {
+  const c = document.createElement('canvas');
+  c.width = 512;
+  c.height = 256;
+  const ctx = c.getContext('2d')!;
+
+  const bg = ctx.createRadialGradient(256, 128, 20, 256, 128, 260);
+  bg.addColorStop(0, '#1e1338');
+  bg.addColorStop(0.55, '#0d1024');
+  bg.addColorStop(1, '#05060d');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, 512, 256);
+
+  for (let i = 0; i < 45; i++) {
+    const x = Math.random() * 512;
+    const y = Math.random() * 256;
+    const r = 10 + Math.random() * 34;
+    const g = ctx.createRadialGradient(x, y, 1, x, y, r);
+    g.addColorStop(0, i % 2 === 0 ? 'rgba(236, 72, 153, 0.22)' : 'rgba(56, 189, 248, 0.18)');
+    g.addColorStop(1, 'transparent');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  for (let i = 0; i < 240; i++) {
+    const x = Math.random() * 512;
+    const y = Math.random() * 256;
+    ctx.fillStyle = i % 3 === 0 ? 'rgba(56, 189, 248, 0.75)' : 'rgba(255, 42, 133, 0.8)';
+    ctx.fillRect(x, y, 1.5, 1.5);
+  }
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.wrapS = THREE.RepeatWrapping;
+  return tex;
 }
 
 /** Generate a procedural banded gas-giant texture on an offscreen canvas */
@@ -23,7 +73,6 @@ function createBandedTexture(): THREE.CanvasTexture {
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, 512, 256);
 
-  // Subtle swirling storm bands
   for (let i = 0; i < 18; i++) {
     ctx.fillStyle = i % 2 === 0 ? 'rgba(255,255,255,0.06)' : 'rgba(5,5,12,0.16)';
     ctx.fillRect(0, Math.random() * 256, 512, 3 + Math.random() * 10);
@@ -33,52 +82,11 @@ function createBandedTexture(): THREE.CanvasTexture {
   return tex;
 }
 
-/** Generate a detailed cyber-exoplanet surface texture with glowing magenta/blue nodes */
-function createDetailedHomePlanetTexture(): THREE.CanvasTexture {
-  const c = document.createElement('canvas');
-  c.width = 512;
-  c.height = 256;
-  const ctx = c.getContext('2d')!;
-
-  const bg = ctx.createRadialGradient(256, 128, 20, 256, 128, 260);
-  bg.addColorStop(0, '#1e1338');
-  bg.addColorStop(0.55, '#0d1024');
-  bg.addColorStop(1, '#05060d');
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, 0, 512, 256);
-
-  // Subtle surface terrain patches
-  for (let i = 0; i < 45; i++) {
-    const x = Math.random() * 512;
-    const y = Math.random() * 256;
-    const r = 10 + Math.random() * 34;
-    const g = ctx.createRadialGradient(x, y, 1, x, y, r);
-    g.addColorStop(0, i % 2 === 0 ? 'rgba(236, 72, 153, 0.22)' : 'rgba(56, 189, 248, 0.18)');
-    g.addColorStop(1, 'transparent');
-    ctx.fillStyle = g;
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  // Glowing surface data/city-light specks
-  for (let i = 0; i < 240; i++) {
-    const x = Math.random() * 512;
-    const y = Math.random() * 256;
-    ctx.fillStyle = i % 3 === 0 ? 'rgba(56, 189, 248, 0.75)' : 'rgba(255, 42, 133, 0.8)';
-    ctx.fillRect(x, y, 1.5, 1.5);
-  }
-
-  const tex = new THREE.CanvasTexture(c);
-  tex.wrapS = THREE.RepeatWrapping;
-  return tex;
-}
-
 /** Build 6 visually distinct 3D planets/systems, one per route */
 function buildPlanetSystems(): Record<string, THREE.Group> {
   const systems: Record<string, THREE.Group> = {};
 
-  // 1. HOME ('/'): Detailed Cyber-Grid Exoplanet with glowing surface nodes + Pink & Blue Rings + Satellite
+  // 1. HOME ('/')
   const home = new THREE.Group();
   home.add(
     new THREE.Mesh(
@@ -90,14 +98,12 @@ function buildPlanetSystems(): Record<string, THREE.Group> {
       })
     )
   );
-  // Crisp latitude/longitude wireframe cage
   home.add(
     new THREE.Mesh(
       new THREE.SphereGeometry(2.48, 32, 24),
       new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true, transparent: true, opacity: 0.16 })
     )
   );
-  // Atmospheric outer rim halo
   home.add(
     new THREE.Mesh(
       new THREE.SphereGeometry(2.62, 36, 36),
@@ -109,7 +115,6 @@ function buildPlanetSystems(): Record<string, THREE.Group> {
       })
     )
   );
-  // Pink orbital ring + orbiting glowing node
   const hRing1 = new THREE.Mesh(
     new THREE.TorusGeometry(3.45, 0.036, 16, 140),
     new THREE.MeshBasicMaterial({ color: 0xff2a85, transparent: true, opacity: 0.8 })
@@ -124,7 +129,6 @@ function buildPlanetSystems(): Record<string, THREE.Group> {
   hRing1.name = 'slow_ring_1';
   home.add(hRing1);
 
-  // Cyan-blue crossing orbital ring
   const hRing2 = new THREE.Mesh(
     new THREE.TorusGeometry(3.85, 0.028, 14, 140),
     new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.72 })
@@ -136,39 +140,45 @@ function buildPlanetSystems(): Record<string, THREE.Group> {
   home.userData = { targetPos: new THREE.Vector3(1.85, 0.35, -2.5), spin: 0.03 };
   systems['/'] = home;
 
-  // 2. PROJECTS ('/projects'): Cyber-Tech Dyson Sphere with 3 gyroscopic rings & satellites
+  // 2. PROJECTS ('/projects'): Centered Cyber-Tech Dyson Sphere with wide 3D ring
   const projects = new THREE.Group();
   projects.add(
     new THREE.Mesh(
-      new THREE.IcosahedronGeometry(1.45, 1),
+      new THREE.IcosahedronGeometry(1.35, 1),
       new THREE.MeshStandardMaterial({
         color: 0x0ea5e9,
         emissive: 0x0284c7,
-        emissiveIntensity: 0.55,
+        emissiveIntensity: 0.6,
         flatShading: true,
       })
     )
   );
   projects.add(
     new THREE.Mesh(
-      new THREE.IcosahedronGeometry(2.05, 2),
+      new THREE.IcosahedronGeometry(1.85, 2),
       new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true, transparent: true, opacity: 0.45 })
     )
   );
-  const gyroColors = [0x38bdf8, 0xff2a85, 0xa855f7];
-  for (let i = 0; i < 3; i++) {
-    const gRing = new THREE.Mesh(
-      new THREE.TorusGeometry(2.65 + i * 0.38, 0.03, 12, 100),
-      new THREE.MeshBasicMaterial({ color: gyroColors[i], transparent: true, opacity: 0.7 })
-    );
-    gRing.rotation.set(i * 0.8 + 0.4, i * 0.6, 0);
-    gRing.name = `gyro_${i}`;
-    projects.add(gRing);
-  }
-  projects.userData = { targetPos: new THREE.Vector3(-3.0, 0.8, -2.5), spin: 0.16 };
+  const mainProjectRing = new THREE.Mesh(
+    new THREE.TorusGeometry(3.65, 0.036, 16, 140),
+    new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.85 })
+  );
+  mainProjectRing.rotation.set(Math.PI * 0.39, 0, 0);
+  mainProjectRing.name = 'project_main_ring';
+  projects.add(mainProjectRing);
+
+  const secondaryProjectRing = new THREE.Mesh(
+    new THREE.TorusGeometry(4.0, 0.022, 12, 140),
+    new THREE.MeshBasicMaterial({ color: 0xff2a85, transparent: true, opacity: 0.55 })
+  );
+  secondaryProjectRing.rotation.set(Math.PI * 0.39, 0, 0);
+  secondaryProjectRing.name = 'slow_ring_2';
+  projects.add(secondaryProjectRing);
+
+  projects.userData = { targetPos: new THREE.Vector3(0, -1.55, -2.1), spin: 0.1 };
   systems['/projects'] = projects;
 
-  // 3. SKILLS ('/skills'): Violet-Pink Plasma Star + 4 Orbiting Neural Moonlets
+  // 3. SKILLS ('/skills')
   const skills = new THREE.Group();
   skills.add(
     new THREE.Mesh(
@@ -203,7 +213,7 @@ function buildPlanetSystems(): Record<string, THREE.Group> {
   skills.userData = { targetPos: new THREE.Vector3(3.1, -0.3, -2.4), spin: 0.14 };
   systems['/skills'] = skills;
 
-  // 4. ABOUT ('/about'): Banded Gas Giant with wide Saturn-style disc ring & moon
+  // 4. ABOUT ('/about')
   const about = new THREE.Group();
   about.add(
     new THREE.Mesh(
@@ -215,14 +225,15 @@ function buildPlanetSystems(): Record<string, THREE.Group> {
       })
     )
   );
-  const discGeo = new THREE.RingGeometry(2.55, 3.85, 80);
-  const discMat = new THREE.MeshBasicMaterial({
-    color: 0xf472b6,
-    side: THREE.DoubleSide,
-    transparent: true,
-    opacity: 0.35,
-  });
-  const disc = new THREE.Mesh(discGeo, discMat);
+  const disc = new THREE.Mesh(
+    new THREE.RingGeometry(2.55, 3.85, 80),
+    new THREE.MeshBasicMaterial({
+      color: 0xf472b6,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.35,
+    })
+  );
   disc.rotation.set(Math.PI * 0.4, Math.PI * 0.12, 0);
   about.add(disc);
   const saturnRim = new THREE.Mesh(
@@ -234,7 +245,7 @@ function buildPlanetSystems(): Record<string, THREE.Group> {
   about.userData = { targetPos: new THREE.Vector3(-2.9, -0.4, -2.4), spin: 0.1 };
   systems['/about'] = about;
 
-  // 5. PUBLICATIONS ('/publications'): Crystalline Ice World + Asteroid Belt
+  // 5. PUBLICATIONS ('/publications')
   const pubs = new THREE.Group();
   pubs.add(
     new THREE.Mesh(
@@ -266,26 +277,18 @@ function buildPlanetSystems(): Record<string, THREE.Group> {
   pubs.userData = { targetPos: new THREE.Vector3(2.9, 0.7, -2.4), spin: 0.11 };
   systems['/publications'] = pubs;
 
-  // 6. CONTACT ('/contact'): Binary Twin-Planet Beacon
+  // 6. CONTACT ('/contact')
   const contact = new THREE.Group();
   const blueStar = new THREE.Mesh(
     new THREE.SphereGeometry(1.35, 36, 36),
-    new THREE.MeshStandardMaterial({
-      color: 0x38bdf8,
-      emissive: 0x0284c7,
-      emissiveIntensity: 0.65,
-    })
+    new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 0.65 })
   );
   blueStar.position.set(-1.3, 0.2, 0);
   contact.add(blueStar);
 
   const pinkCompanion = new THREE.Mesh(
     new THREE.SphereGeometry(0.85, 32, 32),
-    new THREE.MeshStandardMaterial({
-      color: 0xec4899,
-      emissive: 0xbe185d,
-      emissiveIntensity: 0.6,
-    })
+    new THREE.MeshStandardMaterial({ color: 0xec4899, emissive: 0xbe185d, emissiveIntensity: 0.6 })
   );
   pinkCompanion.position.set(1.45, -0.25, 0.3);
   contact.add(pinkCompanion);
@@ -302,12 +305,48 @@ function buildPlanetSystems(): Record<string, THREE.Group> {
   return systems;
 }
 
-export function CosmicBackground({ warpTrigger, pathname }: CosmicBackgroundProps) {
+export function CosmicBackground({
+  warpTrigger,
+  pathname,
+  orbitPaused = false,
+  orbitStepDelta = 0,
+  orbitCount = 8,
+  onOrbitFrame,
+}: CosmicBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const routeRef = useRef<string>(pathname);
   const pendingRouteRef = useRef<string | null>(null);
-  const warpProgressRef = useRef<number>(0); // 0 = idle, >0 = active warp (1 -> 0)
+  const warpProgressRef = useRef<number>(0);
   const swappedRef = useRef<boolean>(false);
+
+  const orbitPausedRef = useRef(orbitPaused);
+  const orbitCountRef = useRef(orbitCount);
+  const onOrbitFrameRef = useRef(onOrbitFrame);
+  const orbitAngleRef = useRef(0);
+  const orbitTargetAngleRef = useRef<number | null>(null);
+  const prevStepDeltaRef = useRef(orbitStepDelta);
+
+  useEffect(() => {
+    orbitPausedRef.current = orbitPaused;
+  }, [orbitPaused]);
+
+  useEffect(() => {
+    orbitCountRef.current = orbitCount;
+  }, [orbitCount]);
+
+  useEffect(() => {
+    onOrbitFrameRef.current = onOrbitFrame;
+  }, [onOrbitFrame]);
+
+  useEffect(() => {
+    const diff = orbitStepDelta - prevStepDeltaRef.current;
+    if (diff !== 0) {
+      prevStepDeltaRef.current = orbitStepDelta;
+      const step = (Math.PI * 2) / Math.max(orbitCountRef.current, 1);
+      orbitTargetAngleRef.current =
+        (orbitTargetAngleRef.current ?? orbitAngleRef.current) + diff * step;
+    }
+  }, [orbitStepDelta]);
 
   useEffect(() => {
     if (warpTrigger > 0 && pathname !== routeRef.current) {
@@ -343,7 +382,6 @@ export function CosmicBackground({ warpTrigger, pathname }: CosmicBackgroundProp
     blueLight.position.set(-5, 2, 4);
     scene.add(blueLight);
 
-    // Build all 6 distinct planet systems
     const systems = buildPlanetSystems();
     const stageRoot = new THREE.Group();
     scene.add(stageRoot);
@@ -353,7 +391,7 @@ export function CosmicBackground({ warpTrigger, pathname }: CosmicBackgroundProp
     activePlanet.position.copy(activePlanet.userData.targetPos);
     stageRoot.add(activePlanet);
 
-    // Ambient Dual Pink + Blue Stars
+    // Ambient Stars
     const starCount = 480;
     const makeStars = () => {
       const arr = new Float32Array(starCount * 3);
@@ -364,7 +402,6 @@ export function CosmicBackground({ warpTrigger, pathname }: CosmicBackgroundProp
       }
       return arr;
     };
-
     const starGeo = new THREE.BufferGeometry();
     starGeo.setAttribute('position', new THREE.BufferAttribute(makeStars(), 3));
     scene.add(
@@ -373,7 +410,6 @@ export function CosmicBackground({ warpTrigger, pathname }: CosmicBackgroundProp
         new THREE.PointsMaterial({ color: 0xf9a8d4, size: 0.05, transparent: true, opacity: 0.72 })
       )
     );
-
     const blueStarGeo = new THREE.BufferGeometry();
     blueStarGeo.setAttribute('position', new THREE.BufferAttribute(makeStars(), 3));
     scene.add(
@@ -383,7 +419,7 @@ export function CosmicBackground({ warpTrigger, pathname }: CosmicBackgroundProp
       )
     );
 
-    // MOVIE-STYLE HYPERSPACE STAR TUNNEL (LineSegments along Z)
+    // Hyperspace Star Tunnel
     const tunnelCount = 380;
     const tunnelPositions = new Float32Array(tunnelCount * 6);
     const tunnelSeeds: { x: number; y: number; z: number; speed: number }[] = [];
@@ -408,10 +444,9 @@ export function CosmicBackground({ warpTrigger, pathname }: CosmicBackgroundProp
       transparent: true,
       opacity: 0,
     });
-    const tunnelLines = new THREE.LineSegments(tunnelGeo, tunnelMat);
-    scene.add(tunnelLines);
+    scene.add(new THREE.LineSegments(tunnelGeo, tunnelMat));
 
-    // Wireframe Horizon Terrain
+    // Wireframe Terrain
     const terrainGeo = new THREE.PlaneGeometry(32, 14, 42, 22);
     const tPos = terrainGeo.attributes.position;
     for (let i = 0; i < tPos.count; i++) {
@@ -446,24 +481,26 @@ export function CosmicBackground({ warpTrigger, pathname }: CosmicBackgroundProp
     };
     window.addEventListener('resize', onResize);
 
+    const tempVec = new THREE.Vector3();
+    const planetScreenVec = new THREE.Vector3();
     const clock = new THREE.Clock();
+    let lastTime = performance.now();
     let rafId = 0;
 
-    const animate = () => {
+    const animate = (now: number) => {
       rafId = requestAnimationFrame(animate);
+      const dt = Math.min((now - lastTime) / 1000, 0.05);
+      lastTime = now;
       const t = clock.getElapsedTime();
 
-      // Advance hyperspace warp (1.0 -> 0.0)
       if (warpProgressRef.current > 0.001) {
         warpProgressRef.current = Math.max(0, warpProgressRef.current - 0.022);
       } else {
         warpProgressRef.current = 0;
       }
       const w = warpProgressRef.current;
-      // Bell-curve intensity peaks in the middle of the warp (w ~ 0.5)
       const tunnelIntensity = Math.sin(w * Math.PI);
 
-      // Swap to new planet at peak of star tunnel (w <= 0.5)
       if (w > 0 && w <= 0.5 && !swappedRef.current && pendingRouteRef.current) {
         swappedRef.current = true;
         const nextKey = systems[pendingRouteRef.current] ? pendingRouteRef.current : '/';
@@ -474,42 +511,44 @@ export function CosmicBackground({ warpTrigger, pathname }: CosmicBackgroundProp
         activeKey = nextKey;
         activePlanet = systems[activeKey];
         const dest: THREE.Vector3 = activePlanet.userData.targetPos;
-        // Start new planet deep in space so it flies toward you out of the tunnel
         activePlanet.position.set(dest.x * 0.4, dest.y * 0.4, -22);
         activePlanet.scale.setScalar(0.25);
         stageRoot.add(activePlanet);
       }
 
-      // Animate planet departure / arrival
       const dest: THREE.Vector3 = activePlanet.userData.targetPos;
       if (w > 0.5) {
-        // Departing old planet: shoots past camera / shrinks into warp
         activePlanet.position.z += 0.65;
         activePlanet.scale.multiplyScalar(0.95);
       } else {
-        // Arriving / resting planet: glides smoothly to target position & full scale
         activePlanet.position.lerp(dest, 0.075);
         const s = activePlanet.scale.x + (1 - activePlanet.scale.x) * 0.075;
         activePlanet.scale.setScalar(s);
       }
 
-      // Spin active planet & special sub-parts
       const spinSpeed = activePlanet.userData.spin || 0.08;
-      activePlanet.rotation.y = t * spinSpeed;
+      // Don't rotate the /projects root around Y so its ring stays locked with projected cards
+      if (activeKey !== '/projects') {
+        activePlanet.rotation.y = t * spinSpeed;
+      } else {
+        // Spin only the Dyson core spheres inside /projects
+        activePlanet.children.forEach((c) => {
+          if (c instanceof THREE.Mesh && c.geometry instanceof THREE.IcosahedronGeometry) {
+            c.rotation.y = t * spinSpeed;
+          }
+        });
+      }
+
       activePlanet.traverse((child) => {
         if (child.name === 'slow_ring_1') {
           child.rotation.z = t * 0.1;
         } else if (child.name === 'slow_ring_2') {
           child.rotation.z = -t * 0.07;
-        } else if (child.name.startsWith('gyro_')) {
-          child.rotation.x += 0.0025;
-          child.rotation.y += 0.003;
         } else if (child.name === 'moons' || child.name === 'belt') {
           child.rotation.y = t * 0.25;
         }
       });
 
-      // Animate Star Tunnel streaks
       if (tunnelIntensity > 0.02) {
         tunnelMat.opacity = tunnelIntensity * 0.92;
         const tAttr = tunnelGeo.attributes.position as THREE.BufferAttribute;
@@ -526,7 +565,6 @@ export function CosmicBackground({ warpTrigger, pathname }: CosmicBackgroundProp
         tunnelMat.opacity = 0;
       }
 
-      // Ambient star drift
       const pAttr = starGeo.attributes.position as THREE.BufferAttribute;
       const bAttr = blueStarGeo.attributes.position as THREE.BufferAttribute;
       const starDrift = 0.014 + tunnelIntensity * 0.5;
@@ -541,17 +579,64 @@ export function CosmicBackground({ warpTrigger, pathname }: CosmicBackgroundProp
       pAttr.needsUpdate = true;
       bAttr.needsUpdate = true;
 
-      // Hyperspace camera FOV stretch
       camera.fov = 52 + tunnelIntensity * 28;
       camera.updateProjectionMatrix();
 
-      camera.position.x += (targetX * 0.5 - camera.position.x) * 0.04;
-      camera.position.y += (-targetY * 0.3 + 0.35 - camera.position.y) * 0.04;
+      camera.position.x += (targetX * 0.35 - camera.position.x) * 0.04;
+      camera.position.y += (-targetY * 0.22 + 0.35 - camera.position.y) * 0.04;
       camera.lookAt(0, 0, -1);
 
       renderer.render(scene, camera);
+
+      // Project /projects 3D ring points directly to screen coordinates for HTML cards
+      if (activeKey === '/projects' && onOrbitFrameRef.current) {
+        if (orbitTargetAngleRef.current !== null) {
+          const diff = orbitTargetAngleRef.current - orbitAngleRef.current;
+          if (Math.abs(diff) < 0.003) {
+            orbitAngleRef.current = orbitTargetAngleRef.current;
+            orbitTargetAngleRef.current = null;
+          } else {
+            orbitAngleRef.current += diff * 0.1;
+          }
+        } else if (!orbitPausedRef.current) {
+          orbitAngleRef.current += dt * 0.16;
+        }
+
+        const ringMesh = activePlanet.getObjectByName('project_main_ring');
+        if (ringMesh) {
+          activePlanet.updateMatrixWorld(true);
+          planetScreenVec.copy(activePlanet.position).project(camera);
+          const pScreenX = (planetScreenVec.x * 0.5 + 0.5) * window.innerWidth;
+          const pScreenY = (-planetScreenVec.y * 0.5 + 0.5) * window.innerHeight;
+          const planetZ = activePlanet.position.z;
+
+          const n = Math.max(orbitCountRef.current, 1);
+          const step = (Math.PI * 2) / n;
+          const slots: OrbitSlotScreenPos[] = [];
+
+          for (let i = 0; i < n; i++) {
+            const theta = i * step + orbitAngleRef.current - Math.PI / 2;
+            tempVec.set(Math.cos(theta) * 3.65, Math.sin(theta) * 3.65, 0);
+            ringMesh.localToWorld(tempVec);
+
+            const worldZ = tempVec.z;
+            // Normalized depth relative to planet center (-1 back to +1 front)
+            const depth = Math.max(-1, Math.min(1, (worldZ - planetZ) / 3.5));
+
+            tempVec.project(camera);
+            const sx = (tempVec.x * 0.5 + 0.5) * window.innerWidth;
+            const sy = (-tempVec.y * 0.5 + 0.5) * window.innerHeight;
+
+            const distToPlanet = Math.hypot(sx - pScreenX, sy - pScreenY);
+            const occluded = depth < -0.15 && distToPlanet < 165;
+
+            slots.push({ x: sx, y: sy, depth, occluded });
+          }
+          onOrbitFrameRef.current(slots);
+        }
+      }
     };
-    animate();
+    rafId = requestAnimationFrame(animate);
 
     return () => {
       cancelAnimationFrame(rafId);
