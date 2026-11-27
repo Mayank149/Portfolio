@@ -12,6 +12,7 @@ const NAV_ITEMS = [
   { to: '/skills', label: 'Skills' },
   { to: '/about', label: 'About' },
   { to: '/publications', label: 'Publications' },
+  { to: '/contact', label: 'Contact' },
 ];
 
 export function Navbar({ onOpenCommand }: NavbarProps) {

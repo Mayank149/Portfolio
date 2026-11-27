@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { ChevronLeft, ChevronRight, Expand, Github, Pause, Play } from 'lucide-react';
 import { ProjectItem } from '../data/portfolioData';
 import { ZoomedImage } from './ImageLightbox';
@@ -7,6 +8,7 @@ import { OrbitSlotScreenPos } from './CosmicBackground';
 interface OrbitalProjectsProps {
   projects: ProjectItem[];
   slotsRef: React.MutableRefObject<OrbitSlotScreenPos[]>;
+  dragRef: React.MutableRefObject<number>;
   paused: boolean;
   onTogglePause: () => void;
   onStepOrbit: (delta: number) => void;
@@ -18,6 +20,7 @@ interface OrbitalProjectsProps {
 export function OrbitalProjects({
   projects,
   slotsRef,
+  dragRef,
   paused,
   onTogglePause,
   onStepOrbit,
@@ -26,6 +29,9 @@ export function OrbitalProjects({
   onZoomImage,
 }: OrbitalProjectsProps) {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const draggingRef = useRef(false);
+  const movedRef = useRef(false);
+  const lastXRef = useRef(0);
 
   // Apply 3D-projected ring coordinates directly to card DOM nodes at 60fps
   useEffect(() => {
@@ -37,9 +43,13 @@ export function OrbitalProjects({
         const slot = slots[i];
         if (!el || !slot) continue;
 
-        const norm = (slot.depth + 1) / 2; // 0 (back) -> 1 (front)
-        const scale = 0.56 + norm * 0.44;
-        const opacity = slot.occluded ? 0.08 : 0.35 + norm * 0.65;
+        const norm = (slot.depth + 1) / 2;
+        const scale = 0.44 + norm * 0.52;
+        const opacity = slot.occluded
+          ? 0.06
+          : slot.depth < -0.2
+          ? 0.18 + norm * 0.3
+          : 0.35 + norm * 0.65;
         const zIndex = slot.depth < 0 ? 1 : Math.round(norm * 40) + 10;
 
         el.style.transform = `translate3d(calc(${slot.x}px - 50%), calc(${slot.y}px - 50%), 0) scale(${scale})`;
@@ -54,14 +64,44 @@ export function OrbitalProjects({
     return () => cancelAnimationFrame(rafId);
   }, [projects.length, slotsRef]);
 
-  return (
+  // Global window pointer listeners so dragging works smoothly even if cursor leaves card
+  useEffect(() => {
+    const onMove = (e: PointerEvent) => {
+      if (!draggingRef.current) return;
+      const dx = e.clientX - lastXRef.current;
+      if (Math.abs(dx) > 3) movedRef.current = true;
+      lastXRef.current = e.clientX;
+      dragRef.current -= dx * 0.0065;
+    };
+
+    const onUp = () => {
+      if (!draggingRef.current) return;
+      draggingRef.current = false;
+      onHoverChange(false);
+    };
+
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onUp);
+    return () => {
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onUp);
+    };
+  }, [dragRef, onHoverChange]);
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if ((e.target as HTMLElement).closest('button, a')) return;
+    draggingRef.current = true;
+    movedRef.current = false;
+    lastXRef.current = e.clientX;
+    onHoverChange(true);
+  };
+
+  return createPortal(
     <>
-      {/* Fixed full-viewport overlay so screenX/screenY match the WebGL canvas 1:1 */}
-      <div
-        className="orbital-viewport-layer"
-        onMouseEnter={() => onHoverChange(true)}
-        onMouseLeave={() => onHoverChange(false)}
-      >
+      {/* Pass-through full-viewport layer; only individual project cards capture pointer events */}
+      <div className="orbital-viewport-layer">
         {projects.map((p, i) => (
           <div
             key={p.id}
@@ -69,13 +109,20 @@ export function OrbitalProjects({
               cardRefs.current[i] = el;
             }}
             className="orbital-moon-card"
+            onMouseEnter={() => onHoverChange(true)}
+            onMouseLeave={() => {
+              if (!draggingRef.current) onHoverChange(false);
+            }}
+            onPointerDown={handlePointerDown}
           >
             <div
               className="orbital-moon-visual"
-              onClick={() => onZoomImage({ src: p.img, alt: p.title })}
-              title="Click to zoom image"
+              onClick={() => {
+                if (!movedRef.current) onZoomImage({ src: p.img, alt: p.title });
+              }}
+              title="Click to zoom image or drag to rotate"
             >
-              <img src={p.img} alt={p.title} loading="lazy" />
+              <img src={p.img} alt={p.title} loading="lazy" draggable={false} />
               <span className="project-badge orbital-badge">{p.badge}</span>
             </div>
 
@@ -108,7 +155,7 @@ export function OrbitalProjects({
         ))}
       </div>
 
-      {/* Orbit Controls */}
+      {/* Orbit Controls — Portaled to body below the planet */}
       <div className="orbital-controls-fixed">
         <button
           type="button"
@@ -136,6 +183,7 @@ export function OrbitalProjects({
           <ChevronRight size={18} />
         </button>
       </div>
-    </>
+    </>,
+    document.body
   );
 }

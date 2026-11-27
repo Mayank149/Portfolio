@@ -2988,3 +2988,317 @@ body::-webkit-scrollbar,
 .orbital-controls-fixed {
     bottom: 74px;
 }
+
+/* ==========================================================================
+   COMPREHENSIVE TABLET & MOBILE RESPONSIVENESS (<= 1024px / <= 768px / <= 480px)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    .hero {
+        min-height: auto;
+        padding: 96px 0 36px;
+    }
+
+    .hero-grid-clean {
+        grid-template-columns: 1fr !important;
+        gap: 24px;
+        padding-top: 8px;
+    }
+
+    .hero-center-spacer {
+        display: none;
+    }
+
+    /* Bring 3D portrait cleanly into flow on tablet/mobile so it is never clipped */
+    .hero-bg-figure-layer {
+        position: relative !important;
+        top: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
+        opacity: 1 !important;
+        width: min(300px, 78vw) !important;
+        margin: 8px auto 0;
+        order: 2;
+        justify-content: center;
+    }
+
+    .hero-bg-figure-img {
+        max-width: 100%;
+        opacity: 1;
+    }
+
+    .hero-grid-clean {
+        order: 1;
+    }
+
+    .hero-right-minimal {
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .rail-hud {
+        max-width: 340px;
+    }
+
+    .stats-strip-wrap {
+        order: 3;
+        margin-top: 16px;
+    }
+
+    .projects-grid,
+    .articles-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .book-showcase {
+        grid-template-columns: 200px 1fr;
+        gap: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    .nav-container {
+        padding: 0 16px;
+        gap: 10px;
+    }
+
+    .brand-logo {
+        font-size: 1rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .brand-mark {
+        width: 24px;
+        height: 20px;
+    }
+
+    .brand-name {
+        white-space: nowrap;
+    }
+
+    .btn-connect {
+        padding: 7px 12px;
+        font-size: 0.78rem;
+        white-space: nowrap;
+    }
+
+    .cmd-trigger {
+        padding: 7px 10px;
+    }
+
+    .hero-title {
+        font-size: clamp(2.1rem, 9vw, 2.75rem);
+        line-height: 1.08;
+    }
+
+    .hero-subtitle {
+        font-size: 0.94rem;
+        margin-bottom: 22px;
+    }
+
+    .role-pill-blue {
+        font-size: 0.68rem;
+        padding: 6px 12px;
+        line-height: 1.35;
+    }
+
+    .hero-ctas {
+        gap: 10px;
+    }
+
+    .btn-primary,
+    .btn-glass {
+        padding: 11px 18px;
+        font-size: 0.86rem;
+    }
+
+    .stats-open-bar {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px 10px;
+        padding: 16px;
+    }
+
+    .stat-open-item {
+        border-right: none;
+        padding: 4px 6px;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+
+    .stat-value {
+        font-size: 1.3rem;
+    }
+
+    .stat-label {
+        font-size: 0.72rem;
+    }
+
+    .overview-section {
+        padding-top: 28px;
+    }
+
+    .overview-spotlight,
+    .overview-directory {
+        padding: 20px 18px;
+    }
+
+    .projects-grid,
+    .skills-bento,
+    .articles-grid,
+    .contact-methods,
+    .book-showcase {
+        grid-template-columns: 1fr;
+    }
+
+    .book-cover-wrap img {
+        max-width: 190px;
+        margin: 0 auto;
+    }
+
+    .section {
+        padding: 56px 0;
+    }
+
+    .page-top-pad {
+        padding-top: 96px;
+    }
+
+    .projects-toolbar-right {
+        width: 100%;
+    }
+
+    .view-mode-toggle {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .view-toggle-btn {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .orbital-moon-card {
+        width: 205px;
+    }
+
+    .orbital-controls-fixed {
+        bottom: 24px;
+    }
+
+    .contact-hud-card {
+        padding: 28px 18px;
+    }
+
+    .enhanced-modal {
+        max-width: calc(100vw - 24px);
+    }
+
+    .enhanced-content {
+        padding: 16px 18px 22px;
+    }
+}
+
+@media (max-width: 460px) {
+    .btn-connect {
+        display: none;
+    }
+
+    .hero-bg-figure-layer {
+        width: min(260px, 76vw) !important;
+    }
+}
+
+/* ---------- Orbit Controls Below Planet ---------- */
+.orbital-controls-fixed {
+    bottom: 18px;
+}
+
+@media (max-width: 768px) {
+    .orbital-controls-fixed {
+        bottom: 14px;
+    }
+    .orbital-moon-card {
+        width: 185px;
+    }
+}
+
+/* ---------- Drag Cursor & Portaled Orbit Controls ---------- */
+.orbital-viewport-layer {
+    cursor: grab;
+    user-select: none;
+    touch-action: pan-y;
+}
+
+.orbital-viewport-layer:active {
+    cursor: grabbing;
+}
+
+.orbital-controls-fixed {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 90;
+}
+
+/* ---------- Reliable Orbital Drag Layer & Mobile Lowering ---------- */
+.orbital-viewport-layer {
+    top: 265px;
+    pointer-events: auto;
+    touch-action: none;
+}
+
+.orbital-moon-card {
+    margin-top: -265px;
+}
+
+@media (max-width: 768px) {
+    .orbital-viewport-layer {
+        top: 390px;
+    }
+    .orbital-moon-card {
+        margin-top: -390px;
+        width: 175px;
+    }
+}
+
+/* ---------- Pass-Through Viewport Layer; Drag Only on Project Cards ---------- */
+.orbital-viewport-layer {
+    top: 0 !important;
+    pointer-events: none !important;
+    cursor: default !important;
+}
+
+.orbital-moon-card {
+    margin-top: 0 !important;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+}
+
+.orbital-moon-card:active {
+    cursor: grabbing;
+}
+
+/* ---------- Spacious Orbital Cards ---------- */
+.orbital-moon-card {
+    width: 215px;
+}
+
+@media (max-width: 768px) {
+    .orbital-moon-card {
+        width: 162px;
+    }
+}

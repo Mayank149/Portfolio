@@ -13,6 +13,7 @@ interface CosmicBackgroundProps {
   pathname: string;
   orbitPaused?: boolean;
   orbitStepDelta?: number;
+  orbitDragRef?: React.MutableRefObject<number>;
   orbitCount?: number;
   onOrbitFrame?: (slots: OrbitSlotScreenPos[]) => void;
 }
@@ -140,42 +141,42 @@ function buildPlanetSystems(): Record<string, THREE.Group> {
   home.userData = { targetPos: new THREE.Vector3(1.85, 0.35, -2.5), spin: 0.03 };
   systems['/'] = home;
 
-  // 2. PROJECTS ('/projects'): Centered Cyber-Tech Dyson Sphere with wide 3D ring
+  // 2. PROJECTS ('/projects'): Large Centered Cyber-Tech Dyson Sphere with wide spacious 3D ring
   const projects = new THREE.Group();
   projects.add(
     new THREE.Mesh(
-      new THREE.IcosahedronGeometry(1.35, 1),
+      new THREE.IcosahedronGeometry(2.1, 1),
       new THREE.MeshStandardMaterial({
         color: 0x0ea5e9,
         emissive: 0x0284c7,
-        emissiveIntensity: 0.6,
+        emissiveIntensity: 0.65,
         flatShading: true,
       })
     )
   );
   projects.add(
     new THREE.Mesh(
-      new THREE.IcosahedronGeometry(1.85, 2),
-      new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true, transparent: true, opacity: 0.45 })
+      new THREE.IcosahedronGeometry(2.75, 2),
+      new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true, transparent: true, opacity: 0.48 })
     )
   );
   const mainProjectRing = new THREE.Mesh(
-    new THREE.TorusGeometry(3.65, 0.036, 16, 140),
+    new THREE.TorusGeometry(5.6, 0.042, 16, 160),
     new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.85 })
   );
-  mainProjectRing.rotation.set(Math.PI * 0.39, 0, 0);
+  mainProjectRing.rotation.set(Math.PI * 0.4, 0, 0);
   mainProjectRing.name = 'project_main_ring';
   projects.add(mainProjectRing);
 
   const secondaryProjectRing = new THREE.Mesh(
-    new THREE.TorusGeometry(4.0, 0.022, 12, 140),
-    new THREE.MeshBasicMaterial({ color: 0xff2a85, transparent: true, opacity: 0.55 })
+    new THREE.TorusGeometry(6.05, 0.024, 12, 160),
+    new THREE.MeshBasicMaterial({ color: 0xff2a85, transparent: true, opacity: 0.52 })
   );
-  secondaryProjectRing.rotation.set(Math.PI * 0.39, 0, 0);
+  secondaryProjectRing.rotation.set(Math.PI * 0.4, 0, 0);
   secondaryProjectRing.name = 'slow_ring_2';
   projects.add(secondaryProjectRing);
 
-  projects.userData = { targetPos: new THREE.Vector3(0, -1.55, -2.1), spin: 0.1 };
+  projects.userData = { targetPos: new THREE.Vector3(0, -1.85, -3.4), spin: 0.1 };
   systems['/projects'] = projects;
 
   // 3. SKILLS ('/skills')
@@ -310,6 +311,7 @@ export function CosmicBackground({
   pathname,
   orbitPaused = false,
   orbitStepDelta = 0,
+  orbitDragRef,
   orbitCount = 8,
   onOrbitFrame,
 }: CosmicBackgroundProps) {
@@ -516,7 +518,15 @@ export function CosmicBackground({
         stageRoot.add(activePlanet);
       }
 
-      const dest: THREE.Vector3 = activePlanet.userData.targetPos;
+      const baseDest: THREE.Vector3 = activePlanet.userData.targetPos;
+      const dest =
+        activeKey === '/projects'
+          ? new THREE.Vector3(
+              0,
+              window.innerWidth < 768 ? -3.35 : -1.95,
+              window.innerWidth < 768 ? -5.6 : -3.4
+            )
+          : baseDest;
       if (w > 0.5) {
         activePlanet.position.z += 0.65;
         activePlanet.scale.multiplyScalar(0.95);
@@ -590,7 +600,11 @@ export function CosmicBackground({
 
       // Project /projects 3D ring points directly to screen coordinates for HTML cards
       if (activeKey === '/projects' && onOrbitFrameRef.current) {
-        if (orbitTargetAngleRef.current !== null) {
+        if (orbitDragRef && orbitDragRef.current !== 0) {
+          orbitAngleRef.current += orbitDragRef.current;
+          orbitDragRef.current = 0;
+          orbitTargetAngleRef.current = null;
+        } else if (orbitTargetAngleRef.current !== null) {
           const diff = orbitTargetAngleRef.current - orbitAngleRef.current;
           if (Math.abs(diff) < 0.003) {
             orbitAngleRef.current = orbitTargetAngleRef.current;
@@ -616,19 +630,19 @@ export function CosmicBackground({
 
           for (let i = 0; i < n; i++) {
             const theta = i * step + orbitAngleRef.current - Math.PI / 2;
-            tempVec.set(Math.cos(theta) * 3.65, Math.sin(theta) * 3.65, 0);
+            tempVec.set(Math.cos(theta) * 5.6, Math.sin(theta) * 5.6, 0);
             ringMesh.localToWorld(tempVec);
 
             const worldZ = tempVec.z;
             // Normalized depth relative to planet center (-1 back to +1 front)
-            const depth = Math.max(-1, Math.min(1, (worldZ - planetZ) / 3.5));
+            const depth = Math.max(-1, Math.min(1, (worldZ - planetZ) / 5.2));
 
             tempVec.project(camera);
             const sx = (tempVec.x * 0.5 + 0.5) * window.innerWidth;
             const sy = (-tempVec.y * 0.5 + 0.5) * window.innerHeight;
 
             const distToPlanet = Math.hypot(sx - pScreenX, sy - pScreenY);
-            const occluded = depth < -0.15 && distToPlanet < 165;
+            const occluded = depth < -0.15 && distToPlanet < 220;
 
             slots.push({ x: sx, y: sy, depth, occluded });
           }

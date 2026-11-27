@@ -23,9 +23,11 @@ function AppShell() {
   const [toastMsg, setToastMsg] = useState('');
 
   const orbitSlotsRef = useRef<OrbitSlotScreenPos[]>([]);
+  const orbitDragRef = useRef<number>(0);
   const [orbitPaused, setOrbitPaused] = useState(false);
   const [orbitHovered, setOrbitHovered] = useState(false);
   const [orbitStepDelta, setOrbitStepDelta] = useState(0);
+  const [orbitCount, setOrbitCount] = useState(16);
 
   useEffect(() => {
     setWarpCount((c) => c + 1);
@@ -57,7 +59,8 @@ function AppShell() {
         pathname={location.pathname}
         orbitPaused={orbitPaused || orbitHovered}
         orbitStepDelta={orbitStepDelta}
-        orbitCount={8}
+        orbitDragRef={orbitDragRef}
+        orbitCount={orbitCount}
         onOrbitFrame={(slots) => {
           orbitSlotsRef.current = slots;
         }}
@@ -78,10 +81,12 @@ function AppShell() {
                   onSelectProject={setSelectedProject}
                   onZoomImage={setZoomedImage}
                   orbitSlotsRef={orbitSlotsRef}
+                  orbitDragRef={orbitDragRef}
                   orbitPaused={orbitPaused}
                   onToggleOrbitPause={() => setOrbitPaused((v) => !v)}
                   onStepOrbit={(d) => setOrbitStepDelta((s) => s + d)}
                   onOrbitHover={setOrbitHovered}
+                  onOrbitCountChange={setOrbitCount}
                 />
               }
             />

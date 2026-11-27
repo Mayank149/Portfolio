@@ -10,10 +10,12 @@ interface ProjectsPageProps {
   onSelectProject: (p: ProjectItem) => void;
   onZoomImage: (img: ZoomedImage) => void;
   orbitSlotsRef: React.MutableRefObject<OrbitSlotScreenPos[]>;
+  orbitDragRef: React.MutableRefObject<number>;
   orbitPaused: boolean;
   onToggleOrbitPause: () => void;
   onStepOrbit: (delta: number) => void;
   onOrbitHover: (hovered: boolean) => void;
+  onOrbitCountChange: (count: number) => void;
 }
 
 const FILTERS: { id: 'all' | 'rag' | 'cv' | 'nlp'; label: string }[] = [
@@ -27,10 +29,12 @@ export function ProjectsPage({
   onSelectProject,
   onZoomImage,
   orbitSlotsRef,
+  orbitDragRef,
   orbitPaused,
   onToggleOrbitPause,
   onStepOrbit,
   onOrbitHover,
+  onOrbitCountChange,
 }: ProjectsPageProps) {
   const [filter, setFilter] = useState<'all' | 'rag' | 'cv' | 'nlp'>('all');
   const [query, setQuery] = useState('');
@@ -60,6 +64,10 @@ export function ProjectsPage({
       p.tags.some((t) => t.toLowerCase().includes(q));
     return matchesCat && matchesQuery;
   });
+
+  useEffect(() => {
+    onOrbitCountChange(filtered.length);
+  }, [filtered.length, onOrbitCountChange]);
 
   return (
     <CosmicTransition>
@@ -124,8 +132,9 @@ export function ProjectsPage({
           {viewMode === 'orbit' ? (
             <div className="orbital-page-spacer">
               <OrbitalProjects
-                projects={filtered.slice(0, 8)}
+                projects={filtered}
                 slotsRef={orbitSlotsRef}
+                dragRef={orbitDragRef}
                 paused={orbitPaused}
                 onTogglePause={onToggleOrbitPause}
                 onStepOrbit={onStepOrbit}
