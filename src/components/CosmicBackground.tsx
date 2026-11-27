@@ -179,7 +179,7 @@ function buildPlanetSystems(): Record<string, THREE.Group> {
   projects.userData = { targetPos: new THREE.Vector3(0, -1.85, -3.4), spin: 0.1 };
   systems['/projects'] = projects;
 
-  // 3. SKILLS ('/skills')
+  // 3. SKILLS ('/skills'): Violet-Pink Plasma Star on top-right + 4 Orbiting Neural Moonlets
   const skills = new THREE.Group();
   skills.add(
     new THREE.Mesh(
@@ -187,7 +187,7 @@ function buildPlanetSystems(): Record<string, THREE.Group> {
       new THREE.MeshStandardMaterial({
         color: 0x9333ea,
         emissive: 0xc026d3,
-        emissiveIntensity: 0.5,
+        emissiveIntensity: 0.55,
         roughness: 0.35,
         flatShading: true,
       })
@@ -196,7 +196,7 @@ function buildPlanetSystems(): Record<string, THREE.Group> {
   skills.add(
     new THREE.Mesh(
       new THREE.SphereGeometry(2.2, 24, 24),
-      new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true, transparent: true, opacity: 0.18 })
+      new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true, transparent: true, opacity: 0.2 })
     )
   );
   const moonGroup = new THREE.Group();
@@ -211,7 +211,7 @@ function buildPlanetSystems(): Record<string, THREE.Group> {
     moonGroup.add(moon);
   }
   skills.add(moonGroup);
-  skills.userData = { targetPos: new THREE.Vector3(3.1, -0.3, -2.4), spin: 0.14 };
+  skills.userData = { targetPos: new THREE.Vector3(3.2, 0.35, -2.5), spin: 0.14 };
   systems['/skills'] = skills;
 
   // 4. ABOUT ('/about')

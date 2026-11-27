@@ -95,9 +95,12 @@ export function HomePage({ onSelectProject }: HomePageProps) {
 
             <div className="hero-title-rule" aria-hidden="true" />
 
-            <p className="hero-subtitle">
-              3rd-year BTech CSE student, software developer and AI engineer crafting RAG pipelines,
-              deep learning models, and reliable full-stack products.
+            <p className="hero-subtitle hero-subtitle-crisp">
+              I like <span className="about-hl">building things</span>, figuring out how they work,
+              and finding ways to make them better. These days, that usually involves{' '}
+              <span className="about-hl">AI</span>, from <span className="about-hl">RAG pipelines</span>{' '}
+              and <span className="about-hl">intelligent agents</span> to applications that solve
+              actual problems.
             </p>
 
             <div className="hero-ctas">

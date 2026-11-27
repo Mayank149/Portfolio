@@ -85,16 +85,36 @@ export function AboutPage() {
               <h1 className="section-title">
                 Engineering <span className="gradient-text">Intelligent Systems</span>
               </h1>
-              <p className="about-paragraph">
-                I'm an AI/ML engineer in training and a 3rd-year BTech CSE student focused on
-                building and shipping intelligent systems &mdash; not just experimenting with models.
-              </p>
-              <p className="about-paragraph">
-                My work spans RAG, Agentic AI, Deep Learning, and NLP, with hands-on experience
-                building retrieval pipelines, LLM-powered applications, computer vision systems, and
-                containerized APIs. I learn by building, validate through benchmarks, and push
-                prototypes toward reliable products.
-              </p>
+              <div className="about-bio-glass">
+                <p className="about-lead">
+                  I&apos;m a <span className="about-hl">Software Development Engineer</span> at{' '}
+                  <span className="about-hl-blue">Wissen Technology</span>, building my way through
+                  the ever-evolving world of software and AI.
+                </p>
+                <p className="about-paragraph">
+                  I spend a good chunk of my time exploring how things work under the hood, whether
+                  that&apos;s building <span className="about-hl">RAG pipelines</span>, experimenting
+                  with <span className="about-hl">AI agents</span>, developing ML models, or
+                  figuring out how to turn an interesting idea into something people can actually
+                  use.
+                </p>
+                <p className="about-paragraph">
+                  My playground includes{' '}
+                  <span className="about-hl">
+                    Generative AI, Agentic AI, Deep Learning, NLP
+                  </span>
+                  , and backend engineering. I&apos;ve built things spanning LLM-powered
+                  applications and retrieval systems to computer vision projects and APIs.
+                </p>
+                <p className="about-paragraph">
+                  I like learning new things, but I like putting them to work even more. For me, a
+                  project isn&apos;t really done when the code runs. There&apos;s always something
+                  to improve, optimise, break, or rebuild.
+                </p>
+                <p className="about-signoff">
+                  Still learning, still building, and probably working on something new.
+                </p>
+              </div>
 
               <div className="about-actions">
                 <a href="downloads/resume.pdf" className="btn-primary" download>

@@ -3302,3 +3302,501 @@ body::-webkit-scrollbar,
         width: 162px;
     }
 }
+
+/* ---------- Skills Asteroid Belt ---------- */
+.asteroid-belt-stage {
+    position: relative;
+    height: 470px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.belt-track {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.belt-track-outer {
+    width: 890px;
+    height: 296px;
+    border: 1px dashed rgba(168, 85, 247, 0.25);
+}
+
+.belt-track-inner {
+    width: 590px;
+    height: 176px;
+    border: 1px solid rgba(56, 189, 248, 0.18);
+}
+
+.asteroid-nodes-layer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.skill-asteroid {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 10px 18px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #f8fafc;
+    background: rgba(15, 17, 30, 0.88);
+    backdrop-filter: blur(10px);
+    box-shadow: inset 0 0 14px rgba(168, 85, 247, 0.35), 0 8px 20px rgba(0, 0, 0, 0.55);
+    white-space: nowrap;
+    will-change: transform, opacity;
+    transition: background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+
+.skill-asteroid.group-rag-agents {
+    background: linear-gradient(135deg, rgba(190, 24, 93, 0.32), rgba(15, 17, 30, 0.92));
+    box-shadow: inset 0 0 14px rgba(236, 72, 153, 0.45), 0 8px 20px rgba(0, 0, 0, 0.55);
+}
+
+.skill-asteroid.group-ml-dl {
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.34), rgba(15, 17, 30, 0.92));
+    box-shadow: inset 0 0 14px rgba(168, 85, 247, 0.45), 0 8px 20px rgba(0, 0, 0, 0.55);
+}
+
+.skill-asteroid.group-languages {
+    background: linear-gradient(135deg, rgba(2, 132, 199, 0.32), rgba(15, 17, 30, 0.92));
+    box-shadow: inset 0 0 14px rgba(56, 189, 248, 0.45), 0 8px 20px rgba(0, 0, 0, 0.55);
+}
+
+.skill-asteroid.group-backend-mlops {
+    background: linear-gradient(135deg, rgba(14, 116, 144, 0.34), rgba(15, 17, 30, 0.92));
+    box-shadow: inset 0 0 14px rgba(45, 212, 191, 0.4), 0 8px 20px rgba(0, 0, 0, 0.55);
+}
+
+.skill-asteroid:hover,
+.skill-asteroid.is-active {
+    color: #fff;
+    box-shadow: inset 0 0 18px rgba(56, 189, 248, 0.75), 0 0 22px rgba(236, 72, 153, 0.45);
+}
+
+.asteroid-hud-bar {
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    width: min(640px, 94%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 16px;
+    border-radius: var(--radius-pill);
+    background: rgba(8, 10, 18, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(14px);
+}
+
+.asteroid-scanner-readout {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 0.82rem;
+    min-width: 0;
+}
+
+.scanner-tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    padding: 3px 9px;
+    border-radius: var(--radius-pill);
+    background: rgba(56, 189, 248, 0.14);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: #bae6fd;
+}
+
+.scanner-sub {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+}
+
+@media (max-width: 768px) {
+    .asteroid-belt-stage {
+        height: 390px;
+    }
+    .belt-track-outer {
+        width: 336px;
+        height: 192px;
+    }
+    .belt-track-inner {
+        width: 264px;
+        height: 108px;
+    }
+    .skill-asteroid {
+        padding: 7px 12px;
+        font-size: 0.7rem;
+    }
+    .asteroid-hud-bar {
+        border-radius: var(--radius-md);
+        padding: 10px 12px;
+    }
+}
+
+/* ---------- Clean Diagonal Asteroid Belt Pills ---------- */
+.skills-header-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.clean-belt-stage {
+    height: 460px;
+}
+
+.clean-belt-pill {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #f8fafc;
+    background: rgba(10, 12, 22, 0.76);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(12px);
+    white-space: nowrap;
+    will-change: transform, opacity;
+    transition: opacity 0.22s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    cursor: default;
+}
+
+.belt-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-blue);
+    box-shadow: 0 0 8px var(--accent-blue);
+}
+
+.clean-belt-pill.group-rag-agents .belt-dot {
+    background: var(--accent-hot);
+    box-shadow: 0 0 8px var(--accent-hot);
+}
+
+.clean-belt-pill.group-ml-dl .belt-dot {
+    background: var(--accent-violet);
+    box-shadow: 0 0 8px var(--accent-violet);
+}
+
+.clean-belt-pill.group-backend-mlops .belt-dot {
+    background: #2dd4bf;
+    box-shadow: 0 0 8px #2dd4bf;
+}
+
+.clean-belt-pill:hover,
+.clean-belt-pill.is-active {
+    border-color: rgba(56, 189, 248, 0.65);
+    box-shadow: 0 0 22px rgba(56, 189, 248, 0.28), 0 0 18px rgba(236, 72, 153, 0.22);
+}
+
+@media (max-width: 768px) {
+    .clean-belt-stage {
+        height: 360px;
+    }
+    .clean-belt-pill {
+        padding: 6px 11px;
+        font-size: 0.7rem;
+    }
+}
+
+/* ---------- Bottom-Left Curved Belt Arcs (Matching Sketch) ---------- */
+.arc-belt-stage {
+    position: relative;
+    height: 490px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.arc-track {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-radius: 50%;
+    transform: translate(-50%, 50%);
+    pointer-events: none;
+}
+
+.arc-lane-0 {
+    width: 440px;
+    height: 440px;
+    border: 1px solid rgba(56, 189, 248, 0.22);
+}
+
+.arc-lane-1 {
+    width: 690px;
+    height: 690px;
+    border: 1px dashed rgba(168, 85, 247, 0.25);
+}
+
+.arc-lane-2 {
+    width: 940px;
+    height: 940px;
+    border: 1px solid rgba(236, 72, 153, 0.22);
+}
+
+.arc-pill {
+    top: 0;
+    left: 0;
+}
+
+@media (max-width: 768px) {
+    .arc-belt-stage {
+        height: 360px;
+    }
+    .arc-lane-0 {
+        width: 290px;
+        height: 290px;
+    }
+    .arc-lane-1 {
+        width: 440px;
+        height: 440px;
+    }
+    .arc-lane-2 {
+        width: 590px;
+        height: 590px;
+    }
+}
+
+/* ---------- Full Bottom-Left Screen Belt + Compact Asteroid Polygons ---------- */
+.skills-page-compact {
+    padding-bottom: 0;
+}
+
+.full-bleed-belt {
+    width: 100vw;
+    height: calc(100vh - 235px);
+    min-height: 420px;
+}
+
+.arc-track.visible-belt.arc-lane-0 {
+    width: 510px;
+    height: 510px;
+    border: 1.5px solid rgba(56, 189, 248, 0.45);
+    box-shadow: 0 0 22px rgba(56, 189, 248, 0.14);
+}
+
+.arc-track.visible-belt.arc-lane-1 {
+    width: 810px;
+    height: 810px;
+    border: 1.5px dashed rgba(168, 85, 247, 0.5);
+    box-shadow: 0 0 24px rgba(168, 85, 247, 0.14);
+}
+
+.arc-track.visible-belt.arc-lane-2 {
+    width: 1110px;
+    height: 1110px;
+    border: 1.5px solid rgba(236, 72, 153, 0.45);
+    box-shadow: 0 0 26px rgba(236, 72, 153, 0.14);
+}
+
+.compact-asteroid {
+    padding: 5px 11px;
+    font-size: 0.71rem;
+    line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+    .full-bleed-belt {
+        height: 380px;
+        min-height: 360px;
+    }
+    .arc-track.visible-belt.arc-lane-0 {
+        width: 310px;
+        height: 310px;
+    }
+    .arc-track.visible-belt.arc-lane-1 {
+        width: 470px;
+        height: 470px;
+    }
+    .arc-track.visible-belt.arc-lane-2 {
+        width: 630px;
+        height: 630px;
+    }
+    .compact-asteroid {
+        padding: 4px 9px;
+        font-size: 0.64rem;
+    }
+}
+
+/* ---------- 4-Ring Dense Category Asteroid Belt ---------- */
+.four-ring-belt {
+    height: calc(100vh - 185px);
+    min-height: 520px;
+}
+
+.arc-track.visible-belt.ring-cat-0 {
+    width: 430px;
+    height: 430px;
+    border: 1.5px solid rgba(236, 72, 153, 0.45);
+    box-shadow: 0 0 22px rgba(236, 72, 153, 0.14);
+}
+
+.arc-track.visible-belt.ring-cat-1 {
+    width: 690px;
+    height: 690px;
+    border: 1.5px dashed rgba(168, 85, 247, 0.48);
+    box-shadow: 0 0 24px rgba(168, 85, 247, 0.14);
+}
+
+.arc-track.visible-belt.ring-cat-2 {
+    width: 950px;
+    height: 950px;
+    border: 1.5px solid rgba(56, 189, 248, 0.45);
+    box-shadow: 0 0 26px rgba(56, 189, 248, 0.14);
+}
+
+.arc-track.visible-belt.ring-cat-3 {
+    width: 1210px;
+    height: 1210px;
+    border: 1.5px dashed rgba(45, 212, 191, 0.45);
+    box-shadow: 0 0 28px rgba(45, 212, 191, 0.12);
+}
+
+.full-asteroid {
+    padding: 9px 17px;
+    font-size: 0.84rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+    .four-ring-belt {
+        height: 420px;
+        min-height: 400px;
+    }
+    .arc-track.visible-belt.ring-cat-0 {
+        width: 260px;
+        height: 260px;
+    }
+    .arc-track.visible-belt.ring-cat-1 {
+        width: 400px;
+        height: 400px;
+    }
+    .arc-track.visible-belt.ring-cat-2 {
+        width: 540px;
+        height: 540px;
+    }
+    .arc-track.visible-belt.ring-cat-3 {
+        width: 680px;
+        height: 680px;
+    }
+    .full-asteroid {
+        padding: 6px 11px;
+        font-size: 0.7rem;
+    }
+}
+
+/* ---------- Elliptical 4-Ring Sweep (rx >> ry, Matching Red Curves) ---------- */
+.arc-track.visible-belt.ring-cat-0 {
+    width: 720px;
+    height: 370px;
+}
+
+.arc-track.visible-belt.ring-cat-1 {
+    width: 1160px;
+    height: 600px;
+}
+
+.arc-track.visible-belt.ring-cat-2 {
+    width: 1600px;
+    height: 830px;
+}
+
+.arc-track.visible-belt.ring-cat-3 {
+    width: 2040px;
+    height: 1060px;
+}
+
+@media (max-width: 768px) {
+    .arc-track.visible-belt.ring-cat-0 {
+        width: 370px;
+        height: 260px;
+    }
+    .arc-track.visible-belt.ring-cat-1 {
+        width: 560px;
+        height: 400px;
+    }
+    .arc-track.visible-belt.ring-cat-2 {
+        width: 750px;
+        height: 540px;
+    }
+    .arc-track.visible-belt.ring-cat-3 {
+        width: 940px;
+        height: 680px;
+    }
+}
+
+/* ---------- Stylish & Legible About Me Bio Card ---------- */
+.about-bio-glass {
+    padding: 22px 24px;
+    border-radius: var(--radius-lg);
+    background: rgba(7, 9, 16, 0.62);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.about-lead {
+    font-size: 1.07rem;
+    line-height: 1.65;
+    color: #e2e8f0;
+    font-weight: 400;
+    margin: 0;
+}
+
+.about-bio-glass .about-paragraph {
+    margin: 0;
+    color: #b4c0d0;
+    font-size: 0.95rem;
+    line-height: 1.72;
+}
+
+.about-hl {
+    color: #f8fafc;
+    font-weight: 500;
+}
+
+.about-hl-blue {
+    color: #7dd3fc;
+    font-weight: 500;
+}
+
+.about-signoff {
+    margin: 4px 0 0;
+    padding-left: 12px;
+    border-left: 2px solid var(--accent-pink);
+    font-family: var(--font-mono);
+    font-size: 0.84rem;
+    color: #e2e8f0;
+    line-height: 1.55;
+}
+
+/* ---------- Crisp Stylish Home Subtitle (No Box) ---------- */
+.hero-subtitle-crisp {
+    color: #b4c0d0;
+    line-height: 1.72;
+}
